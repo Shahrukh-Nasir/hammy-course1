@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Nail Your Niche + Craft Your Identity</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .tab-active { background: #1e293b; color: #fff; box-shadow: 0 4px 16px 0 #6366f1; }
+    .tab-inactive { background: #0f172a; color: #94a3b8; }
+    .fade-in { animation: fadeIn 0.5s; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    .content-pill { background: #6366f1; color: #fff; border-radius: 9999px; padding: 4px 14px; display: inline-flex; align-items: center; margin: 2px 4px 2px 0; font-size: 0.9rem; }
+    .content-pill button { background: none; border: none; color: #fff; margin-left: 6px; cursor: pointer; }
+    .progress-bar { transition: width 0.6s cubic-bezier(.4,0,.2,1); }
+    .checkbox-card input:checked ~ .check-label { color: #4ade80 !important; }
+    .value-card.active { border-color: #6366f1; background: #6366f11a; }
+  </style>
+</head>
+<body class="bg-slate-900 text-slate-200 min-h-screen">
+
+  <div class="container mx-auto p-4 max-w-4xl">
+    <header class="text-center py-8 px-4">
+      <h1 class="text-4xl md:text-5xl font-extrabold text-white tracking-tight">
+        <span class="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-cyan-400">Nail Your Niche + Craft Your Identity</span>
+      </h1>
+      <p class="mt-4 text-lg text-slate-400 max-w-2xl mx-auto" id="greeting"></p>
+    </header>
+
+    <!-- Progress bar -->
+    <div class="my-6 px-2">
+      <div class="w-full bg-slate-800 rounded-full h-4 overflow-hidden">
+        <div class="bg-gradient-to-r from-indigo-500 to-cyan-500 h-4 rounded-full progress-bar" id="challengeProgress"></div>
+      </div>
+      <div class="text-center mt-2 text-sm text-slate-400">Challenge Progress: <span id="challengeProgressPercent" class="font-bold text-indigo-400">0%</span></div>
+    </div>
+
+    <!-- Main app container -->
+    <main class="bg-slate-800/50 rounded-xl shadow-2xl overflow-hidden border border-slate-700/50">
+      <!-- Tabs -->
+      <div class="flex">
+        <button id="tab-niche" class="flex-1 p-3 md:p-4 text-sm md:text-base font-bold rounded-t-lg transition-all duration-300 flex items-center justify-center gap-2 tab-active">
+          <span>🎯 1. Niche Sniper</span>
+        </button>
+        <button id="tab-auth" class="flex-1 p-3 md:p-4 text-sm md:text-base font-bold rounded-t-lg transition-all duration-300 flex items-center justify-center gap-2 tab-inactive">
+          <span>🎤 2. Real You Resonator</span>
+        </button>
+        <button id="tab-value" class="flex-1 p-3 md:p-4 text-sm md:text-base font-bold rounded-t-lg transition-all duration-300 flex items-center justify-center gap-2 tab-inactive">
+          <span>💎 3. Value Bomb</span>
+        </button>
+      </div>
+
+      <div class="min-h-[400px]">
+
+        <!-- Niche Tab -->
+        <section id="section-niche" class="p-6 md:p-8 fade-in">
+          <h2 class="text-2xl font-bold text-white mb-2">🎯 Step 1: Nail Your Niche</h2>
+          <p class="text-slate-400 mb-6">Stop talking to everyone and start talking to YOUR person. Let's find them.</p>
+          <div id="personaForm">
+            <div class="space-y-6">
+              <div>
+                <label class="font-semibold text-slate-300 mb-2 block">Who's your ideal follower?</label>
+                <input id="idealViewer" type="text" class="w-full bg-slate-800/50 border-2 border-slate-700 rounded-md p-3 text-white placeholder-slate-500" placeholder="e.g., Aspiring gamer, gym bro, fashionista" />
+              </div>
+              <div>
+                <label class="font-semibold text-slate-300 mb-2 block">What is your follower trying to achieve?</label>
+                <textarea id="viewerCharacteristics" rows="3" class="w-full bg-slate-800/50 border-2 border-slate-700 rounded-md p-3 text-white placeholder-slate-500"></textarea>
+              </div>
+              <div>
+                <label class="font-semibold text-slate-300 mb-2 block">What topics are they obsessed with?</label>
+                <input id="viewerTopics" type="text" class="w-full bg-slate-800/50 border-2 border-slate-700 rounded-md p-3 text-white placeholder-slate-500" placeholder="e.g., Loves watching comedy videos / new trends on TikTok" />
+              </div>
+              <button id="generatePersonaBtn" class="w-full bg-indigo-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-indigo-500 transition-all duration-300 flex items-center justify-center gap-2 mt-2">
+                Build My Follower Persona <span>→</span>
+              </button>
+            </div>
+          </div>
+          <div id="personaSummary" class="hidden">
+            <div class="bg-slate-900/50 p-6 rounded-lg border border-indigo-500/50 mb-6">
+              <h3 class="text-xl font-bold text-indigo-400 flex items-center gap-2"><span>✅</span> Your Ideal Follower Persona</h3>
+              <p class="mt-2 text-slate-300"><strong>Alias:</strong> <span id="summaryAlias"></span></p>
+              <p class="mt-1 text-slate-300"><strong>Vibe:</strong> <span id="summaryVibe"></span></p>
+              <p class="mt-1 text-slate-300"><strong>Obsessions:</strong> <span id="summaryObsessions"></span></p>
+              <button id="resetPersonaBtn" class="mt-4 text-sm text-slate-400 hover:text-white">Start Over</button>
+            </div>
+            <div class="mt-8">
+              <h3 class="text-xl font-bold text-white mb-2">💣 Unleash the Content Tsunami</h3>
+              <p class="text-slate-400 mb-4">Now, let's brainstorm content pillars around their world.</p>
+              <div class="space-y-4">
+                <div>
+                  <label class="font-semibold text-slate-300 mb-2 block">Your Main Niche</label>
+                  <input id="mainNiche" type="text" class="w-full bg-slate-800/50 border-2 border-slate-700 rounded-md p-3 text-white placeholder-slate-500" placeholder="e.g., Self-Improvement for Young Men" />
+                </div>
+                <div>
+                  <label class="font-semibold text-slate-300 mb-2 block">Related Content Pillars</label>
+                  <div class="flex gap-2">
+                    <input id="newPillar" type="text" class="w-full bg-slate-800/50 border-2 border-slate-700 rounded-md p-3 text-white placeholder-slate-500" placeholder="e.g., Gym & Fitness... then press Enter" />
+                    <button id="addPillarBtn" type="button" class="bg-cyan-600 text-white p-3 rounded-lg hover:bg-cyan-500 transition-colors">+</button>
+                  </div>
+                  <div id="pillarList" class="flex flex-wrap gap-2 mt-4"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Auth Tab -->
+        <section id="section-auth" class="hidden p-6 md:p-8 fade-in">
+          <h2 class="text-2xl font-bold text-white mb-2">🎤 Step 2: Be The Real You</h2>
+          <p class="text-slate-400 mb-4">People follow YOU, not just random videos. Even if you’re doing comedy or pure entertainment, the more they feel your personality, the more they’ll stick around and become true fans.</p>
+          <div class="bg-slate-900/40 p-4 rounded-lg border border-slate-700 mb-6">
+            <h3 class="font-bold text-indigo-300">Why this matters:</h3>
+            <p class="text-slate-400 text-sm">You don’t need to tell your life story, just sprinkle in small “hooks” that make you feel memorable and human. These can be little running jokes, quirks, or habits, the stuff that sticks in people’s heads.</p>
+          </div>
+
+          <div class="text-center p-4 bg-slate-900/50 rounded-lg mb-6">
+            <p class="font-bold text-lg mb-2">Authenticity Mode</p>
+            <div class="flex justify-center items-center gap-4">
+              <span id="authModeBot" class="transition-all text-slate-500"><span>🤖</span> Corporate Bot</span>
+              <button id="toggleAuthMode" class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors bg-green-500">
+                <span id="authModeCircle" class="inline-block h-4 w-4 transform rounded-full bg-white transition-transform translate-x-6"/>
+              </button>
+              <span id="authModeUser" class="transition-all text-green-400 font-bold"><span>👤</span> Authentic Creator</span>
+            </div>
+            <p id="authModeWarning" class="text-green-400 text-sm mt-3">Warning: May cause audience to start tagging you in everything.</p>
+          </div>
+
+          <h3 class="text-xl font-bold text-white mb-3">Personality Hooks</h3>
+          <p class="text-slate-400 mb-4">Pick 1-2 to lean into across your videos:</p>
+          <div class="space-y-2" id="personalityHooksList">
+            <!-- Checkbox list rendered here -->
+          </div>
+          <div id="hooksAdvice" class="mt-6 p-4 bg-green-500/10 border border-green-500/30 rounded-lg text-sm text-green-300 hidden">
+            <p>→ Start sprinkling these into your content (captions, intros, pinned comments, live streams). These are what build actual audience loyalty, not just views.</p>
+          </div>
+        </section>
+
+        <!-- Value Tab -->
+        <section id="section-value" class="hidden p-6 md:p-8 fade-in">
+          <h2 class="text-2xl font-bold text-white mb-2">💎 Step 3: Drop Value Bombs</h2>
+          <p class="text-slate-400 mb-6">Value isn't just a lecture. It's anything that keeps them watching. Let's define yours.</p>
+          <div class="space-y-8">
+            <div>
+              <h3 class="text-xl font-bold text-white mb-3">The Value Matrix</h3>
+              <p class="text-slate-400 mb-4">What kind of value will you provide? (Check all that apply)</p>
+              <div class="grid grid-cols-2 md:grid-cols-3 gap-4" id="valueMatrix"></div>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-white mb-3">Pain & Dream Content Planner</h3>
+              <p class="text-slate-400 mb-4">Great content hits a pain point or fuels a dream. Let's map them out.</p>
+              <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-slate-900/50 p-4 rounded-lg">
+                  <h4 class="font-bold text-lg text-rose-400 mb-3">Audience Pains 😩</h4>
+                  <div class="flex gap-2 mb-3">
+                    <input id="newPain" type="text" class="w-full bg-slate-800/50 border-2 border-slate-700 rounded-md p-3 text-white placeholder-slate-500" placeholder="e.g., Feeling unmotivated..." />
+                    <button id="addPainBtn" type="button" class="bg-rose-600 text-white p-3 rounded-lg hover:bg-rose-500 transition-colors">+</button>
+                  </div>
+                  <div id="painList" class="flex flex-wrap gap-2 mt-2"></div>
+                </div>
+                <div class="bg-slate-900/50 p-4 rounded-lg">
+                  <h4 class="font-bold text-lg text-teal-400 mb-3">Audience Dreams 😍</h4>
+                  <div class="flex gap-2 mb-3">
+                    <input id="newDream" type="text" class="w-full bg-slate-800/50 border-2 border-slate-700 rounded-md p-3 text-white placeholder-slate-500" placeholder="e.g., Hitting 100k followers..." />
+                    <button id="addDreamBtn" type="button" class="bg-teal-600 text-white p-3 rounded-lg hover:bg-teal-500 transition-colors">+</button>
+                  </div>
+                  <div id="dreamList" class="flex flex-wrap gap-2 mt-2"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+    <footer class="text-center text-sm text-slate-500 py-8">
+      <p>Made with 🔥 for the next generation of creators.</p>
+      <p>Now go make something awesome.</p>
+    </footer>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    // Greeting logic
+    const greetingEl = document.getElementById('greeting');
+    const hour = new Date().getHours();
+    greetingEl.textContent = hour < 12 ? "Let's get this bread, creator! Let's craft your roadmap to social media domination." : hour < 18 ? "Let's build the momentum, creator! Let's craft your roadmap to social media domination." : "Let's finish the day strong, creator! Let's craft your roadmap to social media domination.";
+
+    // Tab switching
+    const tabs = ['niche', 'auth', 'value'];
+    tabs.forEach(tab => {
+      document.getElementById('tab-' + tab).addEventListener('click', () => {
+        tabs.forEach(other => {
+          document.getElementById('tab-' + other).classList.remove('tab-active');
+          document.getElementById('tab-' + other).classList.add('tab-inactive');
+          document.getElementById('section-' + other).classList.add('hidden');
+        });
+        document.getElementById('tab-' + tab).classList.remove('tab-inactive');
+        document.getElementById('tab-' + tab).classList.add('tab-active');
+        document.getElementById('section-' + tab).classList.remove('hidden');
+      });
+    });
+
+    // --- Niche Tab Logic ---
+    let personaGenerated = false;
+    let contentPillars = [];
+    const personaForm = document.getElementById('personaForm');
+    const personaSummary = document.getElementById('personaSummary');
+
+    document.getElementById('generatePersonaBtn').onclick = function() {
+      const idealViewer = document.getElementById('idealViewer').value.trim();
+      const viewerCharacteristics = document.getElementById('viewerCharacteristics').value.trim();
+      const viewerTopics = document.getElementById('viewerTopics').value.trim();
+      if (!idealViewer || !viewerCharacteristics || !viewerTopics) return;
+      personaGenerated = true;
+      // Show persona summary
+      personaForm.classList.add('hidden');
+      personaSummary.classList.remove('hidden');
+      document.getElementById('summaryAlias').textContent = idealViewer;
+      document.getElementById('summaryVibe').textContent = viewerCharacteristics;
+      document.getElementById('summaryObsessions').textContent = viewerTopics;
+      updateProgress();
+    };
+    document.getElementById('resetPersonaBtn').onclick = function() {
+      personaGenerated = false;
+      personaForm.classList.remove('hidden');
+      personaSummary.classList.add('hidden');
+      document.getElementById('idealViewer').value = '';
+      document.getElementById('viewerCharacteristics').value = '';
+      document.getElementById('viewerTopics').value = '';
+      contentPillars = [];
+      updatePillarList();
+      updateProgress();
+    };
+
+    // Content Pillars
+    function updatePillarList() {
+      const pillarList = document.getElementById('pillarList');
+      pillarList.innerHTML = '';
+      contentPillars.forEach((pill, idx) => {
+        const pillDiv = document.createElement('span');
+        pillDiv.className = 'content-pill';
+        pillDiv.innerHTML = `<span>${pill}</span> <button onclick="removePillar(${idx})">&times;</button>`;
+        pillarList.appendChild(pillDiv);
+      });
+    }
+    window.removePillar = function(idx) {
+      contentPillars.splice(idx, 1);
+      updatePillarList();
+      updateProgress();
+    };
+    document.getElementById('addPillarBtn').onclick = function() {
+      const val = document.getElementById('newPillar').value.trim();
+      if (val) {
+        contentPillars.push(val);
+        document.getElementById('newPillar').value = '';
+        updatePillarList();
+        updateProgress();
+      }
+    };
+    document.getElementById('newPillar').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        document.getElementById('addPillarBtn').click();
+      }
+    });
+
+    // --- Auth Tab Logic ---
+    let isAuthenticMode = true;
+    const hooksList = [
+      { key: 'runningJoke', label: "A running joke I can use in videos" },
+      { key: 'alterEgo', label: "A funny character or alter ego I can play up" },
+      { key: 'personalStory', label: "A personal struggle or story I’ll occasionally reference" },
+      { key: 'weirdHabit', label: "A weird habit my audience can relate to" },
+      { key: 'behindTheScenes', label: "A behind-the-scenes thing (how I make content or think up ideas)" },
+      { key: 'uniqueStyle', label: "A unique way I talk, dress, or style my videos" },
+      { key: 'tagMeIn', label: "A “thing” my audience can tag me in (ex: coffee memes, gym fails)" },
+    ];
+    let personalityHooks = {};
+    hooksList.forEach(hook => personalityHooks[hook.key] = false);
+
+    function renderHooksList() {
+      const container = document.getElementById('personalityHooksList');
+      container.innerHTML = '';
+      hooksList.forEach(hook => {
+        const div = document.createElement('div');
+        div.className = 'checkbox-card flex items-start text-left gap-3 p-3 rounded-lg transition-colors w-full cursor-pointer';
+        div.innerHTML = `
+          <input type="checkbox" id="hook_${hook.key}" ${personalityHooks[hook.key] ? 'checked' : ''} class="mt-1 flex-shrink-0 accent-green-500">
+          <span class="check-label text-slate-300">${hook.label}</span>
+        `;
+        container.appendChild(div);
+        div.querySelector('input').addEventListener('change', function() {
+          personalityHooks[hook.key] = this.checked;
+          updateProgress();
+          renderHooksList();
+        });
+      });
+      // Show advice if any selected
+      document.getElementById('hooksAdvice').classList.toggle('hidden', Object.values(personalityHooks).filter(Boolean).length === 0);
+    }
+    renderHooksList();
+
+    // Toggle Authenticity Mode
+    document.getElementById('toggleAuthMode').onclick = function() {
+      isAuthenticMode = !isAuthenticMode;
+      document.getElementById('toggleAuthMode').classList.toggle('bg-green-500', isAuthenticMode);
+      document.getElementById('toggleAuthMode').classList.toggle('bg-slate-700', !isAuthenticMode);
+      document.getElementById('authModeCircle').className = 'inline-block h-4 w-4 transform rounded-full bg-white transition-transform ' + (isAuthenticMode ? 'translate-x-6' : 'translate-x-1');
+      document.getElementById('authModeUser').className = 'transition-all ' + (isAuthenticMode ? 'text-green-400 font-bold' : 'text-slate-500');
+      document.getElementById('authModeBot').className = 'transition-all ' + (!isAuthenticMode ? 'text-indigo-400 font-bold' : 'text-slate-500');
+      document.getElementById('authModeWarning').style.display = isAuthenticMode ? 'block' : 'none';
+      updateProgress();
+    };
+
+    // --- Value Tab Logic ---
+    const valueTypesList = [
+      { key: 'funny', label: 'Funny', emoji: '😄', color: 'yellow' },
+      { key: 'entertaining', label: 'Entertaining', emoji: '🍿', color: 'purple' },
+      { key: 'educational', label: 'Educational', emoji: '🧠', color: 'blue' },
+      { key: 'problemSolving', label: 'Problem-Solving', emoji: '🛟', color: 'green' },
+      { key: 'other', label: 'Other', emoji: '✨', color: 'orange' }
+    ];
+    let valueTypes = {};
+    valueTypesList.forEach(val => valueTypes[val.key] = false);
+    function renderValueMatrix() {
+      const matrix = document.getElementById('valueMatrix');
+      matrix.innerHTML = '';
+      valueTypesList.forEach(val => {
+        const btn = document.createElement('button');
+        btn.className = 'value-card p-4 rounded-lg border-2 text-center transition-all duration-300 ' +
+          (valueTypes[val.key] ? 'active border-indigo-500' : 'border-slate-700 bg-slate-800/60 hover:border-slate-500');
+        btn.innerHTML = `<div class="mx-auto w-12 h-12 rounded-full flex items-center justify-center mb-3 text-2xl">${val.emoji}</div>
+          <p class="font-bold">${val.label}</p>`;
+        btn.onclick = function() {
+          valueTypes[val.key] = !valueTypes[val.key];
+          renderValueMatrix();
+          updateProgress();
+        };
+        matrix.appendChild(btn);
+      });
+    }
+    renderValueMatrix();
+
+    // Pain & Dream planner
+    let audiencePains = [], audienceDreams = [];
+    function updatePainList() {
+      const painList = document.getElementById('painList');
+      painList.innerHTML = '';
+      audiencePains.forEach((pain, idx) => {
+        const pill = document.createElement('span');
+        pill.className = 'content-pill bg-rose-600';
+        pill.innerHTML = `<span>${pain}</span> <button onclick="removePain(${idx})">&times;</button>`;
+        painList.appendChild(pill);
+      });
+    }
+    window.removePain = function(idx) { audiencePains.splice(idx,1); updatePainList(); updateProgress(); };
+    document.getElementById('addPainBtn').onclick = function() {
+      const val = document.getElementById('newPain').value.trim();
+      if(val) { audiencePains.push(val); document.getElementById('newPain').value = ''; updatePainList(); updateProgress(); }
+    };
+    document.getElementById('newPain').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') { e.preventDefault(); document.getElementById('addPainBtn').click(); }
+    });
+
+    function updateDreamList() {
+      const dreamList = document.getElementById('dreamList');
+      dreamList.innerHTML = '';
+      audienceDreams.forEach((dream, idx) => {
+        const pill = document.createElement('span');
+        pill.className = 'content-pill bg-teal-600';
+        pill.innerHTML = `<span>${dream}</span> <button onclick="removeDream(${idx})">&times;</button>`;
+        dreamList.appendChild(pill);
+      });
+    }
+    window.removeDream = function(idx) { audienceDreams.splice(idx,1); updateDreamList(); updateProgress(); };
+    document.getElementById('addDreamBtn').onclick = function() {
+      const val = document.getElementById('newDream').value.trim();
+      if(val) { audienceDreams.push(val); document.getElementById('newDream').value = ''; updateDreamList(); updateProgress(); }
+    };
+    document.getElementById('newDream').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') { e.preventDefault(); document.getElementById('addDreamBtn').click(); }
+    });
+
+    // --- Progress Calculation ---
+    function updateProgress() {
+      // Step 1: Persona
+      const personaDone = personaGenerated ? 33 : 0;
+      // Step 2: Auth (count hooks)
+      const hooksCount = Object.values(personalityHooks).filter(Boolean).length;
+      const authProgress = hooksCount >= 2 ? 33 : hooksCount === 1 ? 16 : 0;
+      // Step 3: Value (at least one value, and one pain and dream)
+      const valueDone = (Object.values(valueTypes).some(v => v) && audiencePains.length > 0 && audienceDreams.length > 0) ? 34 : 0;
+      const total = Math.min(100, personaDone + authProgress + valueDone);
+      // Animate bar and percent
+      document.getElementById('challengeProgress').style.width = total + '%';
+      document.getElementById('challengeProgressPercent').textContent = total + '%';
+    }
+    updateProgress();
+  </script>
+
+</body>
+</html>

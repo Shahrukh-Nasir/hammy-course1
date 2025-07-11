@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Expand your brand quiz</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+  </style>
+</head>
+<body class="bg-[#1a1a2e] text-[#f0f2f5] antialiased">
+
+  <!-- Header -->
+  <header class="py-8 text-center">
+    <h1 class="text-5xl font-black tracking-tighter bg-gradient-to-r from-purple-700 via-pink-600 to-purple-700 bg-clip-text text-transparent animate-gradient-x">Expand Your Brand Quiz 🚀</h1>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container mx-auto px-4 md:px-6 py-8 space-y-10">
+
+    <!-- Mission 1: Engage -->
+    <section id="engage" class="relative bg-gradient-to-br from-[#1e1e32] to-[#24243e] rounded-3xl p-8 mb-10 border border-[#3a3a5a] shadow-xl">
+      <h2 class="text-3xl font-extrabold mb-2 bg-gradient-to-r from-purple-700 to-blue-400 bg-clip-text text-transparent">Mission 1: Community Builder 💬</h2>
+      <p class="mb-6 text-lg text-gray-400">Your first mission, should you choose to accept it, is to turn followers into a real community. TikTok's algorithm rewards creators who build active communities. Let's get started.</p>
+
+      <!-- Quiz 1 -->
+      <div id="quiz1">
+        <p class="mb-4 font-semibold text-xl text-white">What's the most strategic reason to reply to comments with a video?</p>
+        <div class="space-y-3">
+          <button class="quiz-option w-full flex items-center px-4 py-3 rounded-xl border-2 border-[#3a3a5a] bg-transparent transition hover:translate-x-2 hover:border-purple-600 hover:bg-purple-700/10" onclick="handleQuiz('quiz1','B',this)">
+            A) It's the only way to prove you're not a bot.
+            <span class="ml-auto hidden correct-icon text-green-400 text-2xl">✓</span>
+            <span class="ml-auto hidden incorrect-icon text-red-400 text-2xl">✗</span>
+          </button>
+          <button class="quiz-option w-full flex items-center px-4 py-3 rounded-xl border-2 border-[#3a3a5a] bg-transparent transition hover:translate-x-2 hover:border-purple-600 hover:bg-purple-700/10" onclick="handleQuiz('quiz1','B',this)">
+            B) It generates easy content ideas & shows you what your audience wants.
+            <span class="ml-auto hidden correct-icon text-green-400 text-2xl">✓</span>
+            <span class="ml-auto hidden incorrect-icon text-red-400 text-2xl">✗</span>
+          </button>
+          <button class="quiz-option w-full flex items-center px-4 py-3 rounded-xl border-2 border-[#3a3a5a] bg-transparent transition hover:translate-x-2 hover:border-purple-600 hover:bg-purple-700/10" onclick="handleQuiz('quiz1','B',this)">
+            C) It guarantees that specific video will get a million views.
+            <span class="ml-auto hidden correct-icon text-green-400 text-2xl">✓</span>
+            <span class="ml-auto hidden incorrect-icon text-red-400 text-2xl">✗</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Quiz 1 Intel -->
+      <div id="intel-quiz1" class="hidden mt-8 bg-black/30 border-l-4 border-blue-400 rounded-lg p-6 animate-fade-in">
+        <h3 class="font-bold text-xl mb-2 text-white">INTEL REVEALED 💡</h3>
+        <p class="mb-4 text-gray-300"><strong>Correct!</strong> Replying with video is a content goldmine. It gives you endless things to talk about and provides direct insight into your audience's interests. Any engagement (likes, text replies, DMs) builds trust and signals to TikTok that you're a community-focused creator, which gets your content pushed more.</p>
+        <h4 class="font-semibold text-lg mb-2 text-white">Action Items:</h4>
+        <div class="space-y-2">
+          <div class="action-item flex items-center bg-black/20 rounded-lg px-4 py-2 cursor-pointer transition hover:bg-purple-700/20" onclick="toggleActionItem(this)">
+            <div class="action-checkbox w-5 h-5 border-2 border-blue-400 rounded flex items-center justify-center mr-3"></div>
+            <span>Like 5 comments on your latest video.</span>
+          </div>
+          <div class="action-item flex items-center bg-black/20 rounded-lg px-4 py-2 cursor-pointer transition hover:bg-purple-700/20" onclick="toggleActionItem(this)">
+            <div class="action-checkbox w-5 h-5 border-2 border-blue-400 rounded flex items-center justify-center mr-3"></div>
+            <span>Write one thoughtful text reply.</span>
+          </div>
+          <div class="action-item flex items-center bg-black/20 rounded-lg px-4 py-2 cursor-pointer transition hover:bg-purple-700/20" onclick="toggleActionItem(this)">
+            <div class="action-checkbox w-5 h-5 border-2 border-blue-400 rounded flex items-center justify-center mr-3"></div>
+            <span>Brainstorm one video reply idea.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mission 2: Analytics -->
+    <section id="analytics" class="relative bg-gradient-to-br from-[#1e1e32] to-[#24243e] rounded-3xl p-8 mb-10 border border-[#3a3a5a] shadow-xl">
+      <h2 class="text-3xl font-extrabold mb-2 bg-gradient-to-r from-purple-700 to-blue-400 bg-clip-text text-transparent">Mission 2: Data Detective 🕵️‍♂️</h2>
+      <p class="mb-6 text-lg text-gray-400">Every video leaves clues. Your mission is to decode your analytics to understand what works and what doesn't. First, you need a Creator or Business account to access these tools.</p>
+      <div id="quiz2">
+        <p class="mb-4 font-semibold text-xl text-white">You see a huge viewer drop-off at the 9-second mark. What's your top-priority action?</p>
+        <div class="space-y-3">
+          <button class="quiz-option w-full flex items-center px-4 py-3 rounded-xl border-2 border-[#3a3a5a] bg-transparent transition hover:translate-x-2 hover:border-purple-600 hover:bg-purple-700/10" onclick="handleQuiz('quiz2','C',this)">
+            A) Delete the video to hide the bad performance.
+            <span class="ml-auto hidden correct-icon text-green-400 text-2xl">✓</span>
+            <span class="ml-auto hidden incorrect-icon text-red-400 text-2xl">✗</span>
+          </button>
+          <button class="quiz-option w-full flex items-center px-4 py-3 rounded-xl border-2 border-[#3a3a5a] bg-transparent transition hover:translate-x-2 hover:border-purple-600 hover:bg-purple-700/10" onclick="handleQuiz('quiz2','C',this)">
+            B) Ignore it, it's just one video.
+            <span class="ml-auto hidden correct-icon text-green-400 text-2xl">✓</span>
+            <span class="ml-auto hidden incorrect-icon text-red-400 text-2xl">✗</span>
+          </button>
+          <button class="quiz-option w-full flex items-center px-4 py-3 rounded-xl border-2 border-[#3a3a5a] bg-transparent transition hover:translate-x-2 hover:border-purple-600 hover:bg-purple-700/10" onclick="handleQuiz('quiz2','C',this)">
+            C) Watch your video back, focusing on what happens at exactly 9 seconds.
+            <span class="ml-auto hidden correct-icon text-green-400 text-2xl">✓</span>
+            <span class="ml-auto hidden incorrect-icon text-red-400 text-2xl">✗</span>
+          </button>
+        </div>
+      </div>
+      <div id="intel-quiz2" class="hidden mt-8 bg-black/30 border-l-4 border-blue-400 rounded-lg p-6 animate-fade-in">
+        <h3 class="font-bold text-xl mb-2 text-white">INTEL REVEALED 💡</h3>
+        <p class="mb-4 text-gray-300"><strong>Exactly.</strong> That drop-off point is a gift. It's your audience telling you EXACTLY what made them lose interest. The most common culprit is a long pause or a break in stimulation. By identifying and understanding these moments, you learn what to avoid in future videos.</p>
+        <h4 class="font-semibold text-lg mb-2 text-white">Action Item: Find the Drop-off</h4>
+        <textarea rows="2" placeholder="Watch a recent video. Note the time of a viewer drop-off and what was happening on screen..." class="w-full rounded-lg bg-[#2a2a4a] border border-[#4a4a6a] text-[#f0f2f5] p-3 focus:border-purple-600 focus:ring-2 focus:ring-purple-400"></textarea>
+      </div>
+    </section>
+
+    <!-- Mission 3: Hook -->
+    <section id="hook" class="relative bg-gradient-to-br from-[#1e1e32] to-[#24243e] rounded-3xl p-8 mb-10 border border-[#3a3a5a] shadow-xl">
+      <h2 class="text-3xl font-extrabold mb-2 bg-gradient-to-r from-purple-700 to-blue-400 bg-clip-text text-transparent">Mission 3: Master Storyteller 🎬</h2>
+      <p class="mb-6 text-lg text-gray-400">The best creators are storytellers. Your mission is to delay the "hook" and keep viewers captivated until the very end. Give away the ending too soon, and they have no reason to stay.</p>
+      <div id="quiz3">
+        <p class="mb-4 font-semibold text-xl text-white">In a "$1 vs $100,000" video, why does Mr. Beast show the $1 item first?</p>
+        <div class="space-y-3">
+          <button class="quiz-option w-full flex items-center px-4 py-3 rounded-xl border-2 border-[#3a3a5a] bg-transparent transition hover:translate-x-2 hover:border-purple-600 hover:bg-purple-700/10" onclick="handleQuiz('quiz3','A',this)">
+            A) To build suspense and delay the main payoff (the hook), maximizing watch time.
+            <span class="ml-auto hidden correct-icon text-green-400 text-2xl">✓</span>
+            <span class="ml-auto hidden incorrect-icon text-red-400 text-2xl">✗</span>
+          </button>
+          <button class="quiz-option w-full flex items-center px-4 py-3 rounded-xl border-2 border-[#3a3a5a] bg-transparent transition hover:translate-x-2 hover:border-purple-600 hover:bg-purple-700/10" onclick="handleQuiz('quiz3','A',this)">
+            B) Because the $1 item is more interesting to most viewers.
+            <span class="ml-auto hidden correct-icon text-green-400 text-2xl">✓</span>
+            <span class="ml-auto hidden incorrect-icon text-red-400 text-2xl">✗</span>
+          </button>
+          <button class="quiz-option w-full flex items-center px-4 py-3 rounded-xl border-2 border-[#3a3a5a] bg-transparent transition hover:translate-x-2 hover:border-purple-600 hover:bg-purple-700/10" onclick="handleQuiz('quiz3','A',this)">
+            C) To save money on the production budget.
+            <span class="ml-auto hidden correct-icon text-green-400 text-2xl">✓</span>
+            <span class="ml-auto hidden incorrect-icon text-red-400 text-2xl">✗</span>
+          </button>
+        </div>
+      </div>
+
+      <div id="intel-quiz3" class="hidden mt-8 bg-black/30 border-l-4 border-blue-400 rounded-lg p-6 animate-fade-in">
+        <h3 class="font-bold text-xl mb-2 text-white">INTEL REVEALED 💡</h3>
+        <p class="mb-4 text-gray-300"><strong>You got it.</strong> He's a master of the delayed hook. The title hooks you, but he makes you watch the entire story to get to the part you *really* want to see. Your mission is to do the same: tell a story and save the "explosion" (the key point) for the end.</p>
+        <h4 class="font-semibold text-lg mb-2 mt-6 text-white">Action Item: Choose the Best Story Structure</h4>
+        <div id="quiz3_action" class="mt-4">
+          <p class="mb-4 font-medium text-gray-300">Your video is titled: "I Tried the World's Spiciest Instant Noodles". Which structure will keep viewers watching the longest?</p>
+          <div class="space-y-3">
+            <button class="quiz-option text-sm w-full flex items-center px-4 py-3 rounded-xl border-2 border-[#3a3a5a] bg-transparent transition hover:translate-x-2 hover:border-purple-600 hover:bg-purple-700/10" onclick="handleQuiz('quiz3_action','B',this)">
+              A) Show your final, pained reaction in the first 5 seconds, then explain how you made the noodles.
+              <span class="ml-auto hidden correct-icon text-green-400 text-2xl">✓</span>
+              <span class="ml-auto hidden incorrect-icon text-red-400 text-2xl">✗</span>
+            </button>
+            <button class="quiz-option text-sm w-full flex items-center px-4 py-3 rounded-xl border-2 border-[#3a3a5a] bg-transparent transition hover:translate-x-2 hover:border-purple-600 hover:bg-purple-700/10" onclick="handleQuiz('quiz3_action','B',this)">
+              B) Unbox the noodles, show the scary spice packet, cook them while building suspense, and save your first bite and reaction for the very end.
+              <span class="ml-auto hidden correct-icon text-green-400 text-2xl">✓</span>
+              <span class="ml-auto hidden incorrect-icon text-red-400 text-2xl">✗</span>
+            </button>
+            <button class="quiz-option text-sm w-full flex items-center px-4 py-3 rounded-xl border-2 border-[#3a3a5a] bg-transparent transition hover:translate-x-2 hover:border-purple-600 hover:bg-purple-700/10" onclick="handleQuiz('quiz3_action','B',this)">
+              C) Just start eating the noodles at the beginning of the video and describe the taste as you go.
+              <span class="ml-auto hidden correct-icon text-green-400 text-2xl">✓</span>
+              <span class="ml-auto hidden incorrect-icon text-red-400 text-2xl">✗</span>
+            </button>
+          </div>
+        </div>
+        <div id="intel-quiz3_action" class="hidden mt-6 bg-black/20 border-l-4 border-purple-400 rounded-lg p-5">
+          <h3 class="font-bold text-lg mb-2 text-white">ANALYSIS 📈</h3>
+          <p class="text-gray-300"><strong>Option B is the strongest structure for maximizing total watch time,</strong> as it creates a full narrative journey that viewers feel compelled to finish.<br><br>
+          <strong>However, Option A is also a powerful technique known as a "teaser" or "cold open."</strong> Showing a dramatic result upfront can hook viewers instantly, but you risk them leaving after they see how you got there. It's a great strategy if the "how" is just as interesting as the "what."</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mission 4: Presence -->
+    <section id="presence" class="relative bg-gradient-to-br from-[#1e1e32] to-[#24243e] rounded-3xl p-8 mb-10 border border-[#3a3a5a] shadow-xl">
+      <h2 class="text-3xl font-extrabold mb-2 bg-gradient-to-r from-purple-700 to-blue-400 bg-clip-text text-transparent">Mission 4: Platform Expansion 🌐</h2>
+      <p class="mb-6 text-lg text-gray-400">You're building an empire, not just a TikTok account. Your mission is to expand your presence to other platforms, reaching new audiences and boosting your brand.</p>
+      <div id="quiz4">
+        <p class="mb-4 font-semibold text-xl text-white">What's the #1 mistake creators make when reposting content to other platforms?</p>
+        <div class="space-y-3">
+          <button class="quiz-option w-full flex items-center px-4 py-3 rounded-xl border-2 border-[#3a3a5a] bg-transparent transition hover:translate-x-2 hover:border-purple-600 hover:bg-purple-700/10" onclick="handleQuiz('quiz4','C',this)">
+            A) Posting at the wrong time of day.
+            <span class="ml-auto hidden correct-icon text-green-400 text-2xl">✓</span>
+            <span class="ml-auto hidden incorrect-icon text-red-400 text-2xl">✗</span>
+          </button>
+          <button class="quiz-option w-full flex items-center px-4 py-3 rounded-xl border-2 border-[#3a3a5a] bg-transparent transition hover:translate-x-2 hover:border-purple-600 hover:bg-purple-700/10" onclick="handleQuiz('quiz4','C',this)">
+            B) Using the wrong hashtags.
+            <span class="ml-auto hidden correct-icon text-green-400 text-2xl">✓</span>
+            <span class="ml-auto hidden incorrect-icon text-red-400 text-2xl">✗</span>
+          </button>
+          <button class="quiz-option w-full flex items-center px-4 py-3 rounded-xl border-2 border-[#3a3a5a] bg-transparent transition hover:translate-x-2 hover:border-purple-600 hover:bg-purple-700/10" onclick="handleQuiz('quiz4','C',this)">
+            C) Leaving the TikTok watermark on the video.
+            <span class="ml-auto hidden correct-icon text-green-400 text-2xl">✓</span>
+            <span class="ml-auto hidden incorrect-icon text-red-400 text-2xl">✗</span>
+          </button>
+        </div>
+      </div>
+      <div id="intel-quiz4" class="hidden mt-8 bg-black/30 border-l-4 border-blue-400 rounded-lg p-6 animate-fade-in">
+        <h3 class="font-bold text-xl mb-2 text-white">INTEL REVEALED 💡</h3>
+        <p class="mb-4 text-gray-300"><strong>Critical catch!</strong> While avoiding the watermark is key for reach, the real power of expansion is building a true empire. You can get paid for views on TikTok, but by posting on YouTube, Instagram, Facebook, and Snapchat, you create multiple income streams 💸 from their creator funds. <br><br>More importantly, you build a deeper, more trustworthy community. When your audience sees you everywhere, they feel more connected. This trust is essential if you ever want to launch future business endeavors like a clothing brand 👕, a product, or a course—your community will be ready to support you.</p>
+        <h4 class="font-semibold text-lg mb-2 text-white">Action Items:</h4>
+        <div class="space-y-2">
+          <div class="action-item flex items-center bg-black/20 rounded-lg px-4 py-2 cursor-pointer transition hover:bg-purple-700/20" onclick="toggleActionItem(this)">
+            <div class="action-checkbox w-5 h-5 border-2 border-blue-400 rounded flex items-center justify-center mr-3"></div>
+            <span>Post one video to Instagram Reels.</span>
+          </div>
+          <div class="action-item flex items-center bg-black/20 rounded-lg px-4 py-2 cursor-pointer transition hover:bg-purple-700/20" onclick="toggleActionItem(this)">
+            <div class="action-checkbox w-5 h-5 border-2 border-blue-400 rounded flex items-center justify-center mr-3"></div>
+            <span>Post one video to YouTube Shorts.</span>
+          </div>
+          <div class="action-item flex items-center bg-black/20 rounded-lg px-4 py-2 cursor-pointer transition hover:bg-purple-700/20" onclick="toggleActionItem(this)">
+            <div class="action-checkbox w-5 h-5 border-2 border-blue-400 rounded flex items-center justify-center mr-3"></div>
+            <span>Post one video to Snapchat Spotlight.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mission 5: Consistency -->
+    <section id="consistency" class="relative bg-gradient-to-br from-[#1e1e32] to-[#24243e] rounded-3xl p-8 border border-[#3a3a5a] shadow-xl">
+      <h2 class="text-3xl font-extrabold mb-2 bg-gradient-to-r from-purple-700 to-blue-400 bg-clip-text text-transparent">Mission 5: The Content Machine ⚙️</h2>
+      <p class="mb-6 text-lg text-gray-400">Growth demands consistency. Sporadic posting won't work. Your final mission is to create a system for consistent content creation.</p>
+      <div id="quiz5">
+        <p class="mb-4 font-semibold text-xl text-white">What is the most effective strategy for maintaining posting consistency?</p>
+        <div class="space-y-3">
+          <button class="quiz-option w-full flex items-center px-4 py-3 rounded-xl border-2 border-[#3a3a5a] bg-transparent transition hover:translate-x-2 hover:border-purple-600 hover:bg-purple-700/10" onclick="handleQuiz('quiz5','B',this)">
+            A) Waiting for inspiration to strike each day.
+            <span class="ml-auto hidden correct-icon text-green-400 text-2xl">✓</span>
+            <span class="ml-auto hidden incorrect-icon text-red-400 text-2xl">✗</span>
+          </button>
+          <button class="quiz-option w-full flex items-center px-4 py-3 rounded-xl border-2 border-[#3a3a5a] bg-transparent transition hover:translate-x-2 hover:border-purple-600 hover:bg-purple-700/10" onclick="handleQuiz('quiz5','B',this)">
+            B) Batch producing: filming many videos on one or two dedicated days per week.
+            <span class="ml-auto hidden correct-icon text-green-400 text-2xl">✓</span>
+            <span class="ml-auto hidden incorrect-icon text-red-400 text-2xl">✗</span>
+          </button>
+          <button class="quiz-option w-full flex items-center px-4 py-3 rounded-xl border-2 border-[#3a3a5a] bg-transparent transition hover:translate-x-2 hover:border-purple-600 hover:bg-purple-700/10" onclick="handleQuiz('quiz5','B',this)">
+            C) Only posting when a trend is going viral.
+            <span class="ml-auto hidden correct-icon text-green-400 text-2xl">✓</span>
+            <span class="ml-auto hidden incorrect-icon text-red-400 text-2xl">✗</span>
+          </button>
+        </div>
+      </div>
+      <div id="intel-quiz5" class="hidden mt-8 bg-black/30 border-l-4 border-green-400 rounded-lg p-6 animate-fade-in">
+        <h3 class="font-bold text-xl mb-2 text-white">INTEL REVEALED 💡</h3>
+        <p class="mb-4 text-gray-300"><strong>This is the secret sauce 🌶️.</strong> Don't try to come up with, film, and edit a new video every single day. You'll burn out. Instead, dedicate one or two days a week to just recording. Film 5, 10, or even 15 videos and save them as drafts. Then you can spend the rest of the week engaging, researching, and scheduling your posts without stress.</p>
+      </div>
+    </section>
+
+  </main>
+  <footer class="text-center py-10 text-gray-500">Mission Guide Complete. Now go create!</footer>
+
+  <script>
+    function handleQuiz(quizId, correctAnswer, selectedElement) {
+      // Prevent repeat clicks
+      if (selectedElement.classList.contains('answered')) return;
+
+      const quizSection = document.getElementById(quizId);
+      const options = quizSection.querySelectorAll('.quiz-option');
+      options.forEach(opt => { opt.classList.add('answered'); opt.disabled = true; });
+
+      const selected = selectedElement.textContent.trim().charAt(0);
+      // Mark as correct/incorrect, show icons
+      if (selected === correctAnswer) {
+        selectedElement.classList.add('border-green-400', 'bg-green-400/10');
+        selectedElement.querySelector('.correct-icon').classList.remove('hidden');
+      } else {
+        selectedElement.classList.add('border-red-400', 'bg-red-400/10');
+        selectedElement.querySelector('.incorrect-icon').classList.remove('hidden');
+        // Also show correct
+        options.forEach(opt => {
+          if (opt.textContent.trim().charAt(0) === correctAnswer) {
+            opt.classList.add('border-green-400', 'bg-green-400/10');
+            opt.querySelector('.correct-icon').classList.remove('hidden');
+          }
+        });
+      }
+      // Reveal explanation
+      const intel = document.getElementById('intel-' + quizId);
+      if (intel) intel.classList.remove('hidden');
+
+      // Special logic for sub-quiz inside Mission 3
+      if (quizId === "quiz3_action") {
+        document.getElementById('intel-quiz3_action').classList.remove('hidden');
+      }
+    }
+
+    function toggleActionItem(el) {
+      el.classList.toggle('line-through');
+      el.classList.toggle('text-gray-500');
+      el.querySelector('.action-checkbox').classList.toggle('bg-green-400');
+      el.querySelector('.action-checkbox').classList.toggle('border-green-400');
+      el.querySelector('.action-checkbox').innerHTML =
+        el.classList.contains('line-through')
+          ? '<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M4.5 12.75l6 6 9-13.5" /></svg>'
+          : '';
+    }
+  </script>
+</body>
+</html>

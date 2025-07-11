@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interactive Worksheet: Mastering TikTok Shop</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+body {
+font-family: 'Inter', sans-serif;
+}
+.card {
+background-color: #1f2937;
+border: 1px solid #374151;
+border-radius: 0.75rem;
+padding: 1.5rem;
+margin-bottom: 1.5rem;
+transition: all 0.3s ease;
+}
+.card:hover {
+box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
+border-color: #3b82f6;
+}
+.quiz-option {
+border: 1px solid #4b5563;
+padding: 0.75rem;
+border-radius: 0.5rem;
+cursor: pointer;
+transition: all 0.2s ease;
+}
+.quiz-option:hover {
+background-color: #374151;
+}
+.quiz-option.selected {
+background-color: #3b82f6;
+border-color: #3b82f6;
+}
+.quiz-option.correct {
+background-color: #10b981;
+border-color: #10b981;
+}
+.quiz-option.incorrect {
+background-color: #ef4444;
+border-color: #ef4444;
+}
+.feedback {
+display: none;
+margin-top: 0.75rem;
+padding: 0.75rem;
+border-radius: 0.5rem;
+}
+.feedback.correct {
+background-color: rgba(16, 185, 129, 0.1);
+border: 1px solid #10b981;
+}
+.feedback.incorrect {
+background-color: rgba(239, 68, 68, 0.1);
+border: 1px solid #ef4444;
+}
+</style>
+</head>
+<body class="bg-gray-900 text-gray-200">
+
+<div class="container mx-auto p-4 md:p-8 max-w-4xl">
+
+    <header class="text-center mb-12">
+        <h1 class="text-4xl md:text-5xl font-bold text-white mb-2">The Ultimate TikTok Shop Worksheet</h1>
+        <p class="text-lg text-gray-400">Your interactive guide to monetizing your influence.</p>
+    </header>
+
+    <section id="what-is-it" class="card">
+        <h2 class="text-2xl font-bold text-blue-400 mb-4">Module 1: What is TikTok Shop?</h2>
+        <p class="mb-4">TikTok Shop is a powerful, open marketplace built directly into the app. It's designed to compete with giants like Amazon by leveraging the platform's massive organic and paid reach. Sellers can list almost anything, and TikTok takes a small cut of each sale. For creators, this opens a direct path to monetization through affiliate marketing, allowing you to earn significant income by promoting products you believe in.</p>
+        <div class="mt-6">
+            <h3 class="text-lg font-semibold mb-3">Test Your Knowledge: Myth vs. Fact</h3>
+            <div id="quiz1">
+                <p class="mb-2"><strong>Statement:</strong> TikTok Shop is only for creators to sell their own merchandise.</p>
+                <div class="flex space-x-4">
+                    <button onclick="checkAnswer('quiz1', false)" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg">Myth</button>
+                    <button onclick="checkAnswer('quiz1', true)" class="flex-1 bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-lg">Fact</button>
+                </div>
+                <div id="feedback-quiz1" class="feedback mt-4"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="how-it-works" class="card">
+        <h2 class="text-2xl font-bold text-blue-400 mb-4">Module 2: How It Works For Creators</h2>
+        <p class="mb-4">As a creator, you're essentially an affiliate marketer. You promote products and earn a commission for every sale made through your unique link. TikTok makes this incredibly easy with a frictionless checkout process. There are three primary ways to do this:</p>
+        <ul class="list-disc list-inside space-y-2 mb-6">
+            <li><strong class="text-white">Live Streams:</strong> Add product links directly to your live broadcasts for viewers to purchase in real-time.</li>
+            <li><strong class="text-white">Profile Showcase:</strong> Create a dedicated tab on your profile featuring all your recommended products.</li>
+            <li><strong class="text-white">In-Video Links:</strong> The most lucrative method. Tag a product directly in your video, allowing viewers to buy with just a few taps.</li>
+        </ul>
+         <div class="mt-6">
+            <h3 class="text-lg font-semibold mb-3">Match the Method!</h3>
+            <p class="text-gray-400 mb-4">Which method is described as the most lucrative and best way to make money online right now?</p>
+            <div id="quiz2" class="space-y-3">
+                <div class="quiz-option" onclick="selectOption(this, false)">Live Streams</div>
+                <div class="quiz-option" onclick="selectOption(this, false)">Profile Showcase</div>
+                <div class="quiz-option" onclick="selectOption(this, true)">In-Video Links</div>
+            </div>
+             <button onclick="checkSelection('quiz2')" class="mt-4 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg">Check Answer</button>
+            <div id="feedback-quiz2" class="feedback"></div>
+        </div>
+    </section>
+
+    <section id="access" class="card">
+        <h2 class="text-2xl font-bold text-blue-400 mb-4">Module 3: How to Get Access</h2>
+        <p class="mb-4">The barrier to entry is lower than you might think. To access TikTok Shop for Creators, you need to meet a specific follower threshold. However, there's also a clever workaround for those who are just starting out.</p>
+        <div class="mt-6 p-4 bg-gray-800 rounded-lg border border-blue-500/50">
+            <h3 class="text-lg font-semibold text-white mb-2">Key Requirements:</h3>
+            <ul class="list-disc list-inside space-y-2 text-gray-300">
+                <li><strong class="text-white">Standard Path:</strong> You need to have <strong class="text-green-400">5,000 followers</strong> to unlock the TikTok Shop for Creators affiliate program.</li>
+                <li><strong class="text-white">The Workaround:</strong> You can register as a "Seller" first through the TikTok Shop Seller Center. This can grant you access to affiliate features <strong class="text-yellow-400">even with zero followers</strong>, though it involves a more detailed setup process.</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="mistake" class="card">
+        <h2 class="text-2xl font-bold text-red-400 mb-4">Module 4: The Credibility Killer</h2>
+        <p class="mb-4">The biggest mistake creators make is treating TikTok Shop as a cash grab. Promoting anything and everything, especially low-quality or irrelevant products, destroys your credibility. Your audience will see you as a 'sellout', and your conversion rates will plummet. <strong class="text-white">Long-term success depends on trust.</strong> Always check product reviews and ensure what you promote aligns with your brand and provides genuine value to your audience.</p>
+        <div class="mt-6">
+            <h3 class="text-lg font-semibold mb-3">Scenario Quiz</h3>
+            <p class="mb-2">You are a popular 'BookTok' creator known for your fantasy novel reviews. Which product promotion would best maintain your credibility?</p>
+            <div id="quiz3" class="space-y-3">
+                <div class="quiz-option" onclick="selectOption(this, true)">A set of high-quality, fantasy-themed bookmarks.</div>
+                <div class="quiz-option" onclick="selectOption(this, false)">A trending energy drink with a high commission.</div>
+                <div class="quiz-option" onclick="selectOption(this, false)">A dropshipped gadget that has nothing to do with reading.</div>
+            </div>
+            <button onclick="checkSelection('quiz3')" class="mt-4 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg">Check Answer</button>
+            <div id="feedback-quiz3" class="feedback"></div>
+        </div>
+    </section>
+
+    <section id="products" class="card">
+        <h2 class="text-2xl font-bold text-green-400 mb-4">Module 5: Choosing Winning Products</h2>
+        <p class="mb-4">Choosing the right product is an art. It's about more than just your niche. You need to understand your audience's interests and find high-quality products that meet their needs. Critically, you must also look for products with a <strong class="text-white">high commission rate (up to 40%!)</strong>. A high-ticket, high-commission product can make you more money from 100k views than a low-commission item with 1M views.</p>
+        <div class="mt-6 p-4 bg-gray-800 rounded-lg border border-gray-700">
+            <h3 class="text-lg font-semibold mb-3">Commission Calculator</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label for="productPrice" class="block text-sm font-medium text-gray-300 mb-1">Product Price ($)</label>
+                    <input type="number" id="productPrice" placeholder="50" class="w-full bg-gray-700 border border-gray-600 rounded-md p-2 text-white">
+                </div>
+                <div>
+                    <label for="commissionRate" class="block text-sm font-medium text-gray-300 mb-1">Commission Rate (%)</label>
+                    <input type="number" id="commissionRate" placeholder="20" max="100" class="w-full bg-gray-700 border border-gray-600 rounded-md p-2 text-white">
+                </div>
+            </div>
+            <button onclick="calculateCommission()" class="mt-4 w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg">Calculate Earnings</button>
+            <p id="commissionResult" class="mt-4 text-center text-lg font-bold"></p>
+        </div>
+    </section>
+
+    <section id="videos" class="card">
+        <h2 class="text-2xl font-bold text-purple-400 mb-4">Module 6: Creating Videos That PRINT</h2>
+        <p class="mb-4">Views don't equal sales. Conversion is key. The most effective sales strategy is the <strong class="text-white">Problem-Agitate-Solve</strong> framework. Don't just say "buy this." Instead:</p>
+        <ol class="list-decimal list-inside space-y-2">
+            <li><strong class="text-white">Identify a Problem:</strong> Pinpoint a pain point your audience experiences (e.g., "always tired and sluggish").</li>
+            <li><strong class="text-white">Agitate the Problem:</strong> Explain why it's a problem (e.g., "It's because you're deficient in vital minerals...").</li>
+            <li><strong class="text-white">Provide the Solution:</strong> Present the product as the perfect solution to that pain, creating urgency and scarcity (e.g., "This contains 92/102 minerals... get it now before it sells out!").</li>
+        </ol>
+        <div class="mt-8 p-4 bg-gray-800 rounded-lg border border-gray-700">
+            <h3 class="text-lg font-semibold mb-3">AI Sales Pitch Generator</h3>
+            <p class="text-gray-400 mb-3">Practice the framework! Select a product category, and I'll generate a sample TikTok script for you.</p>
+            <select id="productCategory" class="w-full bg-gray-700 border border-gray-600 rounded-md p-2 text-white">
+                <option value="Health & Wellness">Health & Wellness</option>
+                <option value="Tech & Gadgets">Tech & Gadgets</option>
+                <option value="Beauty & Skincare">Beauty & Skincare</option>
+                <option value="Home & Kitchen">Home & Kitchen</option>
+                <option value="Fitness">Fitness</option>
+            </select>
+            <button id="generateScriptBtn" onclick="generateScript()" class="mt-3 w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg">Generate Script</button>
+            <div id="scriptOutput" class="mt-4 p-4 bg-gray-900 rounded-md border border-gray-700" style="display: none;">
+                <p id="scriptResult" class="text-gray-300 whitespace-pre-wrap"></p>
+            </div>
+            <div id="loadingIndicator" class="mt-4 text-center" style="display: none;">
+                <p class="text-purple-400">Generating your script...</p>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+<script>
+    function checkAnswer(quizId, isFact) {
+        const feedbackEl = document.getElementById(`feedback-${quizId}`);
+        if (isFact === false) {
+            feedbackEl.innerHTML = '<strong>Correct!</strong> TikTok Shop is a marketplace for everyone, not just for creators selling their own products. You can earn by promoting other people\'s items.';
+            feedbackEl.className = 'feedback correct';
+        } else {
+            feedbackEl.innerHTML = '<strong>Incorrect.</strong> This is a common myth. The power of TikTok shop is that you can promote a huge variety of products from other sellers.';
+            feedbackEl.className = 'feedback incorrect';
+        }
+        feedbackEl.style.display = 'block';
+    }
+
+    let selectedOptionEl = null;
+    function selectOption(element, isCorrect) {
+        const parent = element.parentElement;
+        const allOptions = parent.querySelectorAll('.quiz-option');
+        allOptions.forEach(opt => opt.classList.remove('selected'));
+        element.classList.add('selected');
+        selectedOptionEl = element;
+        selectedOptionEl.dataset.isCorrect = isCorrect;
+    }
+
+    function checkSelection(quizId) {
+        const feedbackEl = document.getElementById(`feedback-${quizId}`);
+        if (!selectedOptionEl) {
+            feedbackEl.innerHTML = 'Please select an answer first!';
+            feedbackEl.className = 'feedback incorrect';
+            feedbackEl.style.display = 'block';
+            return;
+        }
+        const allOptions = document.getElementById(quizId).querySelectorAll('.quiz-option');
+        allOptions.forEach(opt => opt.classList.remove('selected'));
+        if (selectedOptionEl.dataset.isCorrect === 'true') {
+            selectedOptionEl.classList.add('correct');
+            feedbackEl.innerHTML = '<strong>Excellent!</strong> Tagging products directly in videos has the highest conversion rate due to the seamless checkout process.';
+            feedbackEl.className = 'feedback correct';
+        } else {
+            selectedOptionEl.classList.add('incorrect');
+            feedbackEl.innerHTML = '<strong>Not quite.</strong> While other methods work, in-video links are the most powerful for driving sales directly from viral content.';
+            feedbackEl.className = 'feedback incorrect';
+        }
+        feedbackEl.style.display = 'block';
+        selectedOptionEl = null;
+    }
+
+    function calculateCommission() {
+        const price = parseFloat(document.getElementById('productPrice').value);
+        const rate = parseFloat(document.getElementById('commissionRate').value);
+        const resultEl = document.getElementById('commissionResult');
+        if (isNaN(price) || isNaN(rate)) {
+            resultEl.textContent = 'Please enter valid numbers for both fields.';
+            resultEl.className = 'mt-4 text-center text-lg font-bold text-red-400';
+            return;
+        }
+        const earnings = (price * (rate / 100)).toFixed(2);
+        resultEl.textContent = `You would earn $${earnings} for every sale!`;
+        resultEl.className = 'mt-4 text-center text-lg font-bold text-green-400';
+    }
+
+    async function generateScript() {
+        const category = document.getElementById('productCategory').value;
+        const outputEl = document.getElementById('scriptOutput');
+        const resultEl = document.getElementById('scriptResult');
+        const loadingEl = document.getElementById('loadingIndicator');
+        const buttonEl = document.getElementById('generateScriptBtn');
+        const prompt = `Create a short, punchy TikTok video script (under 60 seconds) for an influencer promoting a product in the "${category}" category. Use the "Problem-Agitate-Solve" framework. The script should identify a common problem for the target audience, explain why it's a pain point, and present the product as the ultimate solution. End with a strong call to action that includes scarcity or urgency. Format it with clear sections for Hook, Problem, Agitate, Solve, and CTA.`;
+        loadingEl.style.display = 'block';
+        outputEl.style.display = 'none';
+        buttonEl.disabled = true;
+        buttonEl.classList.add('opacity-50');
+        try {
+            let chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
+            const payload = { contents: chatHistory };
+            const apiKey = "";
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            if (!response.ok) {
+                throw new Error(`API request failed with status ${response.status}`);
+            }
+            const result = await response.json();
+            if (result.candidates && result.candidates.length > 0 &&
+                result.candidates[0].content && result.candidates[0].content.parts &&
+                result.candidates[0].content.parts.length > 0) {
+                const text = result.candidates[0].content.parts[0].text;
+                resultEl.textContent = text;
+            } else {
+                throw new Error("Invalid response structure from API.");
+            }
+        } catch (error) {
+            resultEl.textContent = "Sorry, something went wrong. Please try again later.";
+        } finally {
+            loadingEl.style.display = 'none';
+            outputEl.style.display = 'block';
+            buttonEl.disabled = false;
+            buttonEl.classList.remove('opacity-50');
+        }
+    }
+</script>
+
+</body>
+</html>

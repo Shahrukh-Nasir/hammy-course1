@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Viral Vibe Check | Interactive Planner</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+body { font-family: 'Inter', sans-serif; }
+.step {
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+.step.hidden {
+  opacity: 0;
+  transform: translateY(20px);
+}
+.step-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.form-input, .form-textarea {
+  transition: all 0.3s ease;
+}
+.form-input:focus, .form-textarea:focus {
+  --tw-ring-color: #FF6B6B;
+  border-color: #FF6B6B;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  background: #FF6B6B;
+  cursor: pointer;
+  border-radius: 50%;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 24px;
+  height: 24px;
+  background: #FF6B6B;
+  cursor: pointer;
+  border-radius: 50%;
+}
+.chart-container { display: none; }
+@media print {
+  body * { visibility: hidden; }
+  #summary-section, #summary-section * { visibility: visible; }
+  #summary-section {
+    position: absolute;
+    left: 0; top: 0;
+    width: 100%;
+    background-color: white;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  .no-print { display: none; }
+}
+</style>
+</head>
+<body class="bg-[#FFF8F3] text-[#4A4A4A] min-h-screen flex items-center justify-center p-4">
+
+<main class="w-full max-w-4xl mx-auto bg-white rounded-2xl shadow-xl p-6 sm:p-10 transition-all duration-500">
+
+    <div id="wizard-container">
+        <!-- Progress Bar -->
+        <div id="progress-bar" class="w-full mb-8">
+            <div class="flex justify-between mb-1">
+                <span id="progress-text" class="text-sm font-medium text-[#FF6B6B]">Step 1 of 6</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2.5">
+                <div id="progress-indicator" class="bg-[#FF6B6B] h-2.5 rounded-full" style="width: 16.66%"></div>
+            </div>
+        </div>
+
+        <!-- Steps -->
+        <div id="steps-container" class="relative">
+            <!-- Step 1: Intro -->
+            <div id="step-1" class="step step-visible">
+                <div class="text-center">
+                    <h1 class="text-4xl sm:text-5xl font-extrabold text-[#333] mb-4">✨ Your Viral Vibe Check</h1>
+                    <p class="text-lg text-gray-600 max-w-2xl mx-auto">Ready to ditch the daily grind and turn your dreams into a TikTok empire? This interactive planner is your personal roadmap to going viral, making bank, and living life on YOUR terms. Let's get it!</p>
+                </div>
+            </div>
+            <!-- Step 2: Real Talk -->
+            <div id="step-2" class="step hidden absolute w-full">
+                <h2 class="text-2xl font-bold text-center mb-6">📍 The “Real Talk” Check-In: Where's Your Head At? 🧠</h2>
+                <p class="text-center text-gray-600 mb-8">Be honest, where are you at right now?<br>What’s feeling a bit... stuck? What’s stressing you?<br>Drop it here, no filter. 👇</p>
+                <div class="space-y-4">
+                    <div class="relative flex items-start">
+                        <div class="flex items-center h-5">
+                            <input id="q-job-checkbox" name="currentSituation" type="checkbox" class="focus:ring-[#FF6B6B] h-4 w-4 text-[#FF6B6B] border-gray-300 rounded">
+                        </div>
+                        <div class="ml-3 text-sm">
+                            <label for="q-job-checkbox" class="font-medium text-gray-700">😩 Stuck in a job I low-key hate</label>
+                        </div>
+                    </div>
+                    <div class="relative flex items-start">
+                        <div class="flex items-center h-5">
+                            <input id="q-money-checkbox" name="currentSituation" type="checkbox" class="focus:ring-[#FF6B6B] h-4 w-4 text-[#FF6B6B] border-gray-300 rounded">
+                        </div>
+                        <div class="ml-3 text-sm">
+                            <label for="q-money-checkbox" class="font-medium text-gray-700">💸 My bank account's on a diet, even with a job</label>
+                        </div>
+                    </div>
+                    <div class="relative flex items-start">
+                        <div class="flex items-center h-5">
+                            <input id="q-time-checkbox" name="currentSituation" type="checkbox" class="focus:ring-[#FF6B6B] h-4 w-4 text-[#FF6B6B] border-gray-300 rounded">
+                        </div>
+                        <div class="ml-3 text-sm">
+                            <label for="q-time-checkbox" class="font-medium text-gray-700">⏰ Zero time for my creative passion projects</label>
+                        </div>
+                    </div>
+                     <div class="relative flex items-start">
+                        <div class="flex items-center h-5">
+                            <input id="q-direction-checkbox" name="currentSituation" type="checkbox" class="focus:ring-[#FF6B6B] h-4 w-4 text-[#FF6B6B] border-gray-300 rounded">
+                        </div>
+                        <div class="ml-3 text-sm">
+                            <label for="q-direction-checkbox" class="font-medium text-gray-700">🤔 Legit no clue what I wanna do with my life (creator-wise!)</label>
+                        </div>
+                    </div>
+                     <div class="relative flex items-start">
+                        <div class="flex items-center h-5">
+                            <input id="q-scrolling-checkbox" name="currentSituation" type="checkbox" class="focus:ring-[#FF6B6B] h-4 w-4 text-[#FF6B6B] border-gray-300 rounded">
+                        </div>
+                        <div class="ml-3 text-sm">
+                            <label for="q-scrolling-checkbox" class="font-medium text-gray-700">📱 Binge-scrolling TikTok instead of creating content</label>
+                        </div>
+                    </div>
+                     <div class="relative flex items-start">
+                        <div class="flex items-center h-5">
+                            <input id="q-others-blow-up-checkbox" name="currentSituation" type="checkbox" class="focus:ring-[#FF6B6B] h-4 w-4 text-[#FF6B6B] border-gray-300 rounded">
+                        </div>
+                        <div class="ml-3 text-sm">
+                            <label for="q-others-blow-up-checkbox" class="font-medium text-gray-700">🤯 Watching everyone else blow up and wondering, "Why not me?"</label>
+                        </div>
+                    </div>
+                    <div class="mt-6">
+                        <label for="q-other-issue" class="block text-sm font-medium text-gray-700 mb-1">Anything else on your mind? ✍️</label>
+                        <textarea id="q-other-issue" rows="2" class="form-textarea w-full p-3 bg-gray-50 rounded-lg border border-gray-300"></textarea>
+                    </div>
+                </div>
+            </div>
+            <!-- Step 3: Reflection -->
+            <div id="step-3" class="step hidden absolute w-full">
+                <h2 class="text-2xl font-bold text-center mb-6">🧐 What If Nothing Changes?</h2>
+                <div class="bg-[#FFF8F3] p-6 rounded-lg text-center mb-8">
+                    <p class="font-semibold text-gray-700">Imagine 5 years from now if nothing changes...</p>
+                    <ul class="list-none mt-4 space-y-2 text-gray-600">
+                        <li>"My life will stay the same."</li>
+                        <li>"I won't achieve what I dreamed of as a kid."</li>
+                        <li>"I'll look back in regret that I didn't start."</li>
+                    </ul>
+                </div>
+                 <div>
+                    <label for="q-fear" class="block text-center font-medium text-gray-700 mb-2">What's your biggest fear if you don't make a change?</label>
+                    <textarea id="q-fear" rows="3" class="form-textarea w-full p-3 bg-gray-50 rounded-lg border border-gray-300"></textarea>
+                </div>
+            </div>
+            <!-- Step 4: Superpower -->
+            <div id="step-4" class="step hidden absolute w-full">
+                <h2 class="text-2xl font-bold text-center mb-6">🚀 Unlock Your Creator Wins: Let's Get It!</h2>
+                <p class="text-center text-gray-600 mb-8">No more overthinking! It's time to map out those epic creator wins. What's gonna make your content journey feel like an absolute W? 🔥</p>
+                 <div class="space-y-6">
+                    <div>
+                        <label for="q-confident" class="block text-sm font-medium text-gray-700 mb-1">I'm gonna be the type of confident creator who...</label>
+                        <textarea id="q-confident" rows="2" class="form-textarea w-full p-3 bg-gray-50 rounded-lg border border-gray-300" placeholder="e.g., crushes live streams and gets millions of views!"></textarea>
+                    </div>
+                    <div>
+                        <label for="q-freedom" class="block text-sm font-medium text-gray-700 mb-1">Financial freedom means I can finally...</label>
+                        <textarea id="q-freedom" rows="2" class="form-textarea w-full p-3 bg-gray-50 rounded-lg border border-gray-300" placeholder="e.g., travel the world making content, no boss in sight!"></textarea>
+                    </div>
+                    <div>
+                        <label for="q-grind" class="block text-sm font-medium text-gray-700 mb-1">When the 9-to-5 is gone, I'm spending my time on...</label>
+                        <textarea id="q-grind" rows="2" class="form-textarea w-full p-3 bg-gray-50 rounded-lg border border-gray-300" placeholder="e.g., dropping fire content, learning new editing hacks, and chilling hard!"></textarea>
+                    </div>
+                     <div class="mt-8">
+                        <h3 class="font-bold text-lg text-gray-800 mb-4">My Top Creator Wins Checklist! (Tick the ones you're aiming for! 👇) ✅</h3>
+                        <div class="space-y-3">
+                            <div class="relative flex items-start">
+                                <div class="flex items-center h-5">
+                                    <input id="win-viral" name="creatorWins" type="checkbox" class="focus:ring-[#FF6B6B] h-4 w-4 text-[#FF6B6B] border-gray-300 rounded">
+                                </div>
+                                <div class="ml-3 text-sm">
+                                    <label for="win-viral" class="font-medium text-gray-700">My content goes VIRAL! 🚀</label>
+                                </div>
+                            </div>
+                            <div class="relative flex items-start">
+                                <div class="flex items-center h-5">
+                                    <input id="win-community" name="creatorWins" type="checkbox" class="focus:ring-[#FF6B6B] h-4 w-4 text-[#FF6B6B] border-gray-300 rounded">
+                                </div>
+                                <div class="ml-3 text-sm">
+                                    <label for="win-community" class="font-medium text-gray-700">Build a super loyal community that's always hyped! ❤️‍🔥</label>
+                                </div>
+                            </div>
+                            <div class="relative flex items-start">
+                                <div class="flex items-center h-5">
+                                    <input id="win-monetize" name="creatorWins" type="checkbox" class="focus:ring-[#FF6B6B] h-4 w-4 text-[#FF6B6B] border-gray-300 rounded">
+                                </div>
+                                <div class="ml-3 text-sm">
+                                    <label for="win-monetize" class="font-medium text-gray-700">Start making serious cash from my content! 💰</label>
+                                </div>
+                            </div>
+                            <div class="relative flex items-start">
+                                <div class="flex items-center h-5">
+                                    <input id="win-collab" name="creatorWins" type="checkbox" class="focus:ring-[#FF6B6B] h-4 w-4 text-[#FF6B6B] border-gray-300 rounded">
+                                </div>
+                                <div class="ml-3 text-sm">
+                                    <label for="win-collab" class="font-medium text-gray-700">Collab with a creator I look up to! 🤝</label>
+                                </div>
+                            </div>
+                            <div class="relative flex items-start">
+                                <div class="flex items-center h-5">
+                                    <input id="win-followers-10k" name="creatorWins" type="checkbox" class="focus:ring-[#FF6B6B] h-4 w-4 text-[#FF6B6B] border-gray-300 rounded">
+                                </div>
+                                <div class="ml-3 text-sm">
+                                    <label for="win-followers-10k" class="font-medium text-gray-700">Hit 10K followers this month! (Small win, big flex) 📈</label>
+                                </div>
+                            </div>
+                            <div class="relative flex items-start">
+                                <div class="flex items-center h-5">
+                                    <input id="win-editing-trick" name="creatorWins" type="checkbox" class="focus:ring-[#FF6B6B] h-4 w-4 text-[#FF6B6B] border-gray-300 rounded">
+                                </div>
+                                <div class="ml-3 text-sm">
+                                    <label for="win-editing-trick" class="font-medium text-gray-700">Finally perfect that editing transition! ✨</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="mt-8">
+                        <label for="q-big-dream" class="block text-lg font-bold text-center text-gray-800 mb-2">What's the BIGGEST flex you'll achieve as a creator? (No limits, drop your wildest vision!) 🌟</label>
+                        <textarea id="q-big-dream" rows="3" class="form-textarea w-full p-3 bg-gray-50 rounded-lg border border-gray-300" placeholder="e.g., headline a festival, launch my own empire, buy my parents a house!"></textarea>
+                    </div>
+                </div>
+            </div>
+            <!-- Step 5: Mission -->
+            <div id="step-5" class="step hidden absolute w-full">
+                <h2 class="text-2xl font-bold text-center mb-6">🏆 Your Epic 2025 Mission</h2>
+                <p class="text-center text-gray-600 mb-8">Let's get specific! Set some big, exciting goals.</p>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <label for="g-quit" class="block text-sm font-medium text-gray-700">Quit my current job by:</label>
+                        <input type="date" id="g-quit" class="form-input mt-1 w-full p-2 rounded-md border border-gray-300">
+                    </div>
+                     <div class="bg-gray-50 p-4 rounded-lg">
+                        <label for="g-online" class="block text-sm font-medium text-gray-700">Make all my money online by:</label>
+                        <input type="date" id="g-online" class="form-input mt-1 w-full p-2 rounded-md border border-gray-300">
+                    </div>
+                    <div class="md:col-span-2 bg-gray-50 p-4 rounded-lg">
+                        <label for="g-followers" class="block text-sm font-medium text-gray-700">Hit my follower goal: <span id="follower-count" class="font-bold text-[#FF6B6B]">100,000</span></label>
+                        <input type="range" id="g-followers" min="1000" max="1000000" step="1000" value="100000" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <label for="g-product" class="block text-sm font-medium text-gray-700">Launch my first digital product/service:</label>
+                        <input type="text" id="g-product" placeholder="e.g., 'My Viral Video Guide'" class="form-input mt-1 w-full p-2 rounded-md border border-gray-300">
+                    </div>
+                     <div class="bg-gray-50 p-4 rounded-lg">
+                        <label for="g-brand" class="block text-sm font-medium text-gray-700">Secure my first brand deal with:</label>
+                        <input type="text" id="g-brand" placeholder="e.g., 'My favorite fitness brand'" class="form-input mt-1 w-full p-2 rounded-md border border-gray-300">
+                    </div>
+                </div>
+            </div>
+            <!-- Step 6: Why + Action -->
+            <div id="step-6" class="step hidden absolute w-full">
+                <h2 class="text-2xl font-bold text-center mb-6">🔥 Fuel Your Fire & Get That Action Plan!</h2>
+                <p class="text-center text-gray-600 mb-8">This is HUGE. Why are you doing this? What's the deep-down motivation that keeps you going? Then, let's map out your first moves!</p>
+                 <div class="space-y-6 mb-12">
+                    <h3 class="font-bold text-lg text-gray-800 mb-4">Your "Why" Power-Up:</h3>
+                    <div>
+                        <label for="w-parents" class="block text-sm font-medium text-gray-700 mb-1">I want to be able to treat my parents/family because...</label>
+                        <textarea id="w-parents" rows="2" class="form-textarea w-full p-3 bg-gray-50 rounded-lg border border-gray-300"></textarea>
+                    </div>
+                    <div>
+                        <label for="w-same" class="block text-sm font-medium text-gray-700 mb-1">I'm sick of living the same day every day because...</label>
+                        <textarea id="w-same" rows="2" class="form-textarea w-full p-3 bg-gray-50 rounded-lg border border-gray-300"></textarea>
+                    </div>
+                    <div>
+                        <label for="w-control" class="block text-sm font-medium text-gray-700 mb-1">I want to have control over my time and location so I can...</label>
+                        <textarea id="w-control" rows="3" class="form-textarea w-full p-3 bg-gray-50 rounded-lg border border-gray-300"></textarea>
+                    </div>
+                </div>
+
+                <div>
+                 <h2 class="text-2xl font-bold text-center mb-6">✅ Ready, Set, GO!</h2>
+                <p class="text-center text-gray-600 mb-8">Awesome! Now, let's pick some tiny steps to take *this week* to kick things off.</p>
+                <div class="space-y-4">
+                    <div class="relative flex items-start">
+                        <div class="flex items-center h-5">
+                            <input id="c-trends" name="checklist" type="checkbox" class="focus:ring-[#FF6B6B] h-4 w-4 text-[#FF6B6B] border-gray-300 rounded">
+                        </div>
+                        <div class="ml-3 text-sm">
+                            <label for="c-trends" class="font-medium text-gray-700">Research 3 viral TikTok trends in my niche.</label>
+                        </div>
+                    </div>
+                    <div class="relative flex items-start">
+                        <div class="flex items-center h-5">
+                            <input id="c-ideas" name="checklist" type="checkbox" class="focus:ring-[#FF6B6B] h-4 w-4 text-[#FF6B6B] border-gray-300 rounded">
+                        </div>
+                        <div class="ml-3 text-sm">
+                            <label for="c-ideas" class="font-medium text-gray-700">Brainstorm 5 new content ideas based on trends.</label>
+                        </div>
+                    </div>
+                    <div class="relative flex items-start">
+                        <div class="flex items-center h-5">
+                            <input id="c-post" name="checklist" type="checkbox" class="focus:ring-[#FF6B6B] h-4 w-4 text-[#FF6B6B] border-gray-300 rounded">
+                        </div>
+                        <div class="ml-3 text-sm">
+                            <label for="c-post" class="font-medium text-gray-700">Record and post 1 new TikTok video.</label>
+                        </div>
+                    </div>
+                    <div class="relative flex items-start">
+                        <div class="flex items-center h-5">
+                            <input id="c-engage" name="checklist" type="checkbox" class="focus:ring-[#FF6B6B] h-4 w-4 text-[#FF6B6B] border-gray-300 rounded">
+                        </div>
+                        <div class="ml-3 text-sm">
+                            <label for="c-engage" class="font-medium text-gray-700">Engage with 5 other creators in my niche.</label>
+                        </div>
+                    </div>
+                    <div class="relative flex items-start">
+                        <div class="flex items-center h-5">
+                            <input id="c-learn" name="checklist" type="checkbox" class="focus:ring-[#FF6B6B] h-4 w-4 text-[#FF6B6B] border-gray-300 rounded">
+                        </div>
+                        <div class="ml-3 text-sm">
+                            <label for="c-learn" class="font-medium text-gray-700">Spend 15 minutes learning a new editing trick.</label>
+                        </div>
+                    </div>
+                    <div class="mt-6">
+                        <label for="q-first-step" class="block text-center font-medium text-gray-700 mb-2">What's your #1 next step you'll take TODAY?</label>
+                        <input type="text" id="q-first-step" class="form-input w-full p-3 bg-gray-50 rounded-lg border border-gray-300">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Buttons -->
+        <div id="navigation-buttons" class="mt-12 flex justify-between items-center">
+            <button id="prev-btn" class="bg-gray-200 text-gray-700 font-bold py-2 px-6 rounded-lg hover:bg-gray-300 transition-colors invisible">Previous</button>
+            <button id="next-btn" class="bg-[#FF6B6B] text-white font-bold py-2 px-6 rounded-lg hover:bg-[#ff4f4f] transition-colors">Let's Go!</button>
+        </div>
+    </div>
+
+    <!-- Summary Section -->
+    <div id="summary-section" class="hidden">
+         <div class="text-center mb-10">
+            <h1 class="text-4xl sm:text-5xl font-extrabold text-[#333] mb-4">🎉 Your Viral Roadmap!</h1>
+            <p class="text-lg text-gray-600 max-w-2xl mx-auto">You've got this, future CEO of your own empire! Here's your personalized plan. Keep it handy, stay motivated, and go create something amazing.</p>
+        </div>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Mission -->
+            <div class="lg:col-span-2 bg-[#FFF8F3] p-6 rounded-xl">
+                <h3 class="font-bold text-xl mb-4 text-[#333]">🏆 Your Epic 2025 Mission</h3>
+                <ul class="space-y-3 text-gray-700">
+                    <li>🎯 <strong class="text-gray-800">Quit Job By:</strong> <span id="s-quit"></span></li>
+                    <li>💰 <strong class="text-gray-800">Full-time Online By:</strong> <span id="s-online"></span></li>
+                    <li>🚀 <strong class="text-gray-800">Follower Goal:</strong> <span id="s-followers"></span></li>
+                    <li>📦 <strong class="text-gray-800">First Product:</strong> <span id="s-product"></span></li>
+                    <li>🤝 <strong class="text-gray-800">First Brand Deal:</strong> <span id="s-brand"></span></li>
+                </ul>
+            </div>
+            <!-- Your Why -->
+             <div class="md:col-span-2 lg:col-span-3 bg-white border border-gray-200 p-6 rounded-xl">
+                <h3 class="font-bold text-xl mb-4 text-[#333]">🔥 Your "Why" Power-Up</h3>
+                <blockquote class="italic text-gray-600 border-l-4 border-[#FF6B6B] pl-4">
+                    <p id="s-why"></p>
+                </blockquote>
+            </div>
+             <!-- From & To Transformation -->
+             <div class="lg:col-span-3 grid md:grid-cols-2 gap-6">
+                <div class="bg-gray-50 p-6 rounded-xl">
+                     <h3 class="font-bold text-xl mb-4 text-[#333]">📍 From... Your Current Vibe:</h3>
+                     <ul id="s-from-list" class="list-none text-gray-600 space-y-1">
+                         <li><strong class="text-gray-800">Current Issues:</strong> <span id="s-from-issues"></span></li>
+                         <li><strong class="text-gray-800">Other Stuff:</strong> <span id="s-from-other-issue"></span></li>
+                         <li><strong class="text-gray-800">Biggest Fear:</strong> <span id="s-from-fear"></span></li>
+                     </ul>
+                </div>
+                 <div class="bg-emerald-50 p-6 rounded-xl">
+                     <h3 class="font-bold text-xl mb-4 text-emerald-800">🚀 To... Your Creator Future!</h3>
+                     <ul id="s-to-list" class="list-none text-emerald-700 space-y-1">
+                        <li><strong class="text-emerald-800">Confidence:</strong> <span id="s-to-confident"></span></li>
+                        <li><strong class="text-emerald-800">Financial Freedom:</strong> <span id="s-to-freedom"></span></li>
+                        <li><strong class="text-emerald-800">Post-9-to-5 Life:</strong> <span id="s-to-grind"></span></li>
+                        <li><strong class="text-emerald-800">Creator Wins Checked:</strong> <span id="s-to-creator-wins"></span></li>
+                        <li><strong class="text-emerald-800">Wildest Dream:</strong> <span id="s-to-big-dream"></span></li>
+                    </ul>
+                </div>
+             </div>
+            <!-- This Week's Hustle -->
+            <div class="lg:col-span-3 bg-white border border-gray-200 p-6 rounded-xl">
+                <h3 class="font-bold text-xl mb-4 text-[#333]">⚡️ Your First Moves: This Week's Hustle!</h3>
+                <ul id="s-weekly-hustle" class="list-disc list-inside text-gray-700 space-y-1"></ul>
+            </div>
+            <!-- Today's First Move -->
+            <div class="md:col-span-2 lg:col-span-3 bg-white border border-gray-200 p-6 rounded-xl">
+                <h3 class="font-bold text-xl mb-4 text-[#333]">✨ Today's #1 Power Move!</h3>
+                <p id="s-today-move" class="text-gray-700 font-semibold"></p>
+            </div>
+        </div>
+        <div class="mt-12 text-center no-print">
+            <p class="text-lg text-gray-700 font-semibold mb-4">🌟 Take a screenshot of your results so you can look back on them when you’re influencer famous! 🌟</p>
+            <button id="print-btn" class="bg-[#FF6B6B] text-white font-bold py-3 px-8 rounded-lg hover:bg-[#ff4f4f] transition-colors">Print/Save My Roadmap</button>
+             <button id="start-over-btn" class="mt-4 bg-gray-200 text-gray-700 font-bold py-3 px-8 rounded-lg hover:bg-gray-300 transition-colors">Start Over</button>
+        </div>
+    </div>
+</main>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+const app = {
+    currentStep: 1,
+    totalSteps: 6,
+    userData: {},
+    elements: {
+        prevBtn: document.getElementById('prev-btn'),
+        nextBtn: document.getElementById('next-btn'),
+        progressText: document.getElementById('progress-text'),
+        progressIndicator: document.getElementById('progress-indicator'),
+        steps: document.querySelectorAll('.step'),
+        wizardContainer: document.getElementById('wizard-container'),
+        summarySection: document.getElementById('summary-section'),
+        followerCount: document.getElementById('follower-count'),
+        followerSlider: document.getElementById('g-followers'),
+        printBtn: document.getElementById('print-btn'),
+        startOverBtn: document.getElementById('start-over-btn'),
+        sQuit: document.getElementById('s-quit'),
+        sOnline: document.getElementById('s-online'),
+        sFollowers: document.getElementById('s-followers'),
+        sProduct: document.getElementById('s-product'),
+        sBrand: document.getElementById('s-brand'),
+        sWhy: document.getElementById('s-why'),
+        sFromIssues: document.getElementById('s-from-issues'),
+        sFromOtherIssue: document.getElementById('s-from-other-issue'),
+        sFromFear: document.getElementById('s-from-fear'),
+        sToConfident: document.getElementById('s-to-confident'),
+        sToFreedom: document.getElementById('s-to-freedom'),
+        sToGrind: document.getElementById('s-to-grind'),
+        sToCreatorWins: document.getElementById('s-to-creator-wins'),
+        sToBigDream: document.getElementById('s-to-big-dream'),
+        sWeeklyHustle: document.getElementById('s-weekly-hustle'),
+        sTodayMove: document.getElementById('s-today-move'),
+    },
+    init() {
+        this.addEventListeners();
+        this.updateUI();
+    },
+    addEventListeners() {
+        this.elements.nextBtn.addEventListener('click', () => this.changeStep(1));
+        this.elements.prevBtn.addEventListener('click', () => this.changeStep(-1));
+        this.elements.followerSlider.addEventListener('input', this.updateFollowerCount.bind(this));
+        this.elements.printBtn.addEventListener('click', () => window.print());
+        this.elements.startOverBtn.addEventListener('click', () => window.location.reload());
+    },
+    changeStep(direction) {
+        if (direction === 1) { // Moving forward
+            this.saveStepData();
+            if (this.currentStep < this.totalSteps) {
+                this.currentStep++;
+            } else if (this.currentStep === this.totalSteps) {
+                this.showSummary();
+                return;
+            }
+        } else if (direction === -1 && this.currentStep > 1) {
+            this.currentStep--;
+        }
+        this.updateUI();
+    },
+    saveStepData() {
+        const stepId = this.currentStep;
+        switch(stepId) {
+            case 2:
+                const getCheckboxLabelText = (id) => {
+                    const checkbox = document.getElementById(id);
+                    if (checkbox && checkbox.checked) {
+                        const label = document.querySelector(`label[for="${id}"]`);
+                        return label ? label.textContent.replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]|\uFE0F|\u20E3/g, '').trim() : '';
+                    }
+                    return '';
+                };
+                this.userData.jobIssue = getCheckboxLabelText('q-job-checkbox');
+                this.userData.moneyIssue = getCheckboxLabelText('q-money-checkbox');
+                this.userData.timeIssue = getCheckboxLabelText('q-time-checkbox');
+                this.userData.directionIssue = getCheckboxLabelText('q-direction-checkbox');
+                this.userData.scrollingIssue = getCheckboxLabelText('q-scrolling-checkbox');
+                this.userData.othersBlowUpIssue = getCheckboxLabelText('q-others-blow-up-checkbox');
+                this.userData.otherIssue = document.getElementById('q-other-issue').value;
+                break;
+            case 3:
+                this.userData.fear = document.getElementById('q-fear').value;
+                break;
+            case 4:
+                this.userData.confident = document.getElementById('q-confident').value;
+                this.userData.freedom = document.getElementById('q-freedom').value;
+                this.userData.grind = document.getElementById('q-grind').value;
+                const getCreatorWinLabelText = (id) => {
+                    const checkbox = document.getElementById(id);
+                    if (checkbox && checkbox.checked) {
+                        const label = document.querySelector(`label[for="${id}"]`);
+                        return label ? label.textContent.replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]|\uFE0F|\u20E3/g, '').trim() : '';
+                    }
+                    return '';
+                };
+                this.userData.creatorWins = [
+                    getCreatorWinLabelText('win-viral'),
+                    getCreatorWinLabelText('win-community'),
+                    getCreatorWinLabelText('win-monetize'),
+                    getCreatorWinLabelText('win-collab'),
+                    getCreatorWinLabelText('win-followers-10k'),
+                    getCreatorWinLabelText('win-editing-trick')
+                ].filter(Boolean);
+                this.userData.bigDream = document.getElementById('q-big-dream').value;
+                break;
+            case 5:
+                this.userData.quitDate = document.getElementById('g-quit').value;
+                this.userData.onlineDate = document.getElementById('g-online').value;
+                this.userData.followers = document.getElementById('g-followers').value;
+                this.userData.product = document.getElementById('g-product').value;
+                this.userData.brand = document.getElementById('g-brand').value;
+                break;
+            case 6:
+                this.userData.whyParents = document.getElementById('w-parents').value;
+                this.userData.whySame = document.getElementById('w-same').value;
+                this.userData.whyControl = document.getElementById('w-control').value;
+                const checklistCheckboxes = document.querySelectorAll('input[name="checklist"]');
+                this.userData.checklistItems = Array.from(checklistCheckboxes).map(cb => {
+                    if (cb.checked) {
+                        const label = document.querySelector(`label[for="${cb.id}"]`);
+                        return label ? label.textContent : '';
+                    }
+                    return '';
+                }).filter(Boolean);
+                this.userData.firstStep = document.getElementById('q-first-step').value;
+                break;
+        }
+    },
+    updateUI() {
+        const progress = (this.currentStep / this.totalSteps) * 100;
+        this.elements.progressIndicator.style.width = `${progress}%`;
+        this.elements.progressText.textContent = `Step ${this.currentStep} of ${this.totalSteps}`;
+        this.elements.steps.forEach(step => {
+            const stepNumber = parseInt(step.id.split('-')[1]);
+            if (stepNumber === this.currentStep) {
+                step.classList.remove('hidden', 'absolute');
+                step.classList.add('step-visible');
+            } else {
+                step.classList.add('hidden', 'absolute');
+                step.classList.remove('step-visible');
+            }
+        });
+        this.elements.prevBtn.classList.toggle('invisible', this.currentStep === 1);
+        if (this.currentStep === this.totalSteps) {
+            this.elements.nextBtn.classList.add('invisible');
+        } else if (this.currentStep === 1) {
+            this.elements.nextBtn.classList.remove('invisible');
+            this.elements.nextBtn.textContent = "Let's Go!";
+        } else {
+            this.elements.nextBtn.classList.remove('invisible');
+            this.elements.nextBtn.textContent = 'Next';
+        }
+    },
+    updateFollowerCount() {
+        const value = parseInt(this.elements.followerSlider.value);
+        this.elements.followerCount.textContent = value.toLocaleString('en-US');
+    },
+    showSummary() {
+        this.populateSummary();
+        this.elements.wizardContainer.classList.add('hidden');
+        this.elements.summarySection.classList.remove('hidden');
+    },
+    populateSummary() {
+        const formatText = (text) => text && text.trim() !== '' ? text : 'Not specified';
+        const formatDate = (date) => date ? new Date(date + 'T00:00:00').toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : 'Not specified';
+        this.elements.sQuit.textContent = formatDate(this.userData.quitDate);
+        this.elements.sOnline.textContent = formatDate(this.userData.onlineDate);
+        this.elements.sFollowers.textContent = this.userData.followers ? parseInt(this.userData.followers).toLocaleString('en-US') : 'Not specified';
+        this.elements.sProduct.textContent = formatText(this.userData.product);
+        this.elements.sBrand.textContent = formatText(this.userData.brand);
+        const whyTextParts = [
+            this.userData.whyParents,
+            this.userData.whySame,
+            this.userData.whyControl
+        ].filter(Boolean);
+        this.elements.sWhy.textContent = formatText(whyTextParts.join('; ')) || "My motivation is my own drive to succeed!";
+        const fromIssues = [
+            this.userData.jobIssue,
+            this.userData.moneyIssue,
+            this.userData.timeIssue,
+            this.userData.directionIssue,
+            this.userData.scrollingIssue,
+            this.userData.othersBlowUpIssue
+        ].filter(Boolean);
+        this.elements.sFromIssues.textContent = fromIssues.length > 0 ? fromIssues.join(', ') : 'No specific issues selected.';
+        this.elements.sFromOtherIssue.textContent = formatText(this.userData.otherIssue);
+        this.elements.sFromFear.textContent = formatText(this.userData.fear);
+        this.elements.sToConfident.textContent = formatText(this.userData.confident);
+        this.elements.sToFreedom.textContent = formatText(this.userData.freedom);
+        this.elements.sToGrind.textContent = formatText(this.userData.grind);
+        this.elements.sToCreatorWins.textContent = this.userData.creatorWins && this.userData.creatorWins.length > 0 ? this.userData.creatorWins.join(', ') : 'No specific wins chosen';
+        this.elements.sToBigDream.textContent = formatText(this.userData.bigDream);
+        this.elements.sWeeklyHustle.innerHTML = '';
+        if (this.userData.checklistItems && this.userData.checklistItems.length > 0) {
+            this.userData.checklistItems.forEach(item => {
+                const listItem = document.createElement('li');
+                listItem.textContent = item;
+                this.elements.sWeeklyHustle.appendChild(listItem);
+            });
+        } else {
+            this.elements.sWeeklyHustle.innerHTML = '<li>No specific weekly hustles chosen yet!</li>';
+        }
+        this.elements.sTodayMove.textContent = formatText(this.userData.firstStep) || "No immediate first move planned.";
+    },
+};
+app.init();
+});
+</script>
+
+</body>
+</html>

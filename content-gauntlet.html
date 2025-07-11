@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Viral Content Gauntlet 🚀</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      scroll-behavior: smooth;
+      background: linear-gradient(170deg, #0f172a, #1e293b);
+    }
+    .quest-card {
+      background: rgba(30, 41, 59, 0.7);
+      border: 1px solid rgba(255,255,255,0.10);
+      overflow: hidden;
+    }
+    .quest-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s cubic-bezier(.34,1.56,.64,1), padding 0.3s;
+    }
+    .quest-content.open {
+      max-height: 1200px;
+      padding-top: 1.5rem;
+      padding-bottom: 1.5rem;
+    }
+    .chevron {
+      transition: transform 0.3s;
+    }
+    .quest-header.open .chevron {
+      transform: rotate(180deg);
+    }
+    .custom-checkbox {
+      appearance: none;
+      background-color: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.20);
+      transition: all 0.2s;
+      width: 1.25rem; height: 1.25rem;
+      border-radius: 0.25rem;
+      display: inline-block;
+      vertical-align: middle;
+      cursor: pointer;
+      position: relative;
+    }
+    .custom-checkbox:checked {
+      background-color: #3b82f6;
+      border-color: #3b82f6;
+    }
+    .custom-checkbox:checked::after {
+      content: '✔';
+      color: white;
+      position: absolute;
+      left: 0; top: 0; right: 0; bottom: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.95rem;
+    }
+    input[type="text"], input[type="number"], textarea {
+      background-color: rgba(15,23,42,0.8);
+      border: 1px solid #4b5563;
+      transition: all 0.2s;
+      color: #fff;
+    }
+    input[type="text"]:focus, input[type="number"]:focus, textarea:focus {
+      background-color: rgba(15,23,42,1);
+      border-color: #3b82f6;
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(59,130,246,0.2);
+    }
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-thumb { background: #4b5563; border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: #6b7280; }
+  </style>
+</head>
+<body class="text-slate-300 antialiased">
+  <div id="toast" class="fixed top-5 right-5 bg-blue-500 text-white py-2 px-4 rounded-lg shadow-lg opacity-0 transform -translate-y-10 transition-all duration-300 z-50"></div>
+  <div class="container mx-auto max-w-4xl p-4 sm:p-8">
+    <header class="text-center mb-16">
+      <h1 class="text-4xl sm:text-5xl font-extrabold text-white mb-4 tracking-tight">The Viral Content Gauntlet 🚀</h1>
+      <p class="text-lg text-slate-400 max-w-2xl mx-auto">
+        Tired of posting into the void? This isn't just a worksheet; it's your personal boot camp for going viral. Complete each quest to start cranking out scroll-stopping content. Let's get it. 🔥
+      </p>
+    </header>
+
+    <div class="space-y-6">
+      <div class="quest-card rounded-xl shadow-2xl">
+        <div id="quest1-header" class="quest-header flex justify-between items-center p-5 cursor-pointer select-none">
+          <h2 class="text-2xl font-bold text-white"><span class="text-blue-400">Quest 1:</span> The Controversy Catalyst 🌶️</h2>
+          <svg class="chevron w-6 h-6 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+        </div>
+        <div class="quest-content px-6">
+          <p class="mb-6 text-slate-400">Safe is boring. Strong opinions get engagement. Your mission: craft a "Hot Take" that grabs attention without tanking your reputation.</p>
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-slate-300 mb-1">1. My Niche is:</label>
+              <input type="text" id="niche" class="w-full rounded-md p-3" placeholder="e.g., Fitness, Gaming, Cooking">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-slate-300 mb-1">2. A Common (Boring) Belief in My Niche:</label>
+              <textarea id="common-belief" rows="2" class="w-full rounded-md p-3" placeholder="e.g., You need to eat chicken and broccoli to get fit"></textarea>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-slate-300 mb-1">3. My Polarizing Stance (The Hard Take):</label>
+              <textarea id="polarizing-stance" rows="2" class="w-full rounded-md p-3" placeholder="e.g., You need to STOP eating chicken and broccoli right now."></textarea>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-slate-300 mb-1">4. The "Bait-and-Switch" Twist:</label>
+              <textarea id="twist" rows="2" class="w-full rounded-md p-3" placeholder="...and start eating MORE steak and eggs. Here's why."></textarea>
+            </div>
+            <div class="pt-4">
+              <label class="flex items-center space-x-3 cursor-pointer">
+                <input type="checkbox" id="quest1-challenge" class="custom-checkbox">
+                <span class="text-white font-semibold">CHALLENGE MODE: I posted a video using this formula!</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="quest-card rounded-xl shadow-2xl">
+        <div id="quest2-header" class="quest-header flex justify-between items-center p-5 cursor-pointer select-none">
+          <h2 class="text-2xl font-bold text-white"><span class="text-blue-400">Quest 2:</span> The Goldfish Gauntlet 🐠</h2>
+          <svg class="chevron w-6 h-6 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+        </div>
+        <div class="quest-content px-6">
+          <p class="mb-6 text-slate-400">Everyone's attention span is fried. If your video has a single second of dead air, they're gone. Your mission: make your video un-scroll-able.</p>
+          <div class="space-y-3" id="video-autopsy-checklist">
+            <h3 class="text-lg font-semibold text-white mb-2">🎬 Video Autopsy Checklist</h3>
+            <label class="flex items-center space-x-3 cursor-pointer"><input type="checkbox" data-key="fastCuts" class="custom-checkbox"><span class="text-slate-300">Fast Cuts: Cut or zoom every 1-3 seconds?</span></label>
+            <label class="flex items-center space-x-3 cursor-pointer"><input type="checkbox" data-key="onScreenText" class="custom-checkbox"><span class="text-slate-300">On-Screen Text: Highlighting key points?</span></label>
+            <label class="flex items-center space-x-3 cursor-pointer"><input type="checkbox" data-key="visualSpice" class="custom-checkbox"><span class="text-slate-300">Visual Spice: Images, B-roll, or memes?</span></label>
+            <label class="flex items-center space-x-3 cursor-pointer"><input type="checkbox" data-key="soundDesign" class="custom-checkbox"><span class="text-slate-300">Sound Design: Sound effects, risers, music?</span></label>
+            <label class="flex items-center space-x-3 cursor-pointer"><input type="checkbox" data-key="noDeadAir" class="custom-checkbox"><span class="text-slate-300">ZERO Dead Air: Every micro-pause removed?</span></label>
+            <label class="flex items-center space-x-3 cursor-pointer"><input type="checkbox" data-key="gutCheck" class="custom-checkbox"><span class="text-slate-300">3-Second Gut Check: Does it GRAB you instantly?</span></label>
+          </div>
+        </div>
+      </div>
+
+      <div class="quest-card rounded-xl shadow-2xl">
+        <div id="quest3-header" class="quest-header flex justify-between items-center p-5 cursor-pointer select-none">
+          <h2 class="text-2xl font-bold text-white"><span class="text-blue-400">Quest 3:</span> The Endless Idea Factory 🏭</h2>
+          <svg class="chevron w-6 h-6 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+        </div>
+        <div class="quest-content px-6">
+          <p class="mb-6 text-slate-400">Waiting for inspiration is for amateurs. The pros find proven, viral ideas on demand. Your mission: build a swipe file of guaranteed bangers.</p>
+          <div class="space-y-6">
+            <div>
+              <label class="block text-sm font-medium text-white mb-1">1. Spy on Your Niche</label>
+              <p class="text-sm text-slate-400 mb-2">What would your ideal viewer search for on TikTok? Get specific.</p>
+              <input type="text" id="viewer-persona" class="w-full rounded-md p-3" placeholder='e.g., "beginner workouts", "fat loss myths", "how to get bigger arms"'>
+            </div>
+            <div>
+              <h3 class="block text-sm font-medium text-white mb-1">2. Filter for Virality (The Secret Sauce)</h3>
+              <p class="text-sm text-slate-400 mb-2">In the TikTok search results, tap the filters icon in the top right. Sort by <span class="font-bold text-blue-400">"Most liked"</span> and set the date range to <span class="font-bold text-blue-400">"This week"</span>. This shows you what's blowing up RIGHT NOW.</p>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-white mb-1">3. Build Your Hit List</label>
+              <p class="text-sm text-slate-400 mb-2">Find 3-5 videos using the filter trick. Don't just copy them, figure out the <em>format</em>. Is it a tutorial? A myth-busting video? A stitch with another creator? Add the formats below.</p>
+              <div id="idea-list" class="space-y-2"></div>
+              <button id="add-idea-btn" type="button" class="mt-2 text-sm font-semibold text-blue-400 hover:text-blue-300 transition-colors">+ Add Idea Format</button>
+            </div>
+            <div class="bg-slate-900/50 p-4 rounded-lg border border-slate-700">
+              <h4 class="font-bold text-white">🤖 CHEAT CODE ACTIVATED</h4>
+              <p class="text-sm text-slate-400 mt-1 mb-2">Still stuck? Click to copy this prompt and paste it into ChatGPT.</p>
+              <button id="copy-prompt-btn" type="button" class="w-full bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-500 transition-all duration-200 shadow-lg hover:shadow-blue-500/50">Copy Prompt</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="quest-card rounded-xl shadow-2xl">
+        <div id="quest4-header" class="quest-header flex justify-between items-center p-5 cursor-pointer select-none">
+          <h2 class="text-2xl font-bold text-white"><span class="text-blue-400">Quest 4:</span> The Content Machine 🤖</h2>
+          <svg class="chevron w-6 h-6 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+        </div>
+        <div class="quest-content px-6">
+          <p class="mb-6 text-slate-400">Consistency is king, but life gets in the way. Stop making content <em>daily</em>. Your mission: batch produce an entire week's worth of videos in one session.</p>
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-slate-300 mb-1">1. Batch Goal: I will record ___ videos.</label>
+              <input type="number" id="batch-goal" class="w-full rounded-md p-3" placeholder="Aim for 7-10!">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-slate-300 mb-1">2. My Ammo (Video ideas for this batch):</label>
+              <div id="ammo-list" class="space-y-2"></div>
+              <button id="add-ammo-btn" type="button" class="mt-2 text-sm font-semibold text-blue-400 hover:text-blue-300 transition-colors">+ Add Video Idea</button>
+            </div>
+            <div class="pt-4 border-t border-slate-700">
+              <label class="flex items-center space-x-3 cursor-pointer">
+                <input type="checkbox" id="quest4-golden-rule" class="custom-checkbox">
+                <span class="text-white font-semibold">The Golden Rule:</span>&nbsp;<span class="text-slate-300">I will save all videos as DRAFTS.</span>
+              </label>
+            </div>
+            <div class="pt-4">
+              <label class="flex items-center space-x-3 cursor-pointer">
+                <input type="checkbox" id="quest4-final-boss" class="custom-checkbox">
+                <span class="text-xl font-bold text-green-400">BATCH DAY COMPLETE!</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer class="text-center mt-16">
+      <p class="text-slate-400">You've completed the Gauntlet! 🏆 Revisit this anytime to sharpen your strategy.</p>
+      <p class="text-slate-500 text-sm mt-2">Now go break the internet.</p>
+    </footer>
+  </div>
+
+  <script>
+    document.querySelectorAll('.quest-header').forEach((header, idx) => {
+      header.addEventListener('click', () => {
+        const allHeaders = document.querySelectorAll('.quest-header');
+        const allContents = document.querySelectorAll('.quest-content');
+        allHeaders.forEach(h => h.classList.remove('open'));
+        allContents.forEach(c => c.classList.remove('open'));
+        if (!header.classList.contains('open')) {
+          header.classList.add('open');
+          header.nextElementSibling.classList.add('open');
+        }
+      });
+    });
+    if(document.querySelector('.quest-header')) document.querySelector('.quest-header').click();
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.classList.remove('opacity-0', '-translate-y-10');
+      toast.classList.add('opacity-100', 'translate-y-0');
+      setTimeout(() => {
+        toast.classList.remove('opacity-100', 'translate-y-0');
+        toast.classList.add('opacity-0', '-translate-y-10');
+      }, 1700);
+    }
+
+    function addListItem(listId, placeholder) {
+      const list = document.getElementById(listId);
+      const div = document.createElement('div');
+      div.className = 'flex items-center space-x-2';
+      div.innerHTML = '<input type="text" class="w-full rounded-md p-3" placeholder="' + placeholder + '"><button type="button" class="remove-btn text-red-500 hover:text-red-400 p-1 rounded-full transition-colors">&times;</button>';
+      list.appendChild(div);
+      div.querySelector('.remove-btn').onclick = function() {
+        div.remove();
+      };
+    }
+
+    document.getElementById('add-idea-btn').onclick = function() {
+      addListItem('idea-list', "e.g., '3 tips for X' format");
+      showToast('Progress Saved!');
+    }
+    document.getElementById('add-ammo-btn').onclick = function() {
+      addListItem('ammo-list', "e.g., My version of '3 tips for bicep growth'");
+      showToast('Progress Saved!');
+    }
+    addListItem('idea-list', "e.g., '3 tips for X' format");
+    addListItem('ammo-list', "e.g., My version of '3 tips for bicep growth'");
+
+    document.getElementById('copy-prompt-btn').onclick = function() {
+      const niche = document.getElementById('niche').value.trim() || '[Your Niche]';
+      const persona = document.getElementById('viewer-persona').value.trim() || '[Viewer Interest]';
+      const prompt = `I want to create 10 viral TikTok video ideas for my ideal viewer who's into '${niche}' and '${persona}'. Give me controversial hooks and fast-paced concepts.`;
+      const ta = document.createElement('textarea');
+      ta.value = prompt;
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        document.execCommand('copy');
+        showToast('Prompt Copied!');
+      } catch(e) {
+        showToast('Copy Failed!');
+      }
+      document.body.removeChild(ta);
+    };
+  </script>
+</body>
+</html>

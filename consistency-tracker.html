@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TikTok Takeoff Tracker</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Permanent+Marker&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Poppins', sans-serif; }
+    .marker { font-family: 'Permanent Marker', cursive; }
+    @media print {
+      .no-print { display: none !important; }
+      body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .page-container { box-shadow: none !important; border: none !important; margin: 0 !important; max-width: 100% !important; }
+    }
+  </style>
+</head>
+<body class="bg-slate-100 flex flex-col items-center justify-center min-h-screen p-4 sm:p-8">
+
+  <!-- Main Page Container -->
+  <div class="page-container bg-white rounded-2xl shadow-2xl max-w-4xl w-full p-6 sm:p-10 border-4 border-slate-200">
+
+    <!-- Header Section -->
+    <header class="text-center mb-8">
+      <h1 class="text-4xl sm:text-5xl font-bold text-slate-800">✨ TikTok Takeoff Tracker ✨</h1>
+      <p class="text-lg sm:text-xl text-indigo-500 mt-2 marker">Post consistently. Track progress. BLOW UP. 🚀</p>
+      <p class="text-slate-600 max-w-2xl mx-auto mt-4 text-sm sm:text-base">
+        Going viral doesn’t happen by accident, it’s built on consistency! Use this challenge to build a killer posting habit and create unstoppable momentum.
+      </p>
+    </header>
+
+    <!-- Goal Section -->
+    <section class="bg-indigo-50 border-2 border-dashed border-indigo-300 rounded-xl p-6 mb-8 text-center">
+      <h2 class="text-2xl font-bold text-indigo-600">🎯 My Epic Posting Goal</h2>
+      <p class="text-slate-500 text-sm mt-1 mb-2">(e.g., "Post 2x per day," "Go live 3x a week," "Hit 10k followers")</p>
+      <div contenteditable="true"
+        class="min-h-[2.5rem] border-b-2 border-dotted border-slate-300 w-full inline-block mt-2 focus:outline-none bg-transparent text-lg"></div>
+    </section>
+
+    <!-- 30-Day Challenge Section -->
+    <section>
+      <h2 class="text-center text-3xl font-bold text-slate-800 mb-2">🔥 THE 30-DAY GROWTH CHALLENGE 🔥</h2>
+      <p class="text-center text-slate-600 mb-6">Check off a box for every single video you post. Let's see that grid fill up!</p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Week 1 & 3 -->
+        <div class="space-y-6">
+          <!-- Week 1 -->
+          <div class="bg-slate-50 rounded-xl p-4">
+            <h3 class="font-bold text-slate-700 text-lg mb-3">WEEK 1: The Warm-Up</h3>
+            <table class="w-full text-center">
+              <thead>
+                <tr>
+                  <th class="w-1/4">Day</th>
+                  <th class="w-1/4">Post 1</th>
+                  <th class="w-1/4">Post 2</th>
+                  <th class="w-1/4">Post 3</th>
+                </tr>
+              </thead>
+              <tbody id="week1"></tbody>
+            </table>
+          </div>
+          <!-- Week 3 -->
+          <div class="bg-slate-50 rounded-xl p-4">
+            <h3 class="font-bold text-slate-700 text-lg mb-3">WEEK 3: Hitting Your Stride</h3>
+            <table class="w-full text-center">
+              <thead>
+                <tr>
+                  <th class="w-1/4">Day</th>
+                  <th class="w-1/4">Post 1</th>
+                  <th class="w-1/4">Post 2</th>
+                  <th class="w-1/4">Post 3</th>
+                </tr>
+              </thead>
+              <tbody id="week3"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Week 2 & 4 -->
+        <div class="space-y-6">
+          <!-- Week 2 -->
+          <div class="bg-slate-50 rounded-xl p-4">
+            <h3 class="font-bold text-slate-700 text-lg mb-3">WEEK 2: Finding Your Groove</h3>
+            <table class="w-full text-center">
+              <thead>
+                <tr>
+                  <th class="w-1/4">Day</th>
+                  <th class="w-1/4">Post 1</th>
+                  <th class="w-1/4">Post 2</th>
+                  <th class="w-1/4">Post 3</th>
+                </tr>
+              </thead>
+              <tbody id="week2"></tbody>
+            </table>
+          </div>
+          <!-- Week 4 -->
+          <div class="bg-slate-50 rounded-xl p-4">
+            <h3 class="font-bold text-slate-700 text-lg mb-3">WEEK 4: Unstoppable Force</h3>
+            <table class="w-full text-center">
+              <thead>
+                <tr>
+                  <th class="w-1/4">Day</th>
+                  <th class="w-1/4">Post 1</th>
+                  <th class="w-1/4">Post 2</th>
+                  <th class="w-1/4">Post 3</th>
+                </tr>
+              </thead>
+              <tbody id="week4"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Rewards & Idea Lab -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-10">
+      <!-- Rewards Section -->
+      <section class="bg-teal-50 border-2 border-teal-200 rounded-xl p-6">
+        <h2 class="text-2xl font-bold text-teal-700 mb-3">🏆 Level Up & Invest In Yourself</h2>
+        <div class="space-y-4 text-sm text-slate-600">
+          <div>
+            <p class="font-semibold">After 15 posts, I will...</p>
+            <div contenteditable="true"
+              class="min-h-[2.5rem] border-b-2 border-dotted border-teal-300 w-full inline-block mt-2 focus:outline-none bg-transparent"></div>
+          </div>
+          <div>
+            <p class="font-semibold">After 30 posts, I will...</p>
+            <div contenteditable="true"
+              class="min-h-[2.5rem] border-b-2 border-dotted border-teal-300 w-full inline-block mt-2 focus:outline-none bg-transparent"></div>
+          </div>
+          <div>
+            <p class="font-semibold">After completing the Challenge, I will...</p>
+            <div contenteditable="true"
+              class="min-h-[2.5rem] border-b-2 border-dotted border-teal-300 w-full inline-block mt-2 focus:outline-none bg-transparent"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Idea Lab Section -->
+      <section class="bg-yellow-50 border-2 border-yellow-200 rounded-xl p-6">
+        <h2 class="text-2xl font-bold text-yellow-700 mb-3">🧪 The Viral Idea Lab</h2>
+        <div class="space-y-4 text-sm text-slate-600">
+          <div>
+            <p class="font-semibold">Trending Sounds/Formats:</p>
+            <div contenteditable="true"
+              class="min-h-[2.5rem] border-b-2 border-dotted border-yellow-300 w-full inline-block mt-2 focus:outline-none bg-transparent"></div>
+          </div>
+          <div>
+            <p class="font-semibold">Video Ideas to Try:</p>
+            <div contenteditable="true"
+              class="min-h-[2.5rem] border-b-2 border-dotted border-yellow-300 w-full inline-block mt-2 focus:outline-none bg-transparent"></div>
+          </div>
+          <div>
+            <p class="font-semibold">Creators Inspiring Me:</p>
+            <div contenteditable="true"
+              class="min-h-[2.5rem] border-b-2 border-dotted border-yellow-300 w-full inline-block mt-2 focus:outline-none bg-transparent"></div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- Print Button -->
+  <div class="text-center mt-8 no-print">
+    <button onclick="window.print()"
+      class="bg-indigo-500 text-white font-bold py-3 px-8 rounded-full hover:bg-indigo-600 transition-all shadow-lg hover:shadow-xl">
+      🖨️ Print This Tracker
+    </button>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const days = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
+      function makeWeek(id) {
+        const tbody = document.getElementById(id);
+        if (!tbody) return;
+        tbody.innerHTML = '';
+        days.forEach((day, i) => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td class="py-2 font-semibold">${day}</td>
+            <td class="cursor-pointer text-2xl hover:bg-indigo-100 select-none">☐</td>
+            <td class="cursor-pointer text-2xl hover:bg-indigo-100 select-none">☐</td>
+            <td class="cursor-pointer text-2xl hover:bg-indigo-100 select-none">☐</td>
+          `;
+          tbody.appendChild(tr);
+        });
+      }
+      makeWeek('week1');
+      makeWeek('week2');
+      makeWeek('week3');
+      makeWeek('week4');
+      document.querySelectorAll('table').forEach(table => {
+        table.addEventListener('click', function (e) {
+          if (e.target.tagName === 'TD' && e.target.textContent.trim() === '☐') {
+            e.target.textContent = '✅';
+            e.target.classList.add('text-indigo-500', 'font-bold');
+          } else if (e.target.tagName === 'TD' && e.target.textContent.trim() === '✅') {
+            e.target.textContent = '☐';
+            e.target.classList.remove('text-indigo-500', 'font-bold');
+          }
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>

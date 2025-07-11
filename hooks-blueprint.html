@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HammyHooks AI</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .animate-fadeIn { animation: fadeIn 0.7s ease-in-out; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    .animate-fadeInUp { animation: fadeInUp 0.5s ease-in-out; }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px);} to { opacity: 1; transform: translateY(0);} }
+  </style>
+</head>
+<body class="bg-gray-900 min-h-screen font-sans text-white flex flex-col md:flex-row">
+
+  <aside class="w-full md:w-64 bg-gray-800 p-4 md:p-6 border-b-2 md:border-b-0 md:border-r-2 border-gray-700 flex-shrink-0">
+    <div class="flex items-center space-x-3 mb-8">
+      <svg class="w-8 h-8 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0zm3.06 3.06a9 9 0 11-12.72 0M12 3v2m6.364 1.636l-1.414 1.414M21 12h-2m-1.636 6.364l-1.414-1.414M12 21v-2m-6.364-1.636l1.414-1.414M3 12h2m1.636-6.364l1.414 1.414"></path></svg>
+      <h1 class="text-xl font-bold text-white">HammyHooks AI</h1>
+    </div>
+    <nav class="space-y-3" id="sidebar-nav">
+      <button data-page="intro" class="nav-item flex items-center space-x-3 p-3 rounded-lg w-full text-left transition-colors duration-200 text-white bg-purple-600">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7m-2 2v7a2 2 0 01-2 2H7a2 2 0 01-2-2v-7z"></path></svg>
+        <span class="font-semibold">Home</span>
+      </button>
+      <button data-page="examples" class="nav-item flex items-center space-x-3 p-3 rounded-lg w-full text-left transition-colors duration-200 text-gray-300 hover:bg-gray-700">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M5 3v4a1 1 0 001 1h3M9 3l10 10a1 1 0 010 1.414l-2 2A1 1 0 0116.586 16L6 5.414A1 1 0 015 3z"></path></svg>
+        <span class="font-semibold">Hook Examples</span>
+      </button>
+      <button data-page="audit" class="nav-item flex items-center space-x-3 p-3 rounded-lg w-full text-left transition-colors duration-200 text-gray-300 hover:bg-gray-700">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 17v-6a2 2 0 012-2h2a2 2 0 012 2v6m4 0a2 2 0 01-2 2H7a2 2 0 01-2-2m14 0V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10"></path></svg>
+        <span class="font-semibold">3-Second Audit</span>
+      </button>
+      <button data-page="generator" class="nav-item flex items-center space-x-3 p-3 rounded-lg w-full text-left transition-colors duration-200 text-gray-300 hover:bg-gray-700">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 17v-6a2 2 0 012-2h2a2 2 0 012 2v6m4 0a2 2 0 01-2 2H7a2 2 0 01-2-2m14 0V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10"></path></svg>
+        <span class="font-semibold">AI Generator</span>
+      </button>
+      <button data-page="anatomy" class="nav-item flex items-center space-x-3 p-3 rounded-lg w-full text-left transition-colors duration-200 text-gray-300 hover:bg-gray-700">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 8c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 0v2m0 4h.01"></path></svg>
+        <span class="font-semibold">Anatomy of a Hook</span>
+      </button>
+    </nav>
+  </aside>
+
+  <main class="flex-1 p-4 md:p-8 overflow-y-auto">
+    <div id="main-content" class="animate-fadeIn"></div>
+  </main>
+
+  <script>
+    const PAGES = {};
+
+    PAGES.intro = `
+      <div class="text-center p-8 animate-fadeIn">
+        <h1 class="text-5xl md:text-6xl font-extrabold text-white mb-4">
+          Stop the Scroll. <span class="text-purple-400">Master the Hook.</span>
+        </h1>
+        <p class="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto mb-8">
+          This is your personal AI-powered toolkit to forge hooks that make your content unskippable. Let's create something viral.
+        </p>
+        <button id="start-generator-btn"
+          class="bg-purple-600 text-white font-bold py-3 px-8 rounded-full hover:bg-purple-700 transition-transform transform hover:scale-105 shadow-lg flex items-center justify-center mx-auto text-lg"
+        >
+          Start Generating Hooks <svg class="ml-2 w-6 h-6 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+        </button>
+      </div>
+    `;
+
+    PAGES.examples = `
+      <div class="p-4 md:p-8 animate-fadeIn">
+        <h2 class="text-4xl font-bold text-white mb-2 text-center">Top-Tier Hook Library</h2>
+        <p class="text-gray-400 mb-8 text-center">A curated list of high-performing hooks to inspire your next viral video.</p>
+        <div class="space-y-10">
+          ${[
+            {
+              category: 'Finance & Business',
+              hooks: [
+                "If you’re not doing THIS, you’re losing out on making an extra $10,000 every month.",
+                "Here’s a secret that all billionaires know but you don’t.",
+                "How I started a business for $0 that now makes $50k/month.",
+                "Stop scrolling. This one tip could make you a millionaire.",
+                "The 3 books that made more millionaires than any business school.",
+                "You're being lied to about what it takes to get rich.",
+                "I'm giving away my 7-figure business model for free.",
+                "This is the laziest way to make $100 a day.",
+                "99% of people don't know about this simple investing hack.",
+                "One decision took me from broke to a 6-figure income in 6 months."
+              ]
+            },
+            {
+              category: 'Fitness & Health',
+              hooks: [
+                "Everything you’ve been told about building muscle is wrong.",
+                "You’re being lied to about weight loss. It's actually easy, and this is why.",
+                "If you want a six-pack within the next 30 days, listen up.",
+                "You’re never going to get big biceps if you’re not doing THIS.",
+                "The 5 'healthy' foods that are actually making you fat.",
+                "I lost 50lbs in 2 months, and here’s how you can do the same.",
+                "This one exercise is better than 1000 crunches.",
+                "Secrets fitness models don’t want you knowing about.",
+                "Stop eating oatmeal for breakfast. Do this instead.",
+                "My body transformation from this to this with one simple change."
+              ]
+            },
+            {
+              category: 'Self-Improvement & Productivity',
+              hooks: [
+                "I recently did THIS for 30 days and it changed my life.",
+                "Mark Zuckerberg read THIS book at Harvard and it changed his life forever.",
+                "The one habit that separates the top 1% from everyone else.",
+                "How to read a book a day (it's easier than you think).",
+                "I’ve never been more productive since I added THIS into my life.",
+                "You are wasting 80% of your day. Here's how to fix it.",
+                "This 5-minute morning routine will 10x your energy.",
+                "If you're seeing this, it's a sign to finally start...",
+                "The secret to unshakable confidence.",
+                "Your life will not be the same after you hear this."
+              ]
+            },
+            {
+              category: 'General Viral Formulas',
+              hooks: [
+                "I just found this little hack to save thousands every time you travel.",
+                "You're using [Common Product] all wrong.",
+                "Here's something I wish I knew before I was 30.",
+                "This is the most underrated [website/app/tool] on the internet.",
+                "Unpopular opinion: [Controversial Statement in your niche].",
+                "POV: You finally learned the secret to [Desired Outcome].",
+                "Things I just don't understand as a [Your Profession/Identity].",
+                "Here are 3 signs you're [Positive/Negative Trait].",
+                "Rating the dumbest advice I've ever received about [Topic].",
+                "If you see this before [Date/Event], it's a sign...",
+              ]
+            },
+            {
+              category: 'Storytelling & Intrigue',
+              hooks: [
+                "I've never told anyone this story before...",
+                "The day my biggest hater became my biggest fan.",
+                "How a simple DM changed the course of my life.",
+                "I was today years old when I learned...",
+                "You will not believe what happened to me last week.",
+                "The biggest L I ever took, and what it taught me.",
+                "Here's how I got my revenge...",
+                "The cringiest moment of my life.",
+                "Let me tell you about the time I almost quit.",
+                "This is part one of how I [achieved something amazing]."
+              ]
+            }
+          ].map(cat => `
+            <div>
+              <h3 class="text-2xl font-bold text-purple-400 border-b-2 border-purple-400/30 pb-2 mb-4">${cat.category}</h3>
+              <div class="space-y-4">
+                ${cat.hooks.map(hook => `
+                  <div class="bg-gray-800 p-4 rounded-lg flex items-center justify-between border border-gray-700 hover:bg-gray-700/50 transition-colors">
+                    <p class="text-white text-lg">${hook}</p>
+                    <button onclick="navigator.clipboard.writeText('${hook.replace(/'/g, "\\'")}')" class="p-2 rounded-md bg-gray-700 hover:bg-purple-600 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                      <svg class="w-5 h-5 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M8 7V6a4 4 0 118 0v1m-6 4h6m2 7a2 2 0 002-2V8a2 2 0 00-2-2H6a2 2 0 00-2 2v9a2 2 0 002 2h12z"></path></svg>
+                    </button>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `;
+
+    PAGES.audit = `
+      <div class="p-4 md:p-8 animate-fadeIn">
+        <h2 class="text-4xl font-bold text-white mb-2 text-center">The 3-Second Audit</h2>
+        <p class="text-gray-400 mb-8 text-center">Be brutally honest. How strong are your current hooks?</p>
+        <div id="audit-list" class="space-y-6"></div>
+        <div class="mt-8 bg-gray-900/50 p-6 rounded-lg text-center border-2 border-dashed border-gray-700">
+          <h3 class="text-2xl font-bold text-white">Total Score</h3>
+          <p id="audit-total" class="text-5xl font-extrabold text-purple-400 my-2">0 / 50</p>
+          <p id="audit-feedback" class="text-lg font-semibold text-gray-400"></p>
+        </div>
+      </div>
+    `;
+
+    PAGES.anatomy = `
+      <div class="p-4 md:p-8 animate-fadeIn">
+        <h2 class="text-4xl font-bold text-white mb-2 text-center">Anatomy of a Killer Hook</h2>
+        <p class="text-gray-400 mb-8 text-center">A great hook isn't just a catchy phrase; it's a psychological trigger. Let's break down why.</p>
+        <div id="anatomy-list" class="space-y-4"></div>
+      </div>
+    `;
+
+    PAGES.generator = `
+      <div class="p-4 md:p-8 animate-fadeIn">
+        <h2 class="text-4xl font-bold text-white mb-2 text-center">AI Hook Generator</h2>
+        <p class="text-gray-400 mb-8 text-center">Fill in the details, and let our AI craft viral hooks for you.</p>
+        <div class="max-w-2xl mx-auto bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-700">
+          <div class="space-y-4">
+            <input type="text" id="niche" placeholder="Your Niche (e.g., 'Vegan Cooking')" class="w-full bg-gray-700 text-white p-3 rounded-md border border-gray-600 focus:ring-2 focus:ring-purple-500 focus:outline-none"/>
+            <input type="text" id="audience" placeholder="Target Audience (e.g., 'Health-conscious millennials')" class="w-full bg-gray-700 text-white p-3 rounded-md border border-gray-600 focus:ring-2 focus:ring-purple-500 focus:outline-none"/>
+            <input type="text" id="painPoint" placeholder="Their Pain Point (e.g., 'Thinking vegan food is boring')" class="w-full bg-gray-700 text-white p-3 rounded-md border border-gray-600 focus:ring-2 focus:ring-purple-500 focus:outline-none"/>
+            <input type="text" id="desire" placeholder="Their Desire (e.g., 'To eat delicious, exciting plant-based meals')" class="w-full bg-gray-700 text-white p-3 rounded-md border border-gray-600 focus:ring-2 focus:ring-purple-500 focus:outline-none"/>
+          </div>
+          <button id="generate-btn" class="w-full mt-6 bg-purple-600 text-white font-bold py-3 px-6 rounded-md hover:bg-purple-700 transition-all duration-300 flex items-center justify-center text-lg">
+            <svg class="mr-2 w-5 h-5 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"></path></svg> Generate Hooks
+          </button>
+          <p id="generator-error" class="text-red-400 mt-4 text-center"></p>
+        </div>
+        <div id="generated-hooks" class="mt-12"></div>
+      </div>
+    `;
+
+    let state = { page: localStorage.getItem('hammyhooks-active-page') || 'intro' };
+
+    function renderPage(page) {
+      document.querySelectorAll('.nav-item').forEach(btn => {
+        btn.classList.remove('bg-purple-600', 'text-white');
+        btn.classList.add('text-gray-300');
+      });
+      const navBtn = document.querySelector(`.nav-item[data-page="${page}"]`);
+      if(navBtn) {
+        navBtn.classList.add('bg-purple-600', 'text-white');
+        navBtn.classList.remove('text-gray-300');
+      }
+      document.getElementById('main-content').innerHTML = PAGES[page];
+      state.page = page;
+      localStorage.setItem('hammyhooks-active-page', page);
+
+      if(page === 'intro') {
+        document.getElementById('start-generator-btn').onclick = () => renderPage('generator');
+      }
+      if(page === 'audit') renderAudit();
+      if(page === 'anatomy') renderAnatomy();
+      if(page === 'generator') setupGenerator();
+    }
+
+    function renderAudit() {
+      const list = document.getElementById('audit-list');
+      let videos = Array.from({length:5}, () => ({topic:'', hook:'', score:5}));
+      function update() {
+        let total = 0;
+        for(let i=0; i<5; i++) {
+          total += parseInt(videos[i].score, 10) || 0;
+        }
+        document.getElementById('audit-total').textContent = total+' / 50';
+        let fb = '';
+        let color = '';
+        if(total >= 40){ fb = "Excellent! You have a strong grasp of what grabs attention."; color="text-green-400";}
+        else if(total >= 25){ fb = "Solid foundation, but there's room to make your hooks more potent."; color="text-yellow-400";}
+        else { fb = "This is a huge opportunity area. Let's level up your hook game!"; color="text-red-400";}
+        let el = document.getElementById('audit-feedback');
+        el.textContent = fb;
+        el.className = "text-lg font-semibold "+color;
+      }
+      list.innerHTML = '';
+      for(let i=0; i<5; i++) {
+        const v = videos[i];
+        const el = document.createElement('div');
+        el.className = "bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-700";
+        el.innerHTML = `
+          <h3 class="text-xl font-semibold text-white mb-4">Video ${i+1}</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <input type="text" data-i="${i}" data-f="topic" placeholder="Video Topic (e.g., 'My Morning Routine')" class="w-full bg-gray-700 text-white p-3 rounded-md border border-gray-600 focus:ring-2 focus:ring-purple-500 focus:outline-none" value="${v.topic}"/>
+            <input type="text" data-i="${i}" data-f="hook" placeholder="Opening Line / Hook" class="w-full bg-gray-700 text-white p-3 rounded-md border border-gray-600 focus:ring-2 focus:ring-purple-500 focus:outline-none" value="${v.hook}"/>
+          </div>
+          <div class="mt-4">
+            <label class="text-gray-300 font-medium">Attention-Grabbing Score: <span class="text-purple-400 font-bold">${v.score}</span>/10</label>
+            <input type="range" data-i="${i}" data-f="score" min="1" max="10" value="${v.score}" class="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer mt-2 accent-purple-500"/>
+          </div>
+        `;
+        list.appendChild(el);
+      }
+      list.addEventListener('input', (e) => {
+        const i = +e.target.dataset.i;
+        const f = e.target.dataset.f;
+        videos[i][f] = (f === "score") ? e.target.value : e.target.value;
+        update();
+      });
+      update();
+    }
+
+    function renderAnatomy() {
+      const analyses = [
+        {
+          hook: "Everything you’ve been told about building muscle is wrong.",
+          targetAudience: "Fitness beginners, gym-goers feeling stuck.",
+          painPoint: "Frustration with slow progress, confusion from conflicting advice.",
+          promise: "A revolutionary, correct method for muscle growth.",
+          intrigue: "Challenges existing beliefs, implies insider knowledge."
+        },
+        {
+          hook: "If you’re not doing THIS, you’re losing out on making an extra $10,000 every month.",
+          targetAudience: "Aspiring entrepreneurs, side-hustlers.",
+          painPoint: "Financial anxiety, feeling of missed opportunity (FOMO).",
+          promise: "A specific, high-value action to dramatically increase income.",
+          intrigue: "Creates immense curiosity and urgency about the secret 'THIS'."
+        },
+        {
+          hook: "Here's something I wish I knew before I was 30.",
+          targetAudience: "Young adults, people seeking wisdom and life-hacks.",
+          painPoint: "Fear of making mistakes, regret, desire for a shortcut in life.",
+          promise: "Valuable, hard-earned life lesson that can prevent future pain.",
+          intrigue: "Taps into our universal desire for wisdom beyond our years."
+        },
+        {
+          hook: "You're using your air fryer all wrong.",
+          targetAudience: "Anyone who owns a popular product (e.g., air fryer, iPhone).",
+          painPoint: "The subtle fear of inefficiency or not using something to its full potential.",
+          promise: "A better, more effective way to use a common item.",
+          intrigue: "Makes the viewer question their own knowledge and creates a need to 'correct' their behavior."
+        },
+        {
+          hook: "My facial structure went from this to this in 3 months, with this one hack.",
+          targetAudience: "People interested in self-improvement, beauty, and 'mewing' trends.",
+          painPoint: "Insecurity about appearance, desire for quick, visible results.",
+          promise: "A dramatic, fast physical transformation with a simple method.",
+          intrigue: "The visual 'before and after' is compelling and seems almost unbelievable."
+        }
+      ];
+      const container = document.getElementById('anatomy-list');
+      container.innerHTML = analyses.map((item,i)=>`
+        <div class="bg-gray-800 rounded-lg overflow-hidden border border-gray-700">
+          <button onclick="toggleAccordion(this)" class="w-full p-5 text-left text-lg font-semibold text-white flex justify-between items-center hover:bg-gray-700/50">
+            "${item.hook}"
+            <span class="chev${i} transform transition-transform duration-300">&#9660;</span>
+          </button>
+          <div class="accordion-content max-h-0 transition-all duration-500 ease-in-out overflow-hidden">
+            <div class="px-5 pb-5 pt-2 text-gray-300 grid grid-cols-1 md:grid-cols-2 gap-4">
+              <p><strong>🎯 Target Audience:</strong> ${item.targetAudience}</p>
+              <p><strong>😥 Pain Point:</strong> ${item.painPoint}</p>
+              <p><strong>✨ Promise/Value:</strong> ${item.promise}</p>
+              <p><strong>🤔 Intrigue/Controversy:</strong> ${item.intrigue}</p>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    window.toggleAccordion = function(btn) {
+      const content = btn.parentElement.querySelector('.accordion-content');
+      if(content.style.maxHeight && content.style.maxHeight !== '0px'){
+        content.style.maxHeight = '0px';
+        btn.querySelector('span').style.transform = '';
+      }else{
+        content.style.maxHeight = content.scrollHeight+'px';
+        btn.querySelector('span').style.transform = 'rotate(180deg)';
+      }
+    }
+
+    function setupGenerator() {
+      document.getElementById('generate-btn').onclick = async function() {
+        const n = document.getElementById('niche').value.trim();
+        const a = document.getElementById('audience').value.trim();
+        const p = document.getElementById('painPoint').value.trim();
+        const d = document.getElementById('desire').value.trim();
+        const error = document.getElementById('generator-error');
+        error.textContent = '';
+        if(!n || !a || !p || !d) {
+          error.textContent = "Please fill out all fields to get the best results.";
+          return;
+        }
+        document.getElementById('generated-hooks').innerHTML = `
+          <div class="flex flex-col items-center justify-center space-y-4">
+            <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-purple-500"></div>
+            <p class="text-lg text-gray-300 font-semibold">Summoning Viral Ideas...</p>
+          </div>
+        `;
+        await new Promise(r=>setTimeout(r,1200));
+        const fakeHooks = [
+          {hook_text: `Are you making this fatal mistake in ${n}?`, style: "Mistake"},
+          {hook_text: `The secret ${a} don't want you to know.`, style: "Secret"},
+          {hook_text: `If your dream is to ${d}, start here.`, style: "Aspirational"},
+          {hook_text: `How I went from struggle to success in ${n} in 60 days.`, style: "Transformation"},
+          {hook_text: `Why everything you know about ${n} is wrong.`, style: "Controversial"},
+          {hook_text: `Most people in ${n} are wasting time—here's why.`, style: "Mistake"},
+          {hook_text: `I've never shared this before: my ${n} breakthrough.`, style: "Secret"},
+          {hook_text: `What separates high achievers in ${n}?`, style: "Aspirational"},
+          {hook_text: `My journey from zero to hero in ${n}.`, style: "Transformation"},
+          {hook_text: `Unpopular opinion: ${p}.`, style: "Controversial"}
+        ];
+        document.getElementById('generated-hooks').innerHTML = `
+          <div class="space-y-4">
+            <h3 class="text-3xl font-bold text-white text-center mb-4">Your Generated Hooks</h3>
+            ${fakeHooks.map(h => `
+              <div class="bg-gray-800 p-4 rounded-lg shadow-md flex items-center justify-between border border-gray-700 hover:border-purple-500 transition-all">
+                <div>
+                  <span class="text-xs font-semibold px-2 py-1 rounded-full border ${{
+                    Mistake: 'bg-red-500/20 text-red-400 border-red-500',
+                    Secret: 'bg-yellow-500/20 text-yellow-400 border-yellow-500',
+                    Aspirational: 'bg-green-500/20 text-green-400 border-green-500',
+                    Transformation: 'bg-blue-500/20 text-blue-400 border-blue-500',
+                    Controversial: 'bg-purple-500/20 text-purple-400 border-purple-500'
+                  }[h.style]}">${h.style}</span>
+                  <p class="text-white text-lg mt-2">${h.hook_text}</p>
+                </div>
+                <button onclick="navigator.clipboard.writeText('${h.hook_text.replace(/'/g,"\\'")}')" class="p-2 rounded-md bg-gray-700 hover:bg-purple-600 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                  <svg class="w-5 h-5 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M8 7V6a4 4 0 118 0v1m-6 4h6m2 7a2 2 0 002-2V8a2 2 0 00-2-2H6a2 2 0 00-2 2v9a2 2 0 002 2h12z"></path></svg>
+                </button>
+              </div>
+            `).join('')}
+          </div>
+        `;
+      };
+    }
+
+    document.getElementById('sidebar-nav').addEventListener('click', (e) => {
+      const btn = e.target.closest('.nav-item');
+      if (btn) {
+        const page = btn.getAttribute('data-page');
+        renderPage(page);
+      }
+    });
+
+    renderPage(state.page);
+  </script>
+</body>
+</html>
