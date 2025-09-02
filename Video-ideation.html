@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Video Ideation</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { font-family: 'Inter', sans-serif; background-color: #F0F2F5; }
+    /* Custom styling for the copy button icon */
+    .copy-icon { display: inline-block; width: 1em; height: 1em; vertical-align: -0.125em; fill: currentColor; margin-left: 0.5rem; }
+    /* New Styles for Animations */
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .animated-section { opacity: 0; transform: translateY(20px); animation: fadeIn 0.8s ease-out forwards; }
+    /* Progress bar styles */
+    .progress-container { position: fixed; bottom: 0; left: 0; width: 100%; height: 8px; background-color: #e0e0e0; z-index: 1000; }
+    .progress-bar { height: 100%; width: 0%; background-color: #FFC001; transition: width 0.1s linear; }
+    /* Custom alert box styles */
+    .custom-alert { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background-color: #4CAF50; color: white; padding: 15px 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); z-index: 1001; transition: opacity 0.5s ease-in-out; opacity: 0; pointer-events: none; }
+    .custom-alert.show { opacity: 1; }
+    /* Individual cell scrolling */
+    .table-cell-scrollable { overflow-x: auto; white-space: nowrap; }
+    .table-cell-scrollable input[type="text"] { min-width: 100%; }
+    @keyframes pulsing-title { 0% { color: white; } 50% { color: #FFC001; } 100% { color: white; } }
+    .pulsing-title { animation: pulsing-title 2s infinite ease-in-out; }
+  </style>
+</head>
+<body class="bg-gray-100 font-sans leading-normal tracking-tight">
+  <!-- Custom Alert Box -->
+  <div id="custom-alert" class="custom-alert"></div>
+
+  <!-- Progress Bar -->
+  <div class="progress-container"><div id="progressBar" class="progress-bar"></div></div>
+
+  <div id="worksheet-content" class="max-w-4xl mx-auto my-10 p-6 bg-white rounded-xl shadow-lg">
+    <!-- Header Bar -->
+    <header class="bg-[#10371C] text-white p-6 rounded-t-lg">
+      <h1 class="text-3xl font-bold mb-1 pulsing-title">📹 Video Ideation</h1>
+      <p class="text-sm font-light">Create banger ideas every time — for long videos and short ones.</p>
+    </header>
+
+    <!-- Context Box -->
+    <div class="bg-[#FFC001] text-black p-4 mt-6 rounded-lg animated-section" style="animation-delay: 0.1s;">
+      <p class="font-bold">Quick Context:</p>
+      <p>Your video idea system is your engine. Without one, you’ll burn out trying to find new things to make.</p>
+    </div>
+
+    <section class="mt-8 animated-section" style="animation-delay: 0.2s;">
+      <h2 class="text-2xl font-bold text-[#10371C]">STEP 1: Know Who You're Talking To</h2>
+      <p class="text-gray-600 mt-2">If an idea doesn’t match your audience, don’t make it.</p>
+      <div class="space-y-6 mt-6">
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Who is your audience?</label>
+          <input type="text" id="m2_audience" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#10371C] focus:ring focus:ring-[#10371C] focus:ring-opacity-50 p-2 border" placeholder="e.g., 16–24 year old guys into self-improvement" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700">What do they care about?</label>
+          <input type="text" id="m2_careabout" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#10371C] focus:ring focus:ring-[#10371C] focus:ring-opacity-50 p-2 border" placeholder="e.g., Looks, money, habits, health, status, validation" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700">What do you want to be known for?</label>
+          <input type="text" id="m2_knownfor" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#10371C] focus:ring focus:ring-[#10371C] focus:ring-opacity-50 p-2 border" placeholder="e.g., transformation, extreme honesty, glow-up results" />
+        </div>
+      </div>
+    </section>
+
+    <hr class="my-10 border-gray-300" />
+
+    <section class="animated-section" style="animation-delay: 0.3s;">
+      <h2 class="text-2xl font-bold text-[#10371C]">STEP 2: Find Outlier Videos That Already Worked</h2>
+      <p class="text-gray-600 mt-2">Save 5–10 videos that are clearly outperforming others. These are called outliers.</p>
+      <table class="w-full text-left border-collapse mt-4">
+        <thead>
+          <tr class="bg-gray-50"><th class="p-3 border">Tool / Method</th><th class="p-3 border">What to Do</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="p-3 border font-bold">ViewStats</td><td class="p-3 border">Search your niche or related niches. Sort by highest-performing videos.</td></tr>
+          <tr><td class="p-3 border font-bold">Manual Search</td><td class="p-3 border">Go to channels like yours. Look for videos that got 3–10x more views.</td></tr>
+          <tr><td class="p-3 border font-bold">Adjacent Niches</td><td class="p-3 border">Look at similar audiences (not just similar content).</td></tr>
+        </tbody>
+      </table>
+      <div class="mt-6">
+        <label class="block text-sm font-medium text-gray-700">Your Outlier Videos</label>
+        <textarea id="m2_outliers" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#10371C] focus:ring focus:ring-[#10371C] focus:ring-opacity-50 p-3 border" rows="4" placeholder="List your 5-10 outlier videos here..."></textarea>
+      </div>
+    </section>
+
+    <hr class="my-10 border-gray-300" />
+
+    <section class="animated-section" style="animation-delay: 0.4s;">
+      <h2 class="text-2xl font-bold text-[#10371C]">STEP 3: Break the Idea Into 3 Parts (TFA Formula)</h2>
+      <p class="text-gray-600 mt-2">You’re collecting building blocks here.</p>
+      <table class="w-full text-left border-collapse mt-4">
+        <thead>
+          <tr class="bg-gray-50"><th class="p-3 border">TFA Element</th><th class="p-3 border">What to Write Down</th><th class="p-3 border">Example</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="p-3 border font-bold">Topic</td><td class="p-3 border">What is the video about?</td><td class="p-3 border">"Waking up at 4AM every day"</td></tr>
+          <tr><td class="p-3 border font-bold">Format</td><td class="p-3 border">How is it told or presented?</td><td class="p-3 border">Challenge, Breakdown, Vlog, Tutorial</td></tr>
+          <tr><td class="p-3 border font-bold">Angle</td><td class="p-3 border">What makes it interesting or different?</td><td class="p-3 border">Extreme, Emotional, Mystery, Stakes</td></tr>
+        </tbody>
+      </table>
+      <div class="mt-6">
+        <label class="block text-sm font-medium text-gray-700">Your Idea's TFA Breakdown</label>
+        <div class="space-y-4 mt-2">
+          <input type="text" id="m2_topic_breakdown" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-[#10371C] focus:ring focus:ring-[#10371C] focus:ring-opacity-50 p-2 border" placeholder="Topic:" />
+          <input type="text" id="m2_format_breakdown" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-[#10371C] focus:ring focus:ring-[#10371C] focus:ring-opacity-50 p-2 border" placeholder="Format:" />
+          <input type="text" id="m2_angle_breakdown" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-[#10371C] focus:ring focus:ring-[#10371C] focus:ring-opacity-50 p-2 border" placeholder="Angle:" />
+        </div>
+      </div>
+    </section>
+
+    <hr class="my-10 border-gray-300" />
+
+    <section class="animated-section" style="animation-delay: 0.5s;">
+      <h2 class="text-2xl font-bold text-[#10371C]">STEP 4: Remix the Idea for Yourself</h2>
+      <div class="bg-gray-800 text-white p-4 rounded-lg mt-4 font-mono text-sm relative">
+        <code id="formula-text">Your Twist + Proven Concept = New Viral Idea</code>
+      </div>
+      <table class="w-full text-left border-collapse mt-4">
+        <thead>
+          <tr class="bg-gray-50"><th class="p-3 border">How to Remix</th><th class="p-3 border">Examples</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="p-3 border">Change the subject</td><td class="p-3 border">"Woke up at 4AM" → "Only ate fast food"</td></tr>
+          <tr><td class="p-3 border">Add a twist</td><td class="p-3 border">"I Woke Up at 4AM for 30 Days" → "...But I Had to Do It Blindfolded"</td></tr>
+          <tr><td class="p-3 border">Mix formats</td><td class="p-3 border">Challenge + Story, Tutorial + Comedy</td></tr>
+          <tr><td class="p-3 border">Raise the stakes</td><td class="p-3 border">Add money, risk, pressure, time limits</td></tr>
+          <tr><td class="p-3 border">Make it your brand</td><td class="p-3 border">Add looks angle, self-improvement twist, or glow-up transformation element</td></tr>
+        </tbody>
+      </table>
+      <div class="mt-6">
+        <label class="block text-sm font-medium text-gray-700">Your Remixed Viral Idea</label>
+        <textarea id="m2_remix_idea" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#10371C] focus:ring focus:ring-[#10371C] focus:ring-opacity-50 p-3 border" rows="3" placeholder="Write down your new, remixed idea here..."></textarea>
+      </div>
+    </section>
+
+    <hr class="my-10 border-gray-300" />
+
+    <section class="animated-section" style="animation-delay: 0.6s;">
+      <h2 class="text-2xl font-bold text-[#10371C]">STEP 5: Run the 6-Idea Filter</h2>
+      <p class="text-gray-600 mt-2">Keep only the ideas that pass at least 5 of 6.</p>
+      <table class="w-full text-left border-collapse mt-4">
+        <thead>
+          <tr class="bg-gray-50"><th class="p-3 border">Question</th><th class="p-3 border text-center">Keep It? (Yes)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="p-3 border">1. Can I realistically make this?</td><td class="p-3 border text-center"><input type="checkbox" id="m2_filter1" class="rounded text-[#10371C] focus:ring-[#10371C] focus:ring-opacity-50" /></td></tr>
+          <tr><td class="p-3 border">2. Will strangers want to watch it?</td><td class="p-3 border text-center"><input type="checkbox" id="m2_filter2" class="rounded text-[#10371C] focus:ring-[#10371C] focus:ring-opacity-50" /></td></tr>
+          <tr><td class="p-3 border">3. Will my audience care about it?</td><td class="p-3 border text-center"><input type="checkbox" id="m2_filter3" class="rounded text-[#10371C] focus:ring-[#10371C] focus:ring-opacity-50" /></td></tr>
+          <tr><td class="p-3 border">4. Have videos like this gone viral before?</td><td class="p-3 border text-center"><input type="checkbox" id="m2_filter4" class="rounded text-[#10371C] focus:ring-[#10371C] focus:ring-opacity-50" /></td></tr>
+          <tr><td class="p-3 border">5. Does it match my brand vibe?</td><td class="p-3 border text-center"><input type="checkbox" id="m2_filter5" class="rounded text-[#10371C] focus:ring-[#10371C] focus:ring-opacity-50" /></td></tr>
+          <tr><td class="p-3 border">6. Can I picture the hook visually?</td><td class="p-3 border text-center"><input type="checkbox" id="m2_filter6" class="rounded text-[#10371C] focus:ring-[#10371C] focus:ring-opacity-50" /></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <hr class="my-10 border-gray-300" />
+
+    <section class="animated-section" style="animation-delay: 0.8s;">
+      <h2 class="text-2xl font-bold text-[#10371C]">IDEA TRACKER TEMPLATE</h2>
+      <p class="text-gray-600 mt-2">Use this template to track your ideas. You can add more rows as you go.</p>
+
+      <div class="flex justify-center mt-4">
+        <button id="showExamplesBtn" class="bg-gray-200 text-gray-800 font-bold py-2 px-4 rounded-full shadow-md hover:bg-gray-300 transition-colors duration-200" type="button">Show Examples</button>
+      </div>
+
+      <div id="exampleTracker" class="hidden overflow-x-auto mt-4">
+        <table class="w-full text-left border-collapse" style="min-width: 900px;">
+          <thead>
+            <tr class="bg-gray-50"><th class="p-3 border">Idea Title</th><th class="p-3 border">Topic</th><th class="p-3 border">Format</th><th class="p-3 border">Angle</th><th class="p-3 border">Long / Short</th><th class="p-3 border text-center">Passed Filter?</th><th class="p-3 border">Notes</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="p-3 border">"I Tried Celebrity Morning Routines"</td><td class="p-3 border">Routine</td><td class="p-3 border">Challenge</td><td class="p-3 border">Comparison</td><td class="p-3 border">Both</td><td class="p-3 border text-center">✅</td><td class="p-3 border">Could split into Shorts too</td></tr>
+            <tr><td class="p-3 border">"How to Look Better Without Surgery"</td><td class="p-3 border">Looksmaxxing</td><td class="p-3 border">Breakdown</td><td class="p-3 border">Practical</td><td class="p-3 border">Long</td><td class="p-3 border text-center">✅</td><td class="p-3 border">Use visual comparisons</td></tr>
+            <tr><td class="p-3 border">"This Trick Made Me Hotter in 2 Days"</td><td class="p-3 border">Transformation</td><td class="p-3 border">Vlog</td><td class="p-3 border">Emotional</td><td class="p-3 border">Short</td><td class="p-3 border text-center">✅</td><td class="p-3 border">Start with visual before/after</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse mt-4" id="idea-tracker-table">
+          <thead>
+            <tr class="bg-gray-50"><th class="p-3 border">Idea Title</th><th class="p-3 border">Topic</th><th class="p-3 border">Format</th><th class="p-3 border">Angle</th><th class="p-3 border">Long / Short</th><th class="p-3 border text-center">Passed Filter?</th><th class="p-3 border">Notes</th></tr>
+          </thead>
+          <tbody id="idea-tracker-body">
+            <tr class="idea-row">
+              <td class="p-3 border table-cell-scrollable"><input type="text" data-field="title" class="w-full bg-transparent border-none p-0 focus:outline-none" placeholder="" /></td>
+              <td class="p-3 border table-cell-scrollable"><input type="text" data-field="topic" class="w-full bg-transparent border-none p-0 focus:outline-none" placeholder="" /></td>
+              <td class="p-3 border table-cell-scrollable"><input type="text" data-field="format" class="w-full bg-transparent border-none p-0 focus:outline-none" placeholder="" /></td>
+              <td class="p-3 border table-cell-scrollable"><input type="text" data-field="angle" class="w-full bg-transparent border-none p-0 focus:outline-none" placeholder="" /></td>
+              <td class="p-3 border table-cell-scrollable"><input type="text" data-field="type" class="w-full bg-transparent border-none p-0 focus:outline-none" placeholder="" /></td>
+              <td class="p-3 border table-cell-scrollable text-center"><input type="checkbox" data-field="filter" class="rounded text-[#10371C] focus:ring-[#10371C] focus:ring-opacity-50" /></td>
+              <td class="p-3 border table-cell-scrollable relative">
+                <input type="text" data-field="notes" class="w-full bg-transparent border-none p-0 focus:outline-none pr-6" placeholder="" />
+                <button class="absolute top-1/2 right-1 -translate-y-1/2 text-red-500 hover:text-red-700 delete-row-btn" style="padding:0;border:none;background:none;cursor:pointer;font-size:1.5rem;line-height:1;" type="button">&times;</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="flex justify-center mt-4">
+        <button id="addRowBtn" class="bg-gray-200 text-gray-800 font-bold py-2 px-4 rounded-full shadow-md hover:bg-gray-300 transition-colors duration-200" type="button">+ Add Row</button>
+      </div>
+    </section>
+
+    <hr class="my-10 border-gray-300" />
+
+    <section class="animated-section" style="animation-delay: 0.9s;">
+      <h2 class="text-2xl font-bold text-[#10371C]">QUICK SUMMARY</h2>
+      <table class="w-full text-left border-collapse mt-4">
+        <thead>
+          <tr class="bg-gray-50"><th class="p-3 border">Step</th><th class="p-3 border">What to Do</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="p-3 border">1. Audience</td><td class="p-3 border">Know who you're making videos for</td></tr>
+          <tr><td class="p-3 border">2. Research</td><td class="p-3 border">Use ViewStats + manual search to find viral ideas</td></tr>
+          <tr><td class="p-3 border">3. Break It</td><td class="p-3 border">Write down the Topic, Format, and Angle</td></tr>
+          <tr><td class="p-3 border">4. Remix It</td><td class="p-3 border">Put your own twist on the idea</td></tr>
+          <tr><td class="p-3 border">5. Filter</td><td class="p-3 border">Use the 6-question test to keep only strong ideas</td></tr>
+          <tr><td class="p-3 border">6. Package</td><td class="p-3 border">Use the correct format for short or long videos</td></tr>
+          <tr><td class="p-3 border">7. Track</td><td class="p-3 border">Keep an idea tracker and only keep the top 10%</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Complete Module CTA -->
+    <div class="flex justify-center mt-10">
+      <button id="completeModuleBtn" class="bg-[#10371C] text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-opacity-90 transition-colors duration-200" type="button">Complete Module</button>
+    </div>
+  </div>
+
+  <!-- Module Completion Page (Hidden by default) -->
+  <div id="completion-page" class="max-w-4xl mx-auto my-10 p-6 bg-white rounded-xl shadow-lg text-center hidden" style="min-height:50vh;">
+    <div class="h-full flex flex-col justify-center items-center p-8">
+      <h2 class="text-4xl font-bold text-[#10371C] mb-4">Module 2 Completed! 🎉</h2>
+      <p class="text-xl text-gray-700 mb-8">You've successfully completed this worksheet!</p>
+      <div class="flex justify-center">
+        <button id="restartBtn" class="bg-gray-300 text-gray-800 font-bold py-3 px-8 rounded-full shadow-lg hover:bg-gray-400 transition-colors duration-200" type="button">Restart Worksheet</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    // Firebase Imports (ESM CDN)
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+    import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+    import { getFirestore, doc, onSnapshot, setDoc, getDoc, setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+    // Set Firestore log level (use 'debug' for verbose logs during dev)
+    setLogLevel('debug');
+
+    // Custom alert
+    function showCustomAlert(message){ const box = document.getElementById('custom-alert'); box.textContent = message; box.classList.add('show'); setTimeout(()=>box.classList.remove('show'), 3000); }
+
+    // Debounce
+    function debounce(fn, wait){ let t; return (...args)=>{ clearTimeout(t); t=setTimeout(()=>fn.apply(null,args), wait); }; }
+
+    // Firebase Initialization with guards
+    let firebaseConfig = null;
+    try {
+      if (typeof __firebase_config !== 'undefined') {
+        firebaseConfig = JSON.parse(__firebase_config);
+      } else if (typeof window !== 'undefined' && window.__firebase_config) {
+        firebaseConfig = window.__firebase_config;
+      }
+    } catch(e){ console.error('Invalid __firebase_config JSON', e); }
+
+    const appId = (typeof __app_id !== 'undefined') ? __app_id : 'default-app-id';
+    let app, db, auth, userId;
+
+    async function saveFormData(){
+      if (!userId || !db) return;
+      const dataToSave = {};
+      const mainInputs = document.querySelectorAll('#worksheet-content > section input[type="text"], #worksheet-content > section textarea, #worksheet-content > section input[type="checkbox"]');
+      mainInputs.forEach(el => { if (el.id) dataToSave[el.id] = (el.type === 'checkbox') ? el.checked : el.value; });
+
+      // Idea tracker
+      dataToSave.ideaTracker = getTrackerData();
+      const ref = doc(db, 'artifacts', appId, 'users', userId, 'module2_data', 'main_data');
+      await setDoc(ref, dataToSave, { merge: true });
+      showCustomAlert('Worksheet saved!');
+    }
+    const debouncedSave = debounce(saveFormData, 800);
+
+    async function loadFormData(){
+      if (!userId || !db) return;
+      const ref = doc(db, 'artifacts', appId, 'users', userId, 'module2_data', 'main_data');
+      const snap = await getDoc(ref);
+      if (!snap.exists()) return;
+      const data = snap.data();
+      for (const key in data){ if (key === 'ideaTracker') continue; const el = document.getElementById(key); if (!el) continue; if (el.type === 'checkbox') el.checked = !!data[key]; else el.value = data[key]; }
+      if (Array.isArray(data.ideaTracker)) renderTracker(data.ideaTracker);
+    }
+
+    async function initAuthAndData(){
+      if (!firebaseConfig){ console.warn('Missing Firebase config. Persistence disabled.'); attachInputListeners(); attachDeleteListeners(); return; }
+      app = initializeApp(firebaseConfig);
+      db = getFirestore(app);
+      auth = getAuth(app);
+      try {
+        if (typeof __initial_auth_token !== 'undefined') await signInWithCustomToken(auth, __initial_auth_token); else await signInAnonymously(auth);
+        userId = auth.currentUser?.uid || (crypto?.randomUUID?.() || 'anon');
+        await loadFormData();
+        const ref = doc(db, 'artifacts', appId, 'users', userId, 'module2_data', 'main_data');
+        onSnapshot(ref, (snap)=>{ if (!snap.exists()) return; const data = snap.data(); if (Array.isArray(data.ideaTracker)) renderTracker(data.ideaTracker); for (const key in data){ if (key==='ideaTracker') continue; const el = document.getElementById(key); if (el){ if (el.type==='checkbox') el.checked = !!data[key]; else el.value = data[key]; } } });
+      } catch(err){ console.error('Auth/Firestore error', err); }
+      attachInputListeners();
+      attachDeleteListeners();
+    }
+
+    // Inputs listeners
+    function attachInputListeners(){ document.querySelectorAll('#worksheet-content input, #worksheet-content textarea').forEach(el=>{ el.addEventListener('input', debouncedSave); el.addEventListener('change', debouncedSave); }); }
+
+    // Delete buttons (event delegation)
+    function attachDeleteListeners(){ const body = document.getElementById('idea-tracker-body'); body.addEventListener('click', (e)=>{ if (e.target.classList.contains('delete-row-btn')){ const row = e.target.closest('.idea-row'); if (row){ row.remove(); debouncedSave(); } } }); }
+
+    // Tracker helpers
+    function getTrackerData(){ const rows=[...document.querySelectorAll('.idea-row')]; return rows.map(row=>{ const obj={}; row.querySelectorAll('[data-field]').forEach(f=>{ obj[f.dataset.field] = (f.type==='checkbox') ? f.checked : f.value; }); return obj; }); }
+
+    function createIdeaRow(){ const tr=document.createElement('tr'); tr.classList.add('idea-row'); tr.innerHTML = `
+      <td class="p-3 border table-cell-scrollable"><input type="text" data-field="title" class="w-full bg-transparent border-none p-0 focus:outline-none" placeholder="" /></td>
+      <td class="p-3 border table-cell-scrollable"><input type="text" data-field="topic" class="w-full bg-transparent border-none p-0 focus:outline-none" placeholder="" /></td>
+      <td class="p-3 border table-cell-scrollable"><input type="text" data-field="format" class="w-full bg-transparent border-none p-0 focus:outline-none" placeholder="" /></td>
+      <td class="p-3 border table-cell-scrollable"><input type="text" data-field="angle" class="w-full bg-transparent border-none p-0 focus:outline-none" placeholder="" /></td>
+      <td class="p-3 border table-cell-scrollable"><input type="text" data-field="type" class="w-full bg-transparent border-none p-0 focus:outline-none" placeholder="" /></td>
+      <td class="p-3 border table-cell-scrollable text-center"><input type="checkbox" data-field="filter" class="rounded text-[#10371C] focus:ring-[#10371C] focus:ring-opacity-50" /></td>
+      <td class="p-3 border table-cell-scrollable relative">
+        <input type="text" data-field="notes" class="w-full bg-transparent border-none p-0 focus:outline-none pr-6" placeholder="" />
+        <button class="absolute top-1/2 right-1 -translate-y-1/2 text-red-500 hover:text-red-700 delete-row-btn" style="padding:0;border:none;background:none;cursor:pointer;font-size:1.5rem;line-height:1;" type="button">&times;</button>
+      </td>`; return tr; }
+
+    function renderTracker(rows){ const body=document.getElementById('idea-tracker-body'); body.innerHTML=''; (rows.length?rows:[{}]).forEach(data=>{ const tr=createIdeaRow(); body.appendChild(tr); if (Object.keys(data).length){ tr.querySelectorAll('[data-field]').forEach(f=>{ const key=f.dataset.field; if (key in data){ if (f.type==='checkbox') f.checked=!!data[key]; else f.value=data[key]; } }); } }); attachDeleteListeners(); attachInputListeners(); }
+
+    // Add row
+    const addRowBtn = document.getElementById('addRowBtn');
+    const trackerBody = document.getElementById('idea-tracker-body');
+    addRowBtn.addEventListener('click', ()=>{ const tr=createIdeaRow(); trackerBody.appendChild(tr); debouncedSave(); });
+
+    // Show/Hide examples
+    const showExamplesBtn = document.getElementById('showExamplesBtn');
+    const exampleTracker = document.getElementById('exampleTracker');
+    showExamplesBtn.addEventListener('click', ()=>{ const hidden=exampleTracker.classList.toggle('hidden'); showExamplesBtn.textContent = hidden ? 'Show Examples' : 'Hide Examples'; });
+
+    // Completion/restart
+    const completeBtn = document.getElementById('completeModuleBtn');
+    const restartBtn = document.getElementById('restartBtn');
+    const worksheetContent = document.getElementById('worksheet-content');
+    const completionPage = document.getElementById('completion-page');
+    function restartWorksheet(){ document.querySelectorAll('input, textarea').forEach(el=>{ if (el.type==='checkbox') el.checked=false; else el.value=''; }); [...document.querySelectorAll('.idea-row')].forEach((row,i)=>{ if(i>0) row.remove(); }); completionPage.style.display='none'; worksheetContent.style.display='block'; window.scrollTo({ top:0, behavior:'smooth' }); debouncedSave(); }
+    completeBtn.addEventListener('click', ()=>{ worksheetContent.style.display='none'; completionPage.style.display='block'; window.scrollTo({ top:0, behavior:'smooth' }); });
+    restartBtn.addEventListener('click', restartWorksheet);
+
+    // Progress bar
+    window.addEventListener('scroll', ()=>{ const winScroll = document.body.scrollTop || document.documentElement.scrollTop; const height = document.documentElement.scrollHeight - document.documentElement.clientHeight; const scrolled = (winScroll / height) * 100; document.getElementById('progressBar').style.width = scrolled + '%'; });
+
+    // Init
+    window.addEventListener('load', initAuthAndData);
+  </script>
+</body>
+</html>

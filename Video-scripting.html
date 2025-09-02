@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Video Scripting</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { font-family: 'Inter', sans-serif; background-color: #F0F2F5; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .animated-section { opacity: 0; transform: translateY(20px); animation: fadeIn 0.8s ease-out forwards; }
+    .progress-container { position: fixed; bottom: 0; left: 0; width: 100%; height: 8px; background-color: #e0e0e0; z-index: 1000; }
+    .progress-bar { height: 100%; width: 0%; background-color: #FFC001; transition: width 0.1s linear; }
+    .copy-icon { display: inline-block; width: 1em; height: 1em; vertical-align: -0.125em; fill: currentColor; margin-left: 0.5rem; }
+    .fade-in { opacity: 0; animation: fadeIn 0.5s ease-in-out forwards; }
+    .hover-lift:hover { transform: translateY(-3px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+    /* Style for the blur effect */
+    .blur-sm { filter: blur(4px); transition: filter 0.3s ease-out; }
+    .blur-none { filter: blur(0); }
+    .example-table th, .example-table td { background-color: #F8F8F8; color: #4B5563; }
+    .custom-alert { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background-color: #4CAF50; color: white; padding: 15px 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); z-index: 1001; transition: opacity 0.5s ease-in-out; opacity: 0; pointer-events: none; }
+    .custom-alert.show { opacity: 1; }
+    @keyframes pulsing-title { 0% { color: white; } 50% { color: #FFC001; } 100% { color: white; } }
+    .pulsing-title { animation: pulsing-title 2s infinite ease-in-out; }
+  </style>
+</head>
+<body class="bg-gray-100 font-sans leading-normal tracking-tight">
+  <!-- Custom Alert Box -->
+  <div id="custom-alert" class="custom-alert"></div>
+
+  <!-- Progress Bar -->
+  <div class="progress-container"><div id="progressBar" class="progress-bar"></div></div>
+
+  <!-- Main Worksheet Content -->
+  <div id="worksheet-content" class="max-w-4xl mx-auto my-10 p-6 bg-white rounded-xl shadow-lg">
+    <header class="bg-[#10371C] text-white p-6 rounded-t-lg">
+      <h1 class="text-3xl font-bold mb-1 pulsing-title">📹 Video Scripting</h1>
+      <p class="text-sm font-light">Turn your ideas into high-retention scripts for viral videos.</p>
+    </header>
+
+    <div class="bg-[#FFC001] text-black p-4 mt-6 rounded-lg animated-section" style="animation-delay: 0.1s;">
+      <p class="font-bold">Quick Context:</p>
+      <p>A good script is a roadmap. It guides your audience through a compelling story, turning a casual viewer into a loyal fan.</p>
+    </div>
+
+    <section class="mt-8 animated-section" style="animation-delay: 0.2s;">
+      <h2 class="text-2xl font-bold text-[#10371C]">🔥 VIRAL SCRIPT TEMPLATE</h2>
+      <p class="text-gray-600 mt-2">Use this template to structure your next video script. Fill in the blanks to create a compelling narrative.</p>
+
+      <div class="mt-6 p-6 border rounded-lg bg-gray-50 space-y-4">
+        <div>
+          <label class="block text-sm font-bold text-[#10371C] mb-1">[Opening Line – Set up the odds + authority figure doubt]</label>
+          <textarea id="script_opening_line" class="w-full rounded-md border-gray-300 shadow-sm p-2 border" rows="2" placeholder="e.g., At [age or time], [authority figure / expert / critic] told me 'You’ll never [achieve your goal] with [your current limitation or result].'"></textarea>
+        </div>
+        <div>
+          <label class="block text-sm font-bold text-[#10371C] mb-1">[Context – failed attempts + pressure]</label>
+          <textarea id="script_context" class="w-full rounded-md border-gray-300 shadow-sm p-2 border" rows="3" placeholder="e.g., I had already tried [how many times / methods], and no matter how hard I [worked/tried/studied], I wasn’t getting better. With only [short deadline or time pressure] left to [achieve the goal], or it was all over — here’s how I proved them wrong."></textarea>
+        </div>
+        <div>
+          <label class="block text-sm font-bold text-[#10371C] mb-1">[Transformation hook – outcome payoff early]</label>
+          <textarea id="script_hook" class="w-full rounded-md border-gray-300 shadow-sm p-2 border" rows="2" placeholder="e.g., And not only did I do it — I [achieved a dream outcome]. This is Episode [#] of [series name or niche journey]."></textarea>
+        </div>
+        <div>
+          <label class="block text-sm font-bold text-[#10371C] mb-1">[Realization – effort ≠ outcome]</label>
+          <textarea id="script_realization" class="w-full rounded-md border-gray-300 shadow-sm p-2 border" rows="2" placeholder="e.g., That [season / time period], I realized: If I was working harder than everyone else but getting the same result, maybe the problem wasn’t [effort] — it was [strategy/system]."></textarea>
+        </div>
+        <div>
+          <label class="block text-sm font-bold text-[#10371C] mb-1">[Game-changer – specific framework or tactic]</label>
+          <textarea id="script_game_changer" class="w-full rounded-md border-gray-300 shadow-sm p-2 border" rows="3" placeholder="e.g., So I started using this one technique that [top performers] swear by: [Name or quick description of tactic]. After every [session/attempt/performance], I stopped just [surface-level action], and I started [deep analysis or intentional behavior]."></textarea>
+        </div>
+      </div>
+    </section>
+
+    <hr class="my-10 border-gray-300" />
+
+    <section class="animated-section" style="animation-delay: 0.3s;">
+      <h2 class="text-2xl font-bold text-[#10371C]">⚙️ 3-STEP FRAMEWORK</h2>
+      <p class="text-gray-600 mt-2">Break down a mistake or failure into a repeatable, actionable process.</p>
+
+      <div class="mt-6 p-6 border rounded-lg bg-gray-100 space-y-4">
+        <h3 class="text-lg font-bold text-[#10371C]">Examples:</h3>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse example-table" style="min-width: 600px;">
+            <thead>
+              <tr class="bg-gray-200">
+                <th class="p-3 border">What went wrong?</th>
+                <th class="p-3 border">What caused it?</th>
+                <th class="p-3 border">How do I prevent it next time?</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="p-3 border">My videos aren't getting past the 3-second mark.</td>
+                <td class="p-3 border">My hook wasn't strong enough. I spent too much time on the B-roll and not enough on the first 3 seconds.</td>
+                <td class="p-3 border">I will spend a full hour just on writing and testing 5-10 different hooks before I start filming.</td>
+              </tr>
+              <tr>
+                <td class="p-3 border">The video has a high view count but a low watch time.</td>
+                <td class="p-3 border">The title and thumbnail promised something the video didn't deliver on quickly. I confused my audience.</td>
+                <td class="p-3 border">I will create a "package test" before filming to ensure the title, thumbnail, and first 15 seconds of the video all align.</td>
+              </tr>
+              <tr>
+                <td class="p-3 border">The video has a low click-through rate (CTR).</td>
+                <td class="p-3 border">My thumbnail and title package isn't intriguing enough to a stranger.</td>
+                <td class="p-3 border">I will study high-CTR videos in my niche and adjacent niches to find out what emotional triggers they use.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="overflow-x-auto mt-4">
+        <table class="w-full text-left border-collapse" style="min-width: 600px;">
+          <thead>
+            <tr class="bg-gray-50">
+              <th class="p-3 border">What went wrong?</th>
+              <th class="p-3 border">What caused it?</th>
+              <th class="p-3 border">How do I prevent it next time?</th>
+            </tr>
+          </thead>
+          <tbody id="framework-body">
+            <tr class="framework-row">
+              <td class="p-3 border"><input type="text" data-field="went_wrong" class="w-full bg-transparent border-none p-0 focus:outline-none" placeholder="" /></td>
+              <td class="p-3 border"><input type="text" data-field="caused_it" class="w-full bg-transparent border-none p-0 focus:outline-none" placeholder="" /></td>
+              <td class="p-3 border relative">
+                <input type="text" data-field="prevent_it" class="w-full bg-transparent border-none p-0 focus:outline-none pr-6" placeholder="" />
+                <button class="absolute top-1/2 right-1 -translate-y-1/2 text-red-500 hover:text-red-700 delete-row-btn" style="padding:0;border:none;background:none;cursor:pointer;font-size:1.5rem;line-height:1;" type="button">&times;</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="flex justify-center mt-4">
+        <button id="addFrameworkRowBtn" class="bg-gray-200 text-gray-800 font-bold py-2 px-4 rounded-full shadow-md hover:bg-gray-300 transition-colors duration-200" type="button">+ Add Row</button>
+      </div>
+    </section>
+
+    <hr class="my-10 border-gray-300" />
+
+    <section class="animated-section" style="animation-delay: 0.4s;">
+      <h2 class="text-2xl font-bold text-[#10371C]">🚀 FINISHING THE SCRIPT</h2>
+      <div class="mt-6 p-6 border rounded-lg bg-gray-50 space-y-4">
+        <div>
+          <label class="block text-sm font-bold text-[#10371C] mb-1">[Insight – pattern recognition + smart targeting]</label>
+          <textarea id="script_insight" class="w-full rounded-md border-gray-300 shadow-sm p-2 border" rows="2" placeholder="e.g., This made me realize [major insight or 80/20 pattern]. So I stopped [random, unfocused work], and started [targeted, smart repetition]."></textarea>
+        </div>
+        <div>
+          <label class="block text-sm font-bold text-[#10371C] mb-1">[Victory – results + emotional payoff]</label>
+          <textarea id="script_victory" class="w-full rounded-md border-gray-300 shadow-sm p-2 border" rows="3" placeholder="e.g., When [final test/opportunity/moment] came, I walked out knowing I’d done it. I [achieved the result] — and proved [the doubter] completely wrong."></textarea>
+        </div>
+        <div>
+          <label class="block text-sm font-bold text-[#10371C] mb-1">[CTA – lead magnet or value exchange]</label>
+          <textarea id="script_cta" class="w-full rounded-md border-gray-300 shadow-sm p-2 border" rows="2" placeholder="e.g., Comment “[niche keyword or trigger word]” and I’ll send you the exact [system/template/checklist] I used, along with the [key insight or habit] that changed everything."></textarea>
+        </div>
+      </div>
+    </section>
+
+    <hr class="my-10 border-gray-300" />
+
+    <section class="animated-section" style="animation-delay: 0.5s;">
+      <h2 class="text-2xl font-bold text-[#10371C]">💡 EXAMPLE NICHE ADAPTATIONS</h2>
+      <p class="text-gray-600 mt-2">See how the template can be adapted for different niches.</p>
+      <div class="mt-6 p-6 bg-gray-50 border border-gray-200 rounded-lg space-y-4 text-sm">
+        <div>
+          <h3 class="font-bold text-gray-800">Fitness:</h3>
+          <p class="text-gray-600">"At 20, my trainer said I’d never get abs with my genetics…"</p>
+          <p class="text-gray-600">"…so I created a 3-step diet audit system."</p>
+        </div>
+        <div>
+          <h3 class="font-bold text-gray-800">Business:</h3>
+          <p class="text-gray-600">"At 19, a mentor told me I’d never scale past $10K/month with that offer…"</p>
+          <p class="text-gray-600">"…so I started using a 3-part product-messaging check after every sales call."</p>
+        </div>
+        <div>
+          <h3 class="font-bold text-gray-800">Dating:</h3>
+          <p class="text-gray-600">"At 18, my ex said I’d never be attractive enough to date someone like her…"</p>
+          <p class="text-gray-600">"…so I broke down every rejection into a 3-part self-awareness log."</p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="my-10 border-gray-300" />
+
+    <div class="flex justify-center">
+      <button id="completeModuleBtn" class="bg-[#10371C] text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-opacity-90 transition-colors duration-200" type="button">Complete Module</button>
+    </div>
+  </div>
+
+  <!-- Module Completion Page (Hidden by default) -->
+  <div id="completion-page" class="max-w-4xl mx-auto my-10 p-6 bg-white rounded-xl shadow-lg text-center hidden" style="min-height:50vh;">
+    <div class="h-full flex flex-col justify-center items-center p-8">
+      <h2 class="text-4xl font-bold text-[#10371C] mb-4">Module 3 Completed! 🎉</h2>
+      <p class="text-xl text-gray-700 mb-8">You've successfully completed this worksheet!</p>
+      <div class="flex justify-center">
+        <button id="restartBtn" class="bg-gray-300 text-gray-800 font-bold py-3 px-8 rounded-full shadow-lg hover:bg-gray-400 transition-colors duration-200" type="button">Restart Worksheet</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    // Firebase Imports (CDN ESM)
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+    import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+    import { getFirestore, doc, onSnapshot, setDoc, getDoc, setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+    // Verbose logs during development
+    setLogLevel('debug');
+
+    // Alert helper
+    function showCustomAlert(message){ const el=document.getElementById('custom-alert'); el.textContent=message; el.classList.add('show'); setTimeout(()=>el.classList.remove('show'), 3000); }
+
+    // Debounce helper
+    function debounce(fn, wait){ let t; return (...args)=>{ clearTimeout(t); t=setTimeout(()=>fn.apply(null,args), wait); }; }
+
+    // Read Firebase config safely
+    let firebaseConfig=null;
+    try {
+      if (typeof __firebase_config !== 'undefined') firebaseConfig = JSON.parse(__firebase_config);
+      else if (typeof window !== 'undefined' && window.__firebase_config) firebaseConfig = window.__firebase_config;
+    } catch(e){ console.error('Invalid __firebase_config JSON', e); }
+
+    const appId = (typeof __app_id !== 'undefined') ? __app_id : 'default-app-id';
+    let app, db, auth, userId;
+
+    async function saveFormData(){
+      if (!userId || !db) return;
+      const dataToSave = {};
+      // Collect all main inputs
+      document.querySelectorAll('#worksheet-content > section textarea, #worksheet-content > section input[type="text"]').forEach(input=>{ if (input.id) dataToSave[input.id] = input.value; });
+      // Framework table
+      dataToSave.frameworkData = getFrameworkData();
+      const ref = doc(db, 'artifacts', appId, 'users', userId, 'module3_data', 'main_data');
+      await setDoc(ref, dataToSave, { merge: true });
+      showCustomAlert('Worksheet saved!');
+    }
+    const debouncedSave = debounce(saveFormData, 800);
+
+    async function loadFormData(){
+      if (!userId || !db) return;
+      const ref = doc(db, 'artifacts', appId, 'users', userId, 'module3_data', 'main_data');
+      const snap = await getDoc(ref);
+      if (!snap.exists()) { ensureOneFrameworkRow(); return; }
+      const data = snap.data();
+      // Load main inputs
+      document.querySelectorAll('#worksheet-content > section textarea, #worksheet-content > section input[type="text"]').forEach(input=>{ if (input.id && data[input.id] !== undefined) input.value = data[input.id]; });
+      // Load framework data
+      if (Array.isArray(data.frameworkData)) renderFramework(data.frameworkData); else ensureOneFrameworkRow();
+    }
+
+    async function initAuthAndData(){
+      if (!firebaseConfig){ console.warn('Missing Firebase config. Persistence disabled.'); attachInputListeners(); attachDeleteListeners(); return; }
+      app = initializeApp(firebaseConfig);
+      db = getFirestore(app);
+      auth = getAuth(app);
+      try {
+        if (typeof __initial_auth_token !== 'undefined') await signInWithCustomToken(auth, __initial_auth_token); else await signInAnonymously(auth);
+        userId = auth.currentUser?.uid || (crypto?.randomUUID?.() || 'anon');
+        await loadFormData();
+        const ref = doc(db, 'artifacts', appId, 'users', userId, 'module3_data', 'main_data');
+        onSnapshot(ref, (snap)=>{
+          if (!snap.exists()) return;
+          const data = snap.data();
+          // Avoid loops by comparing framework payload length (cheap check) and fields
+          if (Array.isArray(data.frameworkData)) renderFramework(data.frameworkData);
+          document.querySelectorAll('#worksheet-content > section textarea, #worksheet-content > section input[type="text"]').forEach(input=>{ if (input.id && data[input.id] !== undefined) input.value = data[input.id]; });
+        });
+      } catch(err){ console.error('Auth/Firestore error', err); }
+      attachInputListeners();
+      attachDeleteListeners();
+    }
+
+    function attachInputListeners(){ document.querySelectorAll('#worksheet-content input, #worksheet-content textarea').forEach(el=>{ el.removeEventListener('input', debouncedSave); el.removeEventListener('change', debouncedSave); el.addEventListener('input', debouncedSave); el.addEventListener('change', debouncedSave); }); }
+
+    function attachDeleteListeners(){ const body=document.getElementById('framework-body'); body.removeEventListener('click', handleDeleteRow); body.addEventListener('click', handleDeleteRow); }
+
+    function handleDeleteRow(e){ if (e.target.classList.contains('delete-row-btn')){ const row=e.target.closest('.framework-row'); if (row){ row.remove(); debouncedSave(); } } }
+
+    function getFrameworkData(){ const rows=[...document.querySelectorAll('.framework-row')]; return rows.map(row=>{ const obj={}; row.querySelectorAll('[data-field]').forEach(f=>{ obj[f.dataset.field] = (f.type==='checkbox') ? f.checked : f.value; }); return obj; }); }
+
+    function createFrameworkRow(){ const tr=document.createElement('tr'); tr.classList.add('framework-row'); tr.innerHTML = `
+      <td class="p-3 border"><input type="text" data-field="went_wrong" class="w-full bg-transparent border-none p-0 focus:outline-none" placeholder="" /></td>
+      <td class="p-3 border"><input type="text" data-field="caused_it" class="w-full bg-transparent border-none p-0 focus:outline-none" placeholder="" /></td>
+      <td class="p-3 border relative">
+        <input type="text" data-field="prevent_it" class="w-full bg-transparent border-none p-0 focus:outline-none pr-6" placeholder="" />
+        <button class="absolute top-1/2 right-1 -translate-y-1/2 text-red-500 hover:text-red-700 delete-row-btn" style="padding:0;border:none;background:none;cursor:pointer;font-size:1.5rem;line-height:1;" type="button">&times;</button>
+      </td>`; return tr; }
+
+    function renderFramework(rows){ const body=document.getElementById('framework-body'); body.innerHTML=''; (rows.length?rows:[{}]).forEach(data=>{ const tr=createFrameworkRow(); body.appendChild(tr); if (Object.keys(data).length){ tr.querySelectorAll('[data-field]').forEach(f=>{ const k=f.dataset.field; if (k in data){ if (f.type==='checkbox') f.checked=!!data[k]; else f.value=data[k]; } }); } }); attachDeleteListeners(); attachInputListeners(); }
+
+    function ensureOneFrameworkRow(){ const body=document.getElementById('framework-body'); if (!body.children.length) body.appendChild(createFrameworkRow()); }
+
+    // Add row
+    const addFrameworkRowBtn = document.getElementById('addFrameworkRowBtn');
+    const frameworkBody = document.getElementById('framework-body');
+    addFrameworkRowBtn.addEventListener('click', ()=>{ const tr=createFrameworkRow(); frameworkBody.appendChild(tr); attachInputListeners(); attachDeleteListeners(); debouncedSave(); });
+
+    // Completion + restart
+    const completeBtn = document.getElementById('completeModuleBtn');
+    const restartBtn = document.getElementById('restartBtn');
+    const worksheetContent = document.getElementById('worksheet-content');
+    const completionPage = document.getElementById('completion-page');
+    function restartWorksheet(){ document.querySelectorAll('input, textarea').forEach(el=>{ if (el.type==='checkbox') el.checked=false; else el.value=''; }); [...document.querySelectorAll('.framework-row')].forEach((row,i)=>{ if(i>0) row.remove(); }); completionPage.style.display='none'; worksheetContent.style.display='block'; window.scrollTo({ top:0, behavior:'smooth' }); debouncedSave(); }
+    completeBtn.addEventListener('click', ()=>{ worksheetContent.style.display='none'; completionPage.style.display='block'; window.scrollTo({ top:0, behavior:'smooth' }); });
+    restartBtn.addEventListener('click', restartWorksheet);
+
+    // Progress bar
+    window.addEventListener('scroll', ()=>{ const winScroll = document.body.scrollTop || document.documentElement.scrollTop; const height = document.documentElement.scrollHeight - document.documentElement.clientHeight; const scrolled = (winScroll / height) * 100; document.getElementById('progressBar').style.width = scrolled + '%'; });
+
+    // Init
+    window.addEventListener('load', initAuthAndData);
+  </script>
+</body>
+</html>

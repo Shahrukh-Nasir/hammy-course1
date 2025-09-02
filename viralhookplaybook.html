@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Viral Hook Playbook</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { font-family: 'Inter', sans-serif; background-color: #1B1C1D; color: #E0E0E0; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 3rem 1.5rem; }
+    @keyframes glow { 0%,100%{ filter: drop-shadow(0 0 4px #FFC001); transform: scale(1);} 50%{ filter: drop-shadow(0 0 10px #FFC001); transform: scale(1.1);} }
+    @keyframes underline-draw { 0%{ width:0; } 100%{ width:80%; } }
+    .header-title { font-size: 2.75rem; font-weight: bold; color:#E0E0E0; display:flex; align-items:center; justify-content:center; gap:1.5rem; position:relative; padding-bottom:0.5rem; }
+    .header-title::after { content:''; position:absolute; bottom:0; left:50%; transform:translateX(-50%); height:3px; background-color:#FFC001; border-radius:9999px; width:0; animation: underline-draw 1.5s ease-out forwards; }
+    .rocket-icon { font-size:2.5rem; animation: glow 2s ease-in-out infinite; }
+    .header-subtitle { font-size:1.1rem; color:#ccc; margin-top:0.75rem; font-weight:500; text-align:center; }
+    @keyframes nav-glow { from{ box-shadow:0 0 0px #FFC001; } to{ box-shadow:0 0 10px #FFC001; } }
+    .nav-buttons { display:flex; flex-wrap:wrap; justify-content:center; gap:0.75rem; margin-top:3rem; position:relative; }
+    .nav-button { padding:0.75rem 1.5rem; border-radius:9999px; background-color:#2D2E30; color:#E0E0E0; font-weight:600; cursor:pointer; transition: all .2s; border:1px solid #3a3a3a; box-shadow:0 1px 2px rgba(0,0,0,0.05); }
+    .nav-button:hover { animation: nav-glow 1s ease-in-out infinite alternate; }
+    .active-button { background-color:#10371C; color:#fff; border:1px solid #10371C; }
+    .page-content { display:none; margin-top:2rem; }
+    .active-page-content { display:block; }
+    .viral-formula-card { background-color:#2D2E30; border-radius:0.75rem; padding:1.5rem; box-shadow:0 4px 12px rgba(0,0,0,0.08); }
+    .viral-formula-grid { display:grid; grid-template-columns: repeat(1, minmax(0,1fr)); gap:1.5rem; margin-top:1.5rem; }
+    @media (min-width:640px){ .viral-formula-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
+    @media (min-width:1024px){ .viral-formula-grid{ grid-template-columns:repeat(4,minmax(0,1fr)); } }
+    @keyframes card-glow { from{ box-shadow:0 4px 12px rgba(0,0,0,0.08);} to{ box-shadow:0 0 15px #FFC001;} }
+    .viral-formula-card:hover { animation: card-glow 1s ease-in-out infinite alternate; }
+    .viral-formula-heading { font-weight:bold; font-size:1.25rem; color:#FFC001; margin-bottom:0.5rem; }
+    .viral-formula-text { color:#E0E0E0; font-size:0.875rem; }
+    .idea-list-container { margin-top:2.5rem; display:grid; gap:1.5rem; }
+    .idea-list-section { background-color:#2D2E30; padding:1.5rem; border-radius:0.75rem; box-shadow:0 4px 12px rgba(0,0,0,0.08); }
+    .idea-list-heading { font-size:1.5rem; font-weight:bold; color:#FFC001; margin-bottom:1rem; }
+    .idea-list { list-style:none; padding:0; margin:0; display:flex; flex-wrap:wrap; gap:1rem; }
+    .idea-item { background-color:#3A3A3A; border-radius:0.5rem; padding:1rem; font-size:1rem; line-height:1.4; display:flex; justify-content:space-between; align-items:center; gap:0.5rem; box-shadow:0 2px 8px rgba(0,0,0,0.1); transition: transform .2s; flex-basis: calc(50% - 0.5rem); }
+    @media (min-width:640px){ .idea-item{ flex-basis: calc(33.333% - 0.666rem);} }
+    .idea-item:hover { transform: translateY(-3px); box-shadow:0 4px 12px rgba(0,0,0,0.15); }
+    .copy-button { cursor:pointer; padding:0.25rem; border-radius:0.25rem; }
+    .copy-icon { width:1.25rem; height:1.25rem; fill:#9CA3AF; transition: fill .2s; }
+    .copy-button:hover .copy-icon { fill:#FFC001; }
+    .viral-formula-examples-grid { display:grid; gap:1rem; margin-top:1.5rem; }
+    .viral-formula-example-card { background-color:#2D2E30; border-radius:0.75rem; padding:1rem; box-shadow:0 4px 12px rgba(0,0,0,0.08); transition: transform .2s, box-shadow .2s; }
+    .viral-formula-example-card:hover { transform: translateY(-5px); box-shadow:0 6px 16px rgba(0,0,0,0.12); }
+    .viral-formula-example-text { font-size:1rem; margin-bottom:0.5rem; }
+    .viral-formula-example-heading { font-weight:bold; color:#FFC001; margin-bottom:0.25rem; }
+    .viral-formula-example-subheading { font-weight:bold; color:#E0E0E0; margin-top:0.5rem; margin-bottom:0.25rem; }
+    .format-selection-grid { display:grid; grid-template-columns: repeat(1, minmax(0,1fr)); gap:1rem; margin-top:1.5rem; }
+    @media (min-width:640px){ .format-selection-grid{ grid-template-columns: repeat(2, minmax(0,1fr)); } }
+    @media (min-width:1024px){ .format-selection-grid{ grid-template-columns: repeat(3, minmax(0,1fr)); } }
+    .format-card { background-color:#2D2E30; border-radius:0.75rem; padding:1rem; box-shadow:0 4px 12px rgba(0,0,0,0.08); display:flex; flex-direction:column; justify-content:center; align-items:center; height:100%; transition: transform .2s, box-shadow .2s; cursor:pointer; }
+    .format-card:hover { transform: translateY(-5px); box-shadow:0 6px 16px rgba(0,0,0,0.12); background-color:#3A3A3A; }
+    .format-card-text { color:#E0E0E0; font-size:1rem; font-weight:600; margin-top:0.5rem; }
+    .format-card-emoji { font-size:1.5rem; }
+    .ai-section { margin-top:3rem; padding:2rem; background-color:#2D2E30; border-radius:0.75rem; box-shadow:0 4px 12px rgba(0,0,0,0.08); }
+    .ai-input-grid { display:grid; gap:1rem; }
+    .ai-input { width:100%; padding:0.75rem; border-radius:0.5rem; background-color:#1B1C1D; border:1px solid #3a3a3a; color:#E0E0E0; }
+    .ai-input::placeholder { color:#9CA3AF; }
+    .ai-output-box { background-color:#3A3A3A; border-radius:0.75rem; padding:1.5rem; margin-top:2rem; white-space:pre-wrap; }
+    .copy-to-clipboard-btn { background-color:#10371C; color:#fff; padding:0.75rem 1.5rem; border-radius:9999px; font-weight:600; margin-top:1rem; cursor:pointer; transition: background-color .2s; }
+    .copy-to-clipboard-btn:hover { background-color:#1a4f29; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="header-title"><span class="rocket-icon">🚀</span> Viral Hook Playbook</h1>
+    <p class="header-subtitle">Your dynamic toolkit for endless inspiration.</p>
+
+    <div class="nav-buttons">
+      <button id="showViralFormula" class="nav-button active-button">Viral Video Formula</button>
+      <button id="showContentHooksBtn" class="nav-button">Content Hooks</button>
+      <button id="showBuildUpBtn" class="nav-button">Build-Up</button>
+      <button id="showPayoffBtn" class="nav-button">Payoff</button>
+      <button id="showCTA" class="nav-button">CTA</button>
+      <button id="showAIGeneratorBtn" class="nav-button">AI Script Generator</button>
+    </div>
+
+    <!-- Viral Video Formula Section (Homepage) -->
+    <div id="viralFormulaSection" class="page-content active-page-content">
+      <h2 class="text-2xl font-bold mt-8 mb-4 text-[#FFC001] text-center">Viral Video Formula</h2>
+      <p class="text-center text-gray-400 mb-6">Follow this 4-step system every time you create content.</p>
+      <div class="viral-formula-grid">
+        <div class="viral-formula-card p-4">
+          <h3 class="viral-formula-heading">Hook</h3>
+          <p class="viral-formula-text">Stop the scroll with curiosity, shock, or emotion.</p>
+        </div>
+        <div class="viral-formula-card p-4">
+          <h3 class="viral-formula-heading">Build-Up</h3>
+          <p class="viral-formula-text">Show the problem, pain, or tension that needs solving.</p>
+        </div>
+        <div class="viral-formula-card p-4">
+          <h3 class="viral-formula-heading">Payoff</h3>
+          <p class="viral-formula-text">Deliver the result, lesson, or big reveal that satisfies.</p>
+        </div>
+        <div class="viral-formula-card p-4">
+          <h3 class="viral-formula-heading">CTA</h3>
+          <p class="viral-formula-text">Drive action: comment, follow, or click.</p>
+        </div>
+      </div>
+      <h3 class="text-xl font-bold mt-8 mb-4 text-[#FFC001] text-center">Examples in Action</h3>
+      <div id="viral-formula-examples" class="viral-formula-examples-grid"></div>
+    </div>
+
+    <!-- Content Hooks Section -->
+    <div id="contentHooksSection" class="page-content">
+      <h2 class="text-2xl font-bold mt-8 mb-4 text-[#FFC001] text-center">Content Hooks</h2>
+      <p class="text-center text-gray-400 mb-6">Select a content format below to view hooks.</p>
+      <div class="format-selection-grid">
+        <button class="format-card" data-format="value-how-to"><span class="format-card-emoji">💡</span><p class="format-card-text">Value / How-To</p></button>
+        <button class="format-card" data-format="story-driven"><span class="format-card-emoji">📖</span><p class="format-card-text">Story-Driven</p></button>
+        <button class="format-card" data-format="contrarian"><span class="format-card-emoji">🔥</span><p class="format-card-text">Contrarian / Hot Take</p></button>
+        <button class="format-card" data-format="listicle"><span class="format-card-emoji">📝</span><p class="format-card-text">Listicle / Quick Tips</p></button>
+        <button class="format-card" data-format="transformation"><span class="format-card-emoji">✨</span><p class="format-card-text">Transformation</p></button>
+      </div>
+      <div id="hook-list-container" class="idea-list-container hidden">
+        <div class="idea-list-section">
+          <h2 id="hook-list-title" class="idea-list-heading"></h2>
+          <ul id="hook-list" class="idea-list"></ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Build-Up Section -->
+    <div id="contentBuildUpSection" class="page-content">
+      <h2 class="text-2xl font-bold text-[#FFC001] text-center">Build-Up</h2>
+      <p class="text-center text-gray-400 mb-6">Select a content format below to view build-ups.</p>
+      <div class="format-selection-grid">
+        <button class="format-card" data-format="value-how-to"><span class="format-card-emoji">💡</span><p class="format-card-text">Value / How-To</p></button>
+        <button class="format-card" data-format="story-driven"><span class="format-card-emoji">📖</span><p class="format-card-text">Story-Driven</p></button>
+        <button class="format-card" data-format="contrarian"><span class="format-card-emoji">🔥</span><p class="format-card-text">Contrarian / Hot Take</p></button>
+        <button class="format-card" data-format="listicle"><span class="format-card-emoji">📝</span><p class="format-card-text">Listicle / Quick Tips</p></button>
+        <button class="format-card" data-format="transformation"><span class="format-card-emoji">✨</span><p class="format-card-text">Transformation</p></button>
+      </div>
+      <div id="buildup-list-container" class="idea-list-container hidden">
+        <div class="idea-list-section">
+          <h2 id="buildup-list-title" class="idea-list-heading"></h2>
+          <ul id="buildup-list" class="idea-list"></ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Payoff Section -->
+    <div id="contentPayoffSection" class="page-content">
+      <h2 class="text-2xl font-bold text-[#FFC001] text-center">Payoff</h2>
+      <p class="text-center text-gray-400 mb-6">Select a content format below to view payoffs.</p>
+      <div class="format-selection-grid">
+        <button class="format-card" data-format="value-how-to"><span class="format-card-emoji">💡</span><p class="format-card-text">Value / How-To</p></button>
+        <button class="format-card" data-format="story-driven"><span class="format-card-emoji">📖</span><p class="format-card-text">Story-Driven</p></button>
+        <button class="format-card" data-format="contrarian"><span class="format-card-emoji">🔥</span><p class="format-card-text">Contrarian / Hot Take</p></button>
+        <button class="format-card" data-format="listicle"><span class="format-card-emoji">📝</span><p class="format-card-text">Listicle / Quick Tips</p></button>
+        <button class="format-card" data-format="transformation"><span class="format-card-emoji">✨</span><p class="format-card-text">Transformation</p></button>
+      </div>
+      <div id="payoff-list-container" class="idea-list-container hidden">
+        <div class="idea-list-section">
+          <h2 id="payoff-list-title" class="idea-list-heading"></h2>
+          <ul id="payoff-list" class="idea-list"></ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div id="contentCTASection" class="page-content">
+      <h2 class="text-2xl font-bold text-[#FFC001] text-center">CTA</h2>
+      <p class="text-center text-gray-400 mb-6">Select a content format below to view calls-to-action.</p>
+      <div class="format-selection-grid">
+        <button class="format-card" data-format="value-how-to"><span class="format-card-emoji">💡</span><p class="format-card-text">Value / How-To</p></button>
+        <button class="format-card" data-format="story-driven"><span class="format-card-emoji">📖</span><p class="format-card-text">Story-Driven</p></button>
+        <button class="format-card" data-format="contrarian"><span class="format-card-emoji">🔥</span><p class="format-card-text">Contrarian / Hot Take</p></button>
+        <button class="format-card" data-format="listicle"><span class="format-card-emoji">📝</span><p class="format-card-text">Listicle / Quick Tips</p></button>
+        <button class="format-card" data-format="transformation"><span class="format-card-emoji">✨</span><p class="format-card-text">Transformation</p></button>
+      </div>
+      <div id="cta-list-container" class="idea-list-container hidden">
+        <div class="idea-list-section">
+          <h2 id="cta-list-title" class="idea-list-heading"></h2>
+          <ul id="cta-list" class="idea-list"></ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- AI Script Generator -->
+    <div id="ai-script-generator-section" class="page-content">
+      <h2 class="text-2xl font-bold mt-8 mb-4 text-[#FFC001] text-center">AI Script Generator</h2>
+      <p class="text-center text-gray-400 mb-6">Describe your video idea in 1-2 sentences.</p>
+      <div class="ai-section">
+        <div class="ai-input-grid">
+          <input type="text" id="ai-input" class="ai-input" placeholder="Describe your video idea...">
+          <select id="format-select" class="ai-input">
+            <option value="value-how-to">Value / How-To</option>
+            <option value="story-driven">Story-Driven</option>
+            <option value="contrarian">Contrarian / Hot Take</option>
+            <option value="listicle">Listicle / Quick Tips</option>
+            <option value="transformation">Transformation</option>
+          </select>
+          <input type="text" id="goal-input" class="ai-input" placeholder="What's the main goal of your video? (e.g., grow followers)">
+        </div>
+        <div class="flex justify-center mt-6">
+          <button id="generate-btn" class="copy-to-clipboard-btn">Generate Script</button>
+        </div>
+        <div id="ai-output-box" class="ai-output-box hidden"></div>
+        <div class="flex justify-center">
+          <button id="copy-to-clipboard-btn" class="copy-to-clipboard-btn hidden">Copy to Clipboard</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script defer>
+    // ---------------- Data ----------------
+    const data = { /* (same content you provided) */ };
+    // Keeping your full data object — omitted here for brevity in this snippet.
+    // Paste your original "data" object exactly as-is in place of this comment.
+
+    // ---------------- Elements ----------------
+    const showViralFormula = document.getElementById('showViralFormula');
+    const showContentHooksBtn = document.getElementById('showContentHooksBtn');
+    const showBuildUpBtn = document.getElementById('showBuildUpBtn');
+    const showPayoffBtn = document.getElementById('showPayoffBtn');
+    const showCTA = document.getElementById('showCTA');
+    const showAIGeneratorBtn = document.getElementById('showAIGeneratorBtn');
+
+    const viralFormulaSection = document.getElementById('viralFormulaSection');
+    const contentHooksSection = document.getElementById('contentHooksSection');
+    const contentBuildUpSection = document.getElementById('contentBuildUpSection');
+    const contentPayoffSection = document.getElementById('contentPayoffSection');
+    const contentCTASection = document.getElementById('contentCTASection');
+    const aiScriptGeneratorSection = document.getElementById('ai-script-generator-section');
+
+    const hookListContainer = document.getElementById('hook-list-container');
+    const hookListTitle = document.getElementById('hook-list-title');
+    const hookList = document.getElementById('hook-list');
+    const buildupListContainer = document.getElementById('buildup-list-container');
+    const buildupListTitle = document.getElementById('buildup-list-title');
+    const buildupList = document.getElementById('buildup-list');
+    const payoffListContainer = document.getElementById('payoff-list-container');
+    const payoffListTitle = document.getElementById('payoff-list-title');
+    const payoffList = document.getElementById('payoff-list');
+    const ctaListContainer = document.getElementById('cta-list-container');
+    const ctaListTitle = document.getElementById('cta-list-title');
+    const ctaList = document.getElementById('cta-list');
+
+    const viralFormulaExamples = document.getElementById('viral-formula-examples');
+
+    // ---------------- Helpers ----------------
+    function setActiveNavButton(button) {
+      document.querySelectorAll('.nav-button').forEach(btn => btn.classList.remove('active-button'));
+      button.classList.add('active-button');
+    }
+    function showPage(pageId) {
+      document.querySelectorAll('.page-content').forEach(page => page.classList.remove('active-page-content'));
+      document.getElementById(pageId).classList.add('active-page-content');
+    }
+    function renderList(listType, items, titleEl, listEl, containerEl, totalItems, type) {
+      const listTitle = `${listType.charAt(0).toUpperCase() + listType.slice(1).replace('-', ' / ')} – ${totalItems} ${type.charAt(0).toUpperCase() + type.slice(1)}s`;
+      titleEl.textContent = listTitle;
+      listEl.innerHTML = '';
+      if (items) {
+        items.forEach((item, index) => {
+          const li = document.createElement('li');
+          li.className = 'idea-item';
+          li.innerHTML = `
+            <span class="flex-grow">${index + 1}. ${item}</span>
+            <button class="copy-button" data-text="${item}">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="copy-icon">
+                <path d="M16 1H4C2.9 1 2 1.9 2 3v14h2V3h12V1zm3 4H8C6.9 4 6 4.9 6 6v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H8V6h11v14z"/>
+              </svg>
+            </button>`;
+          listEl.appendChild(li);
+        });
+      }
+      containerEl.classList.remove('hidden');
+    }
+
+    const examplesData = [
+      { heading:"✨ Example 1 – Value / How-To", hook:"“3 mistakes stopping you from seeing results.”", buildup:"“I wasted months working hard, but I was focused on the wrong things.”", payoff:"“…and once I fixed these, my progress doubled instantly.”", cta:"“Save this so you don’t make the same mistakes.”" },
+      { heading:"✨ Example 2 – Story-Driven", hook:"“I almost quit right before this breakthrough.”", buildup:"“I kept failing, nothing was working, and I felt like giving up.”", payoff:"“…but that low point forced me to change, and everything clicked.”", cta:"“Comment if you’ve ever felt the same way.”" },
+      { heading:"✨ Example 3 – Contrarian / Hot Take", hook:"“The advice you’ve been told is completely wrong.”", buildup:"“I followed the gurus, but it kept me broke and stuck.”", payoff:"“…so I flipped the script — and it worked 10x better.”", cta:"“Agree or disagree? Comment below.”" },
+      { heading:"✨ Example 4 – Listicle / Quick Tips", hook:"“Here are 3 habits that will change everything.”", buildup:"“I felt lost, unfocused, and couldn’t stay consistent.”", payoff:"“…but once I stacked these 3 daily habits, I finally stayed on track.”", cta:"“Which one will you start with today? Comment below.”" },
+      { heading:"✨ Example 5 – Transformation", hook:"“I went from stuck to unstoppable in 90 days.”", buildup:"“Every day felt like the same cycle — no growth, no change.”", payoff:"“…but one small shift completely transformed my life.”", cta:"“Comment ‘start’ if you’re ready for your own glow-up.”" }
+    ];
+
+    function renderHomepageExamples(){
+      const container = viralFormulaExamples;
+      container.innerHTML = '';
+      examplesData.forEach(ex => {
+        const card = document.createElement('div');
+        card.className = 'viral-formula-example-card';
+        card.innerHTML = `
+          <p class="viral-formula-example-heading">${ex.heading}</p>
+          <p class="viral-formula-example-text"><span class="viral-formula-example-subheading">Hook:</span> ${ex.hook}</p>
+          <p class="viral-formula-example-text"><span class="viral-formula-example-subheading">Build-Up:</span> ${ex.buildup}</p>
+          <p class="viral-formula-example-text"><span class="viral-formula-example-subheading">Payoff:</span> ${ex.payoff}</p>
+          <p class="viral-formula-example-text"><span class="viral-formula-example-subheading">CTA:</span> ${ex.cta}</p>`;
+        container.appendChild(card);
+      });
+    }
+
+    // ---------------- Navigation ----------------
+    showViralFormula.addEventListener('click', () => { setActiveNavButton(showViralFormula); showPage('viralFormulaSection'); });
+    showContentHooksBtn.addEventListener('click', () => { setActiveNavButton(showContentHooksBtn); showPage('contentHooksSection'); hookListContainer.classList.add('hidden'); });
+    showBuildUpBtn.addEventListener('click', () => { setActiveNavButton(showBuildUpBtn); showPage('contentBuildUpSection'); buildupListContainer.classList.add('hidden'); });
+    showPayoffBtn.addEventListener('click', () => { setActiveNavButton(showPayoffBtn); showPage('contentPayoffSection'); payoffListContainer.classList.add('hidden'); });
+    showCTA.addEventListener('click', () => { setActiveNavButton(showCTA); showPage('contentCTASection'); ctaListContainer.classList.add('hidden'); });
+    showAIGeneratorBtn.addEventListener('click', () => { setActiveNavButton(showAIGeneratorBtn); showPage('ai-script-generator-section'); });
+
+    // ---------------- Click handlers: format choose + copy ----------------
+    document.addEventListener('click', async (e) => {
+      const formatBtn = e.target.closest('.format-card');
+      if (formatBtn) {
+        const formatType = formatBtn.dataset.format;
+        const parentId = formatBtn.closest('.page-content').id;
+
+        if (parentId === 'contentHooksSection') {
+          renderList(formatType, data.hook[formatType], hookListTitle, hookList, hookListContainer, 50, 'hook');
+        } else if (parentId === 'contentBuildUpSection') {
+          renderList(formatType, data.buildup[formatType], buildupListTitle, buildupList, buildupListContainer, 10, 'build-up');
+        } else if (parentId === 'contentPayoffSection') {
+          renderList(formatType, data.payoff[formatType], payoffListTitle, payoffList, payoffListContainer, 25, 'payoff');
+        } else if (parentId === 'contentCTASection') {
+          renderList(formatType, data.cta[formatType], ctaListTitle, ctaList, ctaListContainer, 5, 'cta');
+        }
+      }
+
+      const copyButton = e.target.closest('.copy-button');
+      if (copyButton) {
+        const text = copyButton.dataset.text || '';
+        try {
+          await navigator.clipboard.writeText(text);
+          const original = copyButton.innerHTML;
+          copyButton.innerHTML = '<span style="color:#FFC001;">Copied!</span>';
+          setTimeout(()=> copyButton.innerHTML = original, 1000);
+        } catch {
+          // fallback
+          const t = document.createElement('textarea');
+          t.value = text; document.body.appendChild(t); t.select();
+          document.execCommand('copy'); document.body.removeChild(t);
+        }
+      }
+    });
+
+    // ---------------- AI Script Generator (offline template by default) ----------------
+    const generateBtn = document.getElementById('generate-btn');
+    const aiOutputBox = document.getElementById('ai-output-box');
+    const copyBtn = document.getElementById('copy-to-clipboard-btn');
+
+    function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+
+    generateBtn.addEventListener('click', async () => {
+      const userPrompt = document.getElementById('ai-input').value || 'Short-form video idea';
+      const format = document.getElementById('format-select').value;
+      const goal = document.getElementById('goal-input').value || 'engage the audience';
+
+      aiOutputBox.classList.remove('hidden');
+      aiOutputBox.innerHTML = '<p class="text-center">Generating script...</p>';
+      copyBtn.classList.add('hidden');
+
+      // Local generation to avoid exposing API keys on the client.
+      const hook = pick(data.hook[format]);
+      const buildup = pick(data.buildup[format]);
+      const payoff = pick(data.payoff[format]);
+      const cta = pick(data.cta[format]);
+
+      const script = [
+        `Hook: ${hook}`,
+        `Build-Up: ${buildup}`,
+        `Payoff: ${payoff}`,
+        `CTA: ${cta}`,
+        '',
+        `Note: Idea → ${userPrompt}. Goal → ${goal}. Format → ${format}.`
+      ].join('\n');
+
+      aiOutputBox.innerHTML = script
+        .replace(/Hook:/g,'<strong>Hook:</strong>')
+        .replace(/Build-Up:/g,'<strong>Build-Up:</strong>')
+        .replace(/Payoff:/g,'<strong>Payoff:</strong>')
+        .replace(/CTA:/g,'<strong>CTA:</strong>');
+
+      copyBtn.dataset.text = script;
+      copyBtn.classList.remove('hidden');
+    });
+
+    copyBtn.addEventListener('click', async () => {
+      const text = copyBtn.dataset.text || '';
+      try { await navigator.clipboard.writeText(text); copyBtn.textContent = 'Copied!'; setTimeout(()=> copyBtn.textContent='Copy to Clipboard', 1000); }
+      catch {}
+    });
+
+    // ---------------- Init ----------------
+    document.addEventListener('DOMContentLoaded', () => {
+      setActiveNavButton(showViralFormula);
+      showPage('viralFormulaSection');
+      renderHomepageExamples();
+    });
+  </script>
+</body>
+</html>
